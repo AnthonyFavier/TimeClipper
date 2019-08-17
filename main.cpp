@@ -1,17 +1,25 @@
 #include <SFML/Graphics.hpp>
+#include "constants.hpp"
 #include "AABB.hpp"
 #include "movingObject.hpp"
+#include "character.hpp"
+
+using namespace std;
 
 int main(int argc, char** argv)
 {
-	sf::RenderWindow window(sf::VideoMode(800, 800), "Game");
-	window.setFramerateLimit(60);
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
+	window.setFramerateLimit(FPS);
 	
-	AABB ent(sf::Vector2f(200.f, 200.f), sf::Vector2f(50.f, 100.f));
-	
+	Character character(sf::Vector2f(100.f, 0.f), sf::Vector2f(20.f, 20.f));
+
+	bool inputs[NB_KEY_CHARACTER];
+	for(int i=0; i<NB_KEY_CHARACTER; i++)
+		inputs[i]=false;
+
 	// create a clock to track the elapsed time
 	sf::Clock clock;
-	
+
 	// run the main loop
 	while(window.isOpen())
 	{
@@ -32,21 +40,46 @@ int main(int argc, char** argv)
 							window.close();
 							break;
 						
-						/*case sf::Keyboard::Right:
-							ent.setPosition(ent.getPosition().x+20, ent.getPosition().y);
+						case sf::Keyboard::Right:
+							inputs[(int)GoRight]=true;
 							break;
 						
 						case sf::Keyboard::Left:
-							ent.setPosition(ent.getPosition().x-20, ent.getPosition().y);
+							inputs[(int)GoLeft]=true;
 							break;
 						
-						case sf::Keyboard::Up:
-							ent.setPosition(ent.getPosition().x, ent.getPosition().y-20);
+						case sf::Keyboard::Space:
+							inputs[(int)GoJump]=true;
 							break;
 						
 						case sf::Keyboard::Down:
-							ent.setPosition(ent.getPosition().x, ent.getPosition().y+20);
-							break;*/
+							inputs[(int)GoDown]=true;
+							break;
+					}
+					break;
+
+				case sf::Event::KeyReleased:
+					switch(event.key.code)
+					{
+						case sf::Keyboard::Escape:
+							window.close();
+							break;
+						
+						case sf::Keyboard::Right:
+							inputs[(int)GoRight]=false;
+							break;
+						
+						case sf::Keyboard::Left:
+							inputs[(int)GoLeft]=false;
+							break;
+						
+						case sf::Keyboard::Space:
+							inputs[(int)GoJump]=false;
+							break;
+						
+						case sf::Keyboard::Down:
+							inputs[(int)GoDown]=false;
+							break;
 					}
 					break;
 			}
@@ -54,10 +87,12 @@ int main(int argc, char** argv)
 		
 		// update it
 		sf::Time elapsed = clock.restart();
+		character.update(elapsed, inputs);
+		character.debug();
 		
 		// draw it
 		window.clear();
-		//window.draw(ent);
+		window.draw(character);
 		window.display();
 	}
 	
