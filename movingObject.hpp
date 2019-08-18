@@ -8,7 +8,7 @@
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
 public:
-	MovingObject(sf::Vector2f center, sf::Vector2f hafl_size);
+	MovingObject(sf::Vector2f center, sf::Vector2f hafl_size, sf::Color color);
 
 	void updatePhysics(sf::Time elapsed);
 

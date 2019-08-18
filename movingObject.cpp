@@ -1,9 +1,6 @@
 #include "movingObject.hpp"
-#include <iostream>
 
-using namespace std;
-
-MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size) : m_vertices(sf::Quads,4), m_AABB(center, half_size)
+MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color) : m_vertices(sf::Quads,4), m_AABB(center, half_size)
 {
 	m_half_size=half_size;
 
@@ -13,6 +10,11 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size) : m_vert
 	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
 	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
 	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);
+
+	m_vertices[0].color =color;
+	m_vertices[1].color =color;
+	m_vertices[2].color =color;
+	m_vertices[3].color =color;
 
 	m_old_position=this->getPosition();
 	m_speed=sf::Vector2f(0.f,0.f);

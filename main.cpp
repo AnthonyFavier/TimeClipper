@@ -3,6 +3,7 @@
 #include "AABB.hpp"
 #include "movingObject.hpp"
 #include "character.hpp"
+#include "map.hpp"
 
 using namespace std;
 
@@ -11,7 +12,8 @@ int main(int argc, char** argv)
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
 	window.setFramerateLimit(FPS);
 	
-	Character character(sf::Vector2f(100.f, 0.f), sf::Vector2f(20.f, 20.f));
+	Character character(sf::Vector2f(100.f, 100.f), sf::Vector2f(20.f, 20.f));
+	Map map;
 
 	bool inputs[NB_KEY_CHARACTER];
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
@@ -93,6 +95,7 @@ int main(int argc, char** argv)
 		// draw it
 		window.clear();
 		window.draw(character);
+		map.draw(&window);
 		window.display();
 	}
 	

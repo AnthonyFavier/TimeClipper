@@ -1,6 +1,6 @@
 #include "character.hpp"
 
-Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size)
+Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,0))
 {
 	m_current_state=Stand;
 	m_jump_speed=-300;
