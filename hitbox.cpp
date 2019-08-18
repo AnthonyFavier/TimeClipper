@@ -1,12 +1,12 @@
-#include "AABB.hpp"
+#include "hitbox.hpp"
 
-AABB::AABB(sf::Vector2f center, sf::Vector2f half_size)
+Hitbox::Hitbox(sf::Vector2f center, sf::Vector2f half_size)
 {
 	m_center=center;
 	m_half_size=half_size;
 }
 
-bool AABB::overlaps(AABB other)
+bool Hitbox::overlaps(Hitbox other)
 {
 	bool ok=true;
 
@@ -17,7 +17,7 @@ bool AABB::overlaps(AABB other)
 	return ok;
 }
 
-sf::Vector2f AABB::getHalfSize()
+sf::Vector2f Hitbox::getHalfSize()
 {
 	return m_half_size;
 }

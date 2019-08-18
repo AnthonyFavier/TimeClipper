@@ -34,7 +34,7 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 	switch(m_current_state)
 	{
 		case Stand:
-			m_speed=sf::Vector2f(0.f,0.f);
+			m_speed=sf::Vector2f(0,0);
 			
 			if(!m_on_ground)
 				m_current_state=Jump;
@@ -51,19 +51,19 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			if(keyState(GoRight) == keyState(GoLeft))
 			{
 				m_current_state=Stand;
-				m_speed=sf::Vector2f(0.f,0.f);
+				m_speed=sf::Vector2f(0,0);
 			}
 			else if(keyState(GoRight))
 			{
 				if(m_pushes_right_wall)
-					m_speed.x=0.f;
+					m_speed.x=0;
 				else
 					m_speed.x=m_walk_speed;
 			}
 			else if(keyState(GoLeft))
 			{
 				if(m_pushes_left_wall)
-					m_speed.x=0.f;
+					m_speed.x=0;
 				else
 					m_speed.x=-m_walk_speed;
 			}
@@ -83,22 +83,22 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 
 			if(m_on_ground)
 			{
-				m_speed.y=0.f;
+				m_speed.y=0;
 				m_current_state=Stand;
 			}
 			else if(keyState(GoRight) == keyState(GoLeft))
-				m_speed.x=0.f;
+				m_speed.x=0;
 			else if(keyState(GoRight))
 			{
 				if(m_pushes_right_wall)
-					m_speed.x=0.f;
+					m_speed.x=0;
 				else
 					m_speed.x=m_walk_speed;
 			}
 			else if(keyState(GoLeft))
 			{
 				if(m_pushes_left_wall)
-					m_speed.x=0.f;
+					m_speed.x=0;
 				else
 					m_speed.x=-m_walk_speed;
 			}
@@ -127,7 +127,6 @@ void Character::debug()
 {
 	cout << endl;
 	cout << "position x=" << this->getPosition().x << " y=" << this->getPosition().y << endl;
-	cout << "origin x=" << this->getOrigin().x << " y=" << this->getOrigin().y << endl;
 	cout << "m_half_size x= " << m_half_size.x << " y=" << m_half_size.y << endl;
 	cout << "speed x=" << m_speed.x << " y=" << m_speed.y << endl;
 	cout << "current_state (Stand, Walk, Jump, GrabEdge)=" << m_current_state << endl;

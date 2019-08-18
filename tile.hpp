@@ -2,23 +2,28 @@
 #define DEF_TILE
 
 #include <SFML/Graphics.hpp>
+#include "constants.hpp"
 
 class Tile : public sf::Drawable, public sf::Transformable
 {
 public:
 	Tile(sf::Vector2i pos)
 	{
-		m_size_pixel=16;
 		m_pos=pos;
-		this->setPosition(m_pos.x*m_size_pixel, m_pos.y*m_size_pixel);
+		this->setPosition(m_pos.x*TILE_SIZE_PIXEL, m_pos.y*TILE_SIZE_PIXEL);
 	};
+
+	void setOffsetMap(sf::Vector2f offset)
+	{
+		this->setPosition(offset.x+m_pos.x*TILE_SIZE_PIXEL, offset.y+m_pos.y*TILE_SIZE_PIXEL);
+	};
+
 	bool canGoThroughRight(){return m_can_go_through_right;};
 	bool canGoThroughLeft(){return m_can_go_through_left;};
 	bool canGoThroughUp(){return m_can_go_through_up;};
 	bool canGoThroughDown(){return m_can_go_through_down;};
 	
 protected:
-	int m_size_pixel;
 	sf::Vector2i m_pos;
 	bool m_can_go_through_right;
 	bool m_can_go_through_left;

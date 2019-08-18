@@ -1,7 +1,10 @@
 #ifndef DEF_CONSTANTS
 #define DEF_CONSTANTS
 
-#define WINDOW_WIDTH 400
+// 30x30 tiles
+//#define TILE_SIZE_PIXEL 16
+#define TILE_SIZE_PIXEL 50
+#define WINDOW_WIDTH 400 //480
 #define WINDOW_HEIGHT 400
 #define FPS 60
 #define GRAVITY 400

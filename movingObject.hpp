@@ -3,7 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "constants.hpp"
-#include "AABB.hpp"
+#include "hitbox.hpp"
+#include "map.hpp"
 
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
@@ -12,6 +13,8 @@ public:
 
 	void updatePhysics(sf::Time elapsed);
 
+	bool hasGround(float* ground_y);
+
 protected:
 	sf::Vector2f m_old_position;
 	sf::Vector2f m_speed;
@@ -19,8 +22,8 @@ protected:
 
 	sf::Vector2f m_half_size;
 
-	AABB m_AABB;
-	sf::Vector2f m_AABB_offset;
+	Hitbox m_hitbox;
+	sf::Vector2f m_hitbox_offset;
 
 	bool m_pushes_right_wall;
 	bool m_old_right_wall;

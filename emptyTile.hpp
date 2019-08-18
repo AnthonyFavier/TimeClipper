@@ -13,15 +13,15 @@ public:
 		m_can_go_through_up=true;
 		m_can_go_through_down=true;
 
-		m_vertices[0]=sf::Vector2f(0.f,0.f);
-		m_vertices[1]=sf::Vector2f(m_size_pixel,0.f);
-		m_vertices[2]=sf::Vector2f(m_size_pixel, m_size_pixel);
-		m_vertices[3]=sf::Vector2f(0.f,m_size_pixel);
+		m_vertices[0]=sf::Vector2f(0,0);
+		m_vertices[1]=sf::Vector2f(TILE_SIZE_PIXEL,0);
+		m_vertices[2]=sf::Vector2f(TILE_SIZE_PIXEL, TILE_SIZE_PIXEL);
+		m_vertices[3]=sf::Vector2f(0,TILE_SIZE_PIXEL);
 
 		m_vertices[0].color=sf::Color(255,0,0);
-		m_vertices[1].color=sf::Color(255,0,0);
+		m_vertices[1].color=sf::Color(0,0,255);
 		m_vertices[2].color=sf::Color(255,0,0);
-		m_vertices[3].color=sf::Color(255,0,0);
+		m_vertices[3].color=sf::Color(0,0,255);
 	};
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
