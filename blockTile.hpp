@@ -12,6 +12,7 @@ public:
 		m_can_go_through_left=false;
 		m_can_go_through_up=false;
 		m_can_go_through_down=false;
+		m_can_drop_down_through=false;
 
 		m_vertices[0]=sf::Vector2f(0,0);
 		m_vertices[1]=sf::Vector2f(TILE_SIZE_PIXEL,0);

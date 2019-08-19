@@ -6,6 +6,7 @@
 #include "tile.hpp"
 #include "blockTile.hpp"
 #include "emptyTile.hpp"
+#include "dropTile.hpp"
 
 class Map
 {
@@ -34,6 +35,8 @@ public:
 	bool canGoThroughUpTile(sf::Vector2i tile_coord);
 	bool canGoThroughDownTile(int x, int y);
 	bool canGoThroughDownTile(sf::Vector2i tile_coord);
+	bool canDropDownThroughTile(int x, int y);
+	bool canDropDownThroughTile(sf::Vector2i tile_coord);
 
 private:
 	std::vector<std::vector<Tile*>> m_tiles; 

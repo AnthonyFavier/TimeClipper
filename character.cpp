@@ -45,6 +45,15 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 				m_speed.y=m_jump_speed;
 				m_current_state=Jump;
 			}
+			if(keyState(GoDown))
+			{
+				cout << "TEST1" << endl;
+				if(m_on_drop_tile)
+				{
+					cout << "TEST2" << endl;
+					this->move(sf::Vector2f(0,DROP_TILE_THRESHOLD));
+				}
+			}
 			break;
 		
 		case Walk:
@@ -68,6 +77,12 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 					m_speed.x=-m_walk_speed;
 			}
 			
+			if(keyState(GoDown))
+			{
+				if(m_on_drop_tile)
+					this->move(sf::Vector2f(0,DROP_TILE_THRESHOLD));
+			}
+
 			if(pressed(GoJump))
 			{
 				m_speed.y=m_jump_speed;
@@ -75,6 +90,7 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			else if(!m_on_ground)
 				m_current_state=Jump;
+
 			break;
 		
 		case Jump:
@@ -125,7 +141,6 @@ void Character::updateOldInputs()
 
 void Character::debug()
 {
-	cout << endl;
 	cout << "position x=" << this->getPosition().x << " y=" << this->getPosition().y << endl;
 	cout << "m_half_size x= " << m_half_size.x << " y=" << m_half_size.y << endl;
 	cout << "speed x=" << m_speed.x << " y=" << m_speed.y << endl;
@@ -137,5 +152,8 @@ void Character::debug()
 	cout << "m_pushes_right_wall=" << m_pushes_right_wall << endl;
 	cout << "m_pushes_left_wall=" << m_pushes_left_wall << endl;
 	cout << "m_on_ground=" << m_on_ground << endl;
+	cout << "m_on_drop_tile=" << m_on_drop_tile << endl;
 	cout << "m_at_ceiling=" << m_at_ceiling << endl;
+
+	cout << endl;
 }

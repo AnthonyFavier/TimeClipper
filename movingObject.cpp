@@ -40,6 +40,8 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 	m_old_left_wall=false;
 	m_on_ground=true;
 	m_old_on_ground=true;
+	m_on_drop_tile=false;
+	m_old_on_drop_tile=false;
 	m_at_ceiling=false;
 	m_old_at_ceiling=false;
 }
@@ -64,8 +66,7 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	this->move(m_speed*elapsed.asSeconds());
 
 	float ground_y=0;
-	bool hasGround = this->hasGround(&ground_y);
-	if(m_speed.y>=0 && hasGround)
+	if(m_speed.y>=0 && this->hasGround(&ground_y))
 	{
 		this->setPosition(this->getPosition().x,ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
 		m_speed.y=0;
@@ -104,23 +105,8 @@ bool MovingObject::hasGround(float* ground_y)
 			bottom_left = interpolate(new_bottom_left,old_bottom_left,(float)abs(end_y-tile_index_y)/dist);
 			bottom_right = sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, bottom_left.y);
 
-			sf::Vector2i tile_coord;
-			for(sf::Vector2f checkedTile = bottom_left; ; checkedTile.x += TILE_SIZE_PIXEL)
-			{
-				checkedTile.x=std::min(checkedTile.x,bottom_right.x);
-
-				tile_coord = ::map.getMapTileAtPoint(checkedTile);
-				cout << "tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
-
-				*ground_y = (float) tile_coord.y*TILE_SIZE_PIXEL + ::map.getPosition().y;
-
-				if(!::map.canGoThroughDownTile(tile_coord))
-					return true;
-
-				if(checkedTile.x>=bottom_right.x)
-					break;
-			}
-
+			if(this->checkGround(bottom_right, bottom_left, ground_y))
+				return true;
 		}
 
 		return false;
@@ -134,24 +120,41 @@ bool MovingObject::hasGround(float* ground_y)
 							center.y + m_hitbox.getHalfSize().y + 1);
 		sf::Vector2f bottom_right = sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, bottom_left.y);
 
-		sf::Vector2i tile_coord;
-		for(sf::Vector2f checkedTile = bottom_left; ; checkedTile.x += TILE_SIZE_PIXEL)
-		{
-			checkedTile.x=std::min(checkedTile.x,bottom_right.x);
-
-			tile_coord = ::map.getMapTileAtPoint(checkedTile);
-			cout << "tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
-
-			*ground_y = (float) tile_coord.y*TILE_SIZE_PIXEL + ::map.getPosition().y;
-
-			if(!::map.canGoThroughDownTile(tile_coord))
-				return true;
-
-			if(checkedTile.x>=bottom_right.x)
-				break;
-		}
-
-		return false;
+		return this->checkGround(bottom_right, bottom_left, ground_y);
 	}
+}
+
+bool MovingObject::checkGround(sf::Vector2f bottom_right, sf::Vector2f bottom_left, float* ground_y)
+{
+	sf::Vector2i tile_coord;
+	m_on_drop_tile=false;
+	for(sf::Vector2f checked_tile = bottom_left; ; checked_tile.x += TILE_SIZE_PIXEL)
+	{
+		checked_tile.x=std::min(checked_tile.x,bottom_right.x);
+
+		tile_coord = ::map.getMapTileAtPoint(checked_tile);
+		cout << "tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
+
+		*ground_y = (float) tile_coord.y*TILE_SIZE_PIXEL + ::map.getPosition().y;
+
+		if(!::map.canGoThroughDownTile(tile_coord) 
+		&& !::map.canDropDownThroughTile(tile_coord))
+		{
+			m_on_drop_tile=false;
+			return true;
+		}
+		else if (::map.canDropDownThroughTile(tile_coord)
+			&& abs(checked_tile.y-*ground_y) <= DROP_TILE_THRESHOLD + this->getPosition().y - m_old_position.y)
+			m_on_drop_tile=true;
+
+		if(checked_tile.x>=bottom_right.x)
+		{
+			if(m_on_drop_tile)
+				return true;
+			break;
+		}
+	}
+
+	return false;
 }
 

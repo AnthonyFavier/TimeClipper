@@ -8,6 +8,7 @@
 #define WINDOW_HEIGHT 400
 #define FPS 60
 #define NB_KEY_CHARACTER 4
+#define DROP_TILE_THRESHOLD 2.f
 #define GRAVITY 400
 #define MAX_FALLING_SPEED 250
 #define MIN_JUMP_SPEED 300

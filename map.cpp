@@ -18,8 +18,11 @@ Map::Map()
 		m_tiles.push_back(tiles);
 	}
 
+	m_tiles[3][4]=new DropTile(sf::Vector2i(3,4));
+	m_tiles[3][3]=new DropTile(sf::Vector2i(3,3));
+	m_tiles[4][4]=new DropTile(sf::Vector2i(4,4));
+	m_tiles[5][5]=new DropTile(sf::Vector2i(5,5));
 	m_tiles[6][6]=new BlockTile(sf::Vector2i(6,6));
-	m_tiles[5][5]=new BlockTile(sf::Vector2i(5,5));
 }
 
 void Map::draw(sf::RenderWindow* window)
@@ -144,9 +147,7 @@ bool Map::canGoThroughDownTile(int x, int y)
 	bool ok=false;
 
 	if(x>=0 && x<this->getWidth() && y>=0 && y<this->getHeight())
-	{
 		ok=m_tiles[x][y]->canGoThroughDown();
-	}
 
 	return ok;
 }
@@ -154,4 +155,19 @@ bool Map::canGoThroughDownTile(int x, int y)
 bool Map::canGoThroughDownTile(sf::Vector2i tile_coord)
 {
 	return this->canGoThroughDownTile(tile_coord.x, tile_coord.y);
+}
+
+bool Map::canDropDownThroughTile(int x, int y)
+{
+	bool ok=false;
+
+	if(x>=0 && x<this->getWidth() && y>=0 && y<this->getHeight())
+		ok=m_tiles[x][y]->canDropDownThrough();
+
+	return ok;
+}
+
+bool Map::canDropDownThroughTile(sf::Vector2i tile_coord)
+{
+	return this->canDropDownThroughTile(tile_coord.x, tile_coord.y);
 }

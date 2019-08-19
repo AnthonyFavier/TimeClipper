@@ -9,6 +9,11 @@ class Tile : public sf::Drawable, public sf::Transformable
 public:
 	Tile(sf::Vector2i pos)
 	{
+		m_can_go_through_right=false;
+		m_can_go_through_left=false;
+		m_can_go_through_up=false;
+		m_can_go_through_down=false;
+		m_can_drop_down_through=false;
 		m_pos=pos;
 		this->setPosition(m_pos.x*TILE_SIZE_PIXEL, m_pos.y*TILE_SIZE_PIXEL);
 	};
@@ -22,6 +27,7 @@ public:
 	bool canGoThroughLeft(){return m_can_go_through_left;};
 	bool canGoThroughUp(){return m_can_go_through_up;};
 	bool canGoThroughDown(){return m_can_go_through_down;};
+	bool canDropDownThrough(){return m_can_drop_down_through;};
 	
 protected:
 	sf::Vector2i m_pos;
@@ -29,6 +35,7 @@ protected:
 	bool m_can_go_through_left;
 	bool m_can_go_through_up;
 	bool m_can_go_through_down;
+	bool m_can_drop_down_through; // Can be true only if m_can_go_through_down=false
 	
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const=0;

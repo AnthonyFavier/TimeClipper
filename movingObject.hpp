@@ -16,6 +16,7 @@ public:
 	void updatePhysics(sf::Time elapsed);
 
 	bool hasGround(float* ground_y);
+	bool checkGround(sf::Vector2f bottom_right, sf::Vector2f bottom_left, float* ground_y);
 
 protected:
 	sf::Vector2f m_old_position;
@@ -35,6 +36,9 @@ protected:
 
 	bool m_on_ground;
 	bool m_old_on_ground;
+
+	bool m_on_drop_tile;
+	bool m_old_on_drop_tile;
 
 	bool m_at_ceiling;
 	bool m_old_at_ceiling;
