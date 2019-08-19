@@ -6,6 +6,8 @@
 #include "hitbox.hpp"
 #include "map.hpp"
 
+sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t);
+
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
 public:

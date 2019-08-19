@@ -3,6 +3,7 @@
 #include "character.hpp"
 #include "map.hpp"
 
+#include <iostream>
 using namespace std;
 
 Map map;

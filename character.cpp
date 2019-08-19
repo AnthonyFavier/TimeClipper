@@ -3,8 +3,8 @@
 Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,0))
 {
 	m_current_state=Stand;
-	m_jump_speed=-300;
-	m_walk_speed=200;
+	m_jump_speed=CHAR_JUMP_SPEED;
+	m_walk_speed=CHAR_WALK_SPEED;
 
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 	{

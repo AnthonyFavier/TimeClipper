@@ -19,7 +19,7 @@ Map::Map()
 	}
 
 	m_tiles[6][6]=new BlockTile(sf::Vector2i(6,6));
-
+	m_tiles[5][5]=new BlockTile(sf::Vector2i(5,5));
 }
 
 void Map::draw(sf::RenderWindow* window)
