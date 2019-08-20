@@ -94,15 +94,18 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Jump:
-			m_speed.y+=GRAVITY*elapsed.asSeconds();
-			m_speed.y=std::min(m_speed.y, (float)MAX_FALLING_SPEED);
-
 			if(m_on_ground)
 			{
 				m_speed.y=0;
 				m_current_state=Stand;
 			}
-			else if(keyState(GoRight) == keyState(GoLeft))
+			else
+			{
+				m_speed.y+=GRAVITY*elapsed.asSeconds();
+				m_speed.y=std::min(m_speed.y, (float)MAX_FALLING_SPEED);
+			}
+
+			if(keyState(GoRight) == keyState(GoLeft))
 				m_speed.x=0;
 			else if(keyState(GoRight))
 			{
@@ -118,8 +121,9 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 				else
 					m_speed.x=-m_walk_speed;
 			}
-			if(!keyState(GoJump))
-				m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
+		
+			//if(!keyState(GoJump))
+			//	m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
 			break;
 	}
 

@@ -9,11 +9,11 @@
 #define FPS 60
 #define NB_KEY_CHARACTER 4
 #define DROP_TILE_THRESHOLD 2.f
-#define GRAVITY 400
-#define MAX_FALLING_SPEED 250
+#define GRAVITY 600
+#define MAX_FALLING_SPEED 400
 #define MIN_JUMP_SPEED 300
-#define CHAR_JUMP_SPEED -300
-#define CHAR_WALK_SPEED 100
+#define CHAR_JUMP_SPEED -600
+#define CHAR_WALK_SPEED 300
 
 enum KeyInputChar{GoLeft=0,GoRight,GoDown,GoJump};
 

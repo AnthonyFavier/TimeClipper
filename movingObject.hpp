@@ -7,6 +7,7 @@
 #include "map.hpp"
 
 sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t);
+sf::Vector2f roundVector(sf::Vector2f vec);
 
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
@@ -23,7 +24,7 @@ public:
 	bool hasRightWall(float* right_wall_x);
 	bool checkRightWall(sf::Vector2f right_top, sf::Vector2f right_bottom, float* right_wall_x);
 
-	bool hasLeftWall(float* left_wall_x){return false;};
+	bool hasLeftWall(float* left_wall_x);
 	bool checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom, float* left_wall_x);
 
 protected:

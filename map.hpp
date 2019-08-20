@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <cmath>
 #include "tile.hpp"
 #include "blockTile.hpp"
 #include "emptyTile.hpp"

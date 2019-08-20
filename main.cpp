@@ -8,6 +8,10 @@ using namespace std;
 
 Map map;
 
+// Check sensors size
+// Check high speed collision
+//
+
 int main(int argc, char** argv)
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
