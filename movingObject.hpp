@@ -16,7 +16,9 @@ public:
 	void updatePhysics(sf::Time elapsed);
 
 	bool hasGround(float* ground_y);
-	bool checkGround(sf::Vector2f bottom_right, sf::Vector2f bottom_left, float* ground_y);
+	bool checkGround(sf::Vector2f bottom_left, sf::Vector2f bottom_right, float* ground_y);
+	bool hasCeiling(float* ceiling_y);
+	bool checkCeiling(sf::Vector2f top_left, sf::Vector2f top_right, float* ceiling_y);
 
 protected:
 	sf::Vector2f m_old_position;
