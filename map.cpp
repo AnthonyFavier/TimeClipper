@@ -64,11 +64,6 @@ sf::Vector2f Map::getPosition()
 	return m_position;
 }
 
-sf::Vector2i Map::getMapTileAtPoint(sf::Vector2f point)
-{
-	return this->getMapTileAtPoint(point.x, point.y);
-}
-
 sf::Vector2i Map::getMapTileAtPoint(float x, float y)
 {
 	sf::Vector2i vec;
@@ -79,14 +74,25 @@ sf::Vector2i Map::getMapTileAtPoint(float x, float y)
 	return vec;
 }
 
+sf::Vector2i Map::getMapTileAtPoint(sf::Vector2f point)
+{
+	return this->getMapTileAtPoint(point.x, point.y);
+}
+
 int Map::getMapTileXAtPoint(float x)
 {
-	return (int)((x-m_position.x)/(float)(TILE_SIZE_PIXEL));
+	int result= (int)((x-m_position.x)/(float)(TILE_SIZE_PIXEL));
+	if(x<0)
+		result--;
+	return result;
 }
 
 int Map::getMapTileYAtPoint(float y)
 {
-	return (int)((y-m_position.y)/(float)(TILE_SIZE_PIXEL));
+	int result=(int)((y-m_position.y)/(float)(TILE_SIZE_PIXEL));
+	if(y<0)
+		result--;
+	return result;
 }
 
 sf::Vector2f Map::getMapTilePosition(sf::Vector2i tile)

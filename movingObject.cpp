@@ -265,7 +265,7 @@ bool MovingObject::checkCeiling(sf::Vector2f top_left, sf::Vector2f top_right, f
 // RIGHT
 bool MovingObject::hasRightWall(float* right_wall_x)
 {
-	if(m_speed.x/FPS>0.8*TILE_SIZE_PIXEL && 0) // 0.8 is a security coefficient
+	if(m_speed.x/FPS>0.8*TILE_SIZE_PIXEL) // 0.8 is a security coefficient
 	{
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_right_top = sf::Vector2f(old_center.x + m_hitbox.getHalfSize().x + 1, 
