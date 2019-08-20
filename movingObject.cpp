@@ -130,7 +130,7 @@ bool MovingObject::hasGround(float* ground_y)
 							center.y + m_hitbox.getHalfSize().y + 1);
 		sf::Vector2f bottom_right = sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, bottom_left.y);
 
-		return this->checkGround(bottom_right, bottom_left, ground_y);
+		return this->checkGround(bottom_left, bottom_right, ground_y);
 	}
 }
 
