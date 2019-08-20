@@ -35,7 +35,7 @@ protected:
 	bool m_can_go_through_left;
 	bool m_can_go_through_up;
 	bool m_can_go_through_down;
-	bool m_can_drop_down_through; // Can be true only if m_can_go_through_down=false
+	bool m_can_drop_down_through;
 	
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const=0;

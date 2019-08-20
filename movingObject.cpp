@@ -68,7 +68,7 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	float ground_y=0;
 	if(m_speed.y>=0 && this->hasGround(&ground_y))
 	{
-		this->setPosition(this->getPosition().x,ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
+		this->setPosition(this->getPosition().x, ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
 		m_speed.y=0;
 		m_on_ground=true;
 	}
@@ -82,12 +82,12 @@ bool MovingObject::hasGround(float* ground_y)
 {
 	if(m_speed.x/FPS>0.8*TILE_SIZE_PIXEL || m_speed.y/FPS>0.8*TILE_SIZE_PIXEL) // 0.8 is a security coefficient
 	{
-		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
-
 		sf::Vector2f old_bottom_left = sf::Vector2f(old_center.x - m_hitbox.getHalfSize().x + 1, 
 							    old_center.y + m_hitbox.getHalfSize().y + 1);
 		sf::Vector2f old_bottom_right = sf::Vector2f(old_bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, old_bottom_left.y);
+
+		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f new_bottom_left = sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
 							    center.y + m_hitbox.getHalfSize().y + 1);
 		sf::Vector2f new_bottom_right = sf::Vector2f(new_bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, new_bottom_left.y);
@@ -137,15 +137,17 @@ bool MovingObject::checkGround(sf::Vector2f bottom_right, sf::Vector2f bottom_le
 
 		*ground_y = (float) tile_coord.y*TILE_SIZE_PIXEL + ::map.getPosition().y;
 
-		if(!::map.canGoThroughDownTile(tile_coord) 
-		&& !::map.canDropDownThroughTile(tile_coord))
+		if(!::map.canGoThroughDownTile(tile_coord))
 		{
-			m_on_drop_tile=false;
-			return true;
+			if(!::map.canDropDownThroughTile(tile_coord))
+			{
+				m_on_drop_tile=false;
+				return true;
+			}
+			else if (::map.canDropDownThroughTile(tile_coord)
+				&& abs(checked_tile.y-*ground_y) <= DROP_TILE_THRESHOLD + this->getPosition().y - m_old_position.y)
+				m_on_drop_tile=true;
 		}
-		else if (::map.canDropDownThroughTile(tile_coord)
-			&& abs(checked_tile.y-*ground_y) <= DROP_TILE_THRESHOLD + this->getPosition().y - m_old_position.y)
-			m_on_drop_tile=true;
 
 		if(checked_tile.x>=bottom_right.x)
 		{
