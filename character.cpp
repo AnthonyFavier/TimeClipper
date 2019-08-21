@@ -47,10 +47,8 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			if(keyState(GoDown))
 			{
-				cout << "TEST1" << endl;
 				if(m_on_drop_tile)
 				{
-					cout << "TEST2" << endl;
 					this->move(sf::Vector2f(0,DROP_TILE_THRESHOLD));
 				}
 			}

@@ -18,6 +18,7 @@ public:
 
 	bool hasGround(float* ground_y);
 	bool checkGround(sf::Vector2f bottom_left, sf::Vector2f bottom_right, float* ground_y);
+	
 	bool hasCeiling(float* ceiling_y);
 	bool checkCeiling(sf::Vector2f top_left, sf::Vector2f top_right, float* ceiling_y);
 

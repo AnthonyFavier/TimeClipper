@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 	window.setFramerateLimit(FPS);
 
 	//Character(center, halfsize)
-	Character character(sf::Vector2f(100, 100), sf::Vector2f(10, 10));
+	Character character(sf::Vector2f(100, 60), sf::Vector2f(10, 10));
 
 	bool inputs[NB_KEY_CHARACTER];
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
