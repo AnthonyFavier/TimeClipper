@@ -168,9 +168,9 @@ bool MovingObject::hasGround(float* ground_y)
 	{
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 
-		sf::Vector2f bottom_left = sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
-							center.y + m_hitbox.getHalfSize().y + 1);
-		sf::Vector2f bottom_right = sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, bottom_left.y);
+		sf::Vector2f bottom_left = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
+							center.y + m_hitbox.getHalfSize().y + 1));
+		sf::Vector2f bottom_right = roundVector(sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, bottom_left.y));
 
 		return this->checkGround(bottom_left, bottom_right, ground_y);
 	}
@@ -253,9 +253,9 @@ bool MovingObject::hasCeiling(float* ceiling_y)
 	{
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 
-		sf::Vector2f top_left = sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
-						     center.y - m_hitbox.getHalfSize().y - 1);
-		sf::Vector2f top_right = sf::Vector2f(top_left.x + 2*m_hitbox.getHalfSize().x - 2, top_left.y);
+		sf::Vector2f top_left = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
+						     center.y - m_hitbox.getHalfSize().y - 1));
+		sf::Vector2f top_right = roundVector(sf::Vector2f(top_left.x + 2*m_hitbox.getHalfSize().x - 2, top_left.y));
 
 		return this->checkCeiling(top_left, top_right, ceiling_y);
 	}
@@ -322,9 +322,9 @@ bool MovingObject::hasRightWall(float* right_wall_x)
 	{
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 
-		sf::Vector2f right_top = sf::Vector2f(center.x + m_hitbox.getHalfSize().x + 1, 
-						      center.y - m_hitbox.getHalfSize().y);
-		sf::Vector2f right_bottom = sf::Vector2f(right_top.x, right_top.y + 2*m_hitbox.getHalfSize().y-1);
+		sf::Vector2f right_top = roundVector(sf::Vector2f(center.x + m_hitbox.getHalfSize().x + 1, 
+						      center.y - m_hitbox.getHalfSize().y));
+		sf::Vector2f right_bottom = roundVector(sf::Vector2f(right_top.x, right_top.y + 2*m_hitbox.getHalfSize().y-1));
 
 		return this->checkRightWall(right_top, right_bottom, right_wall_x);
 	}
@@ -391,9 +391,9 @@ bool MovingObject::hasLeftWall(float* left_wall_x)
 	{
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 
-		sf::Vector2f left_top = sf::Vector2f(center.x - m_hitbox.getHalfSize().x - 1, 
-						     center.y - m_hitbox.getHalfSize().y);
-		sf::Vector2f left_bottom = sf::Vector2f(left_top.x, left_top.y + 2*m_hitbox.getHalfSize().y-1);
+		sf::Vector2f left_top = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x - 1, 
+						     center.y - m_hitbox.getHalfSize().y));
+		sf::Vector2f left_bottom = roundVector(sf::Vector2f(left_top.x, left_top.y + 2*m_hitbox.getHalfSize().y-1));
 
 		return this->checkLeftWall(left_top, left_bottom, left_wall_x);
 	}
