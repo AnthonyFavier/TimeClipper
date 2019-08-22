@@ -21,3 +21,8 @@ sf::Vector2f Hitbox::getHalfSize()
 {
 	return m_half_size;
 }
+
+void Hitbox::setHalfSize(sf::Vector2f hs)
+{
+	m_half_size=hs;
+}

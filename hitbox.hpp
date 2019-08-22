@@ -13,6 +13,7 @@ public:
 
 	sf::Vector2f m_center;
 	sf::Vector2f getHalfSize();
+	void setHalfSize(sf::Vector2f hs);
 	
 private:
 	sf::Vector2f m_half_size;

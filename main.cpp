@@ -62,6 +62,14 @@ int main(int argc, char** argv)
 						case sf::Keyboard::Down:
 							inputs[(int)GoDown]=true;
 							break;
+
+						case sf::Keyboard::A:
+							inputs[(int)SizeDown]=true;
+							break;
+
+						case sf::Keyboard::Z:
+							inputs[(int)SizeUp]=true;
+							break;
 					}
 					break;
 
@@ -87,6 +95,15 @@ int main(int argc, char** argv)
 						case sf::Keyboard::Down:
 							inputs[(int)GoDown]=false;
 							break;
+
+						case sf::Keyboard::A:
+							inputs[(int)SizeDown]=false;
+							break;
+
+						case sf::Keyboard::Z:
+							inputs[(int)SizeUp]=false;
+							break;
+
 					}
 					break;
 			}

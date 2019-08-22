@@ -7,7 +7,6 @@
 #define WINDOW_WIDTH 400 //480
 #define WINDOW_HEIGHT 400
 #define FPS 60
-#define NB_KEY_CHARACTER 4
 #define DROP_TILE_THRESHOLD 2.f
 #define GRAVITY 1800
 #define MAX_FALLING_SPEED 600
@@ -15,6 +14,7 @@
 #define CHAR_JUMP_SPEED -600
 #define CHAR_WALK_SPEED 300
 
-enum KeyInputChar{GoLeft=0,GoRight,GoDown,GoJump};
+#define NB_KEY_CHARACTER 6
+enum KeyInputChar{GoLeft=0,GoRight,GoDown,GoJump,SizeUp,SizeDown};
 
 #endif

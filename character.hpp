@@ -23,6 +23,9 @@ public:
 	void updateInputs(bool inputs[NB_KEY_CHARACTER]);
 	void updateOldInputs();
 
+	void sizeUp();
+	void sizeDown();
+
 	void debug();
 	
 private:

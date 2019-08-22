@@ -35,6 +35,11 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 	{
 		case Stand:
 			m_speed=sf::Vector2f(0,0);
+
+			if(pressed(SizeUp))
+				this->sizeUp();
+			if(pressed(SizeDown))
+				this->sizeDown();
 			
 			if(!m_on_ground)
 				m_current_state=Jump;
@@ -55,6 +60,11 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Walk:
+			if(pressed(SizeUp))
+				this->sizeUp();
+			if(pressed(SizeDown))
+				this->sizeDown();
+
 			if(keyState(GoRight) == keyState(GoLeft))
 			{
 				m_current_state=Stand;
@@ -92,6 +102,11 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Jump:
+			if(pressed(SizeUp))
+				this->sizeUp();
+			if(pressed(SizeDown))
+				this->sizeDown();
+
 			if(m_on_ground)
 			{
 				m_speed.y=0;
@@ -139,6 +154,38 @@ void Character::updateOldInputs()
 {
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 		m_old_inputs[i]=m_inputs[i];
+}
+
+void Character::sizeDown()
+{
+	m_half_size.x-=5;
+	m_half_size.y-=5;
+
+	if(m_half_size.x <= 0 || m_half_size.y <= 0)
+	{
+		m_half_size.x=5;
+		m_half_size.y=5;
+	}
+
+	m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
+	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
+	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
+	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);
+
+	m_hitbox.setHalfSize(m_half_size);
+}
+
+void Character::sizeUp()
+{
+	m_half_size.x+=5;
+	m_half_size.y+=5;
+
+	m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
+	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
+	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
+	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);
+
+	m_hitbox.setHalfSize(m_half_size);
 }
 
 void Character::debug()
