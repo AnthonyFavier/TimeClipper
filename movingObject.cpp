@@ -17,6 +17,8 @@ sf::Vector2f roundVector(sf::Vector2f v)
 	return sf::Vector2f(std::round(v.x), std::round(v.y));
 }
 
+/////////////////////////////
+
 MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color) : m_vertices(sf::Quads,4), m_hitbox(center, half_size)
 {
 	m_half_size=half_size;
@@ -80,7 +82,7 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	{
 		if(m_old_position.x - m_hitbox.getHalfSize().x + m_hitbox_offset.x >= left_wall_x)
 		{
-			cout << "TOP" << endl;
+			cout << "LEFT" << endl;
 			this->setPosition(left_wall_x+m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
 			m_pushes_left_wall=true;
 		}
