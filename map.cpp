@@ -1,11 +1,14 @@
 #include "map.hpp"
 
+#include <iostream>
+using namespace std;
+
 Map::Map()
 {
 	m_position=sf::Vector2f(0,0);
 	std::vector<Tile*> tiles;
 
-	for(int xi=0; xi<8; xi++)
+	for(int xi=0; xi<9; xi++)
 	{
 		tiles.clear();
 		for(int yi=0; yi<8; yi++)
@@ -44,17 +47,17 @@ void Map::draw(sf::RenderWindow* window)
 	}
 }
 
-int Map::getWidth()
+int Map::getHeight()
 {
-	int width=0;
+	int height=0;
 
 	if(m_tiles.size()>0)
-		width=m_tiles[0].size();
+		height=m_tiles[0].size();
 
-	return width;
+	return height;
 }
 
-int Map::getHeight()
+int Map::getWidth()
 {
 	return m_tiles.size();
 }
