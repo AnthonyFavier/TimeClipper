@@ -13,6 +13,7 @@ class Map
 {
 public:
 	Map();
+	~Map();
 	void draw(sf::RenderWindow* window);
 
 	int getWidth();

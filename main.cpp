@@ -10,7 +10,6 @@ Map map;
 
 // Check sensors size
 // Check high speed collision
-//
 
 int main(int argc, char** argv)
 {

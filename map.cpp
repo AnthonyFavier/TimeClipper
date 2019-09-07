@@ -6,11 +6,10 @@ using namespace std;
 Map::Map()
 {
 	m_position=sf::Vector2f(0,0);
-	std::vector<Tile*> tiles;
 
+	std::vector<Tile*> tiles;
 	for(int xi=0; xi<9; xi++)
 	{
-		tiles.clear();
 		for(int yi=0; yi<8; yi++)
 		{
 			if(yi<7)
@@ -19,7 +18,10 @@ Map::Map()
 				tiles.push_back(new BlockTile(sf::Vector2i(xi,yi)));
 		}
 		m_tiles.push_back(tiles);
+
+		tiles.clear();
 	}
+
 
 	m_tiles[2][2]=new DropTile(sf::Vector2i(2,2));
 	m_tiles[3][2]=new DropTile(sf::Vector2i(3,2));
@@ -33,6 +35,15 @@ Map::Map()
 	m_tiles[7][1]=new BlockTile(sf::Vector2i(7,1));
 	m_tiles[5][5]=new DropTile(sf::Vector2i(5,5));
 	m_tiles[6][6]=new BlockTile(sf::Vector2i(6,6));
+}
+
+Map::~Map()
+{
+	for(int i=0; i<m_tiles.size(); i++)
+	{
+		for(int j=0; j<m_tiles[0].size(); j++)
+			delete m_tiles[i][j];
+	}
 }
 
 void Map::draw(sf::RenderWindow* window)
