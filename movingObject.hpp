@@ -7,7 +7,6 @@
 #include "map.hpp"
 
 sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t);
-sf::Vector2f roundVector(sf::Vector2f vec);
 
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
