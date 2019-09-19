@@ -192,8 +192,6 @@ bool MovingObject::checkGround(sf::Vector2f bottom_left, sf::Vector2f bottom_rig
 
 		if(!::map.canGoThroughDownTile(tile_coord))
 		{
-			cout << "truc1=" << abs(checked_tile.y-*ground_y) << endl << "truc2=" << DROP_TILE_THRESHOLD + this->getPosition().y - m_old_position.y << endl;
-
 			if(!::map.canDropDownThroughTile(tile_coord))
 			{
 				m_on_drop_tile=false;

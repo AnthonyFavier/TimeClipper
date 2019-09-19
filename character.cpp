@@ -43,13 +43,13 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			
 			if(!m_on_ground)
 				m_current_state=Jump;
-			else if(keyState(GoRight) != keyState(GoLeft))
-				m_current_state=Walk;
 			else if(pressed(GoJump))
 			{
 				m_speed.y=m_jump_speed;
 				m_current_state=Jump;
 			}
+			else if(keyState(GoRight) != keyState(GoLeft))
+				m_current_state=Walk;
 			if(keyState(GoDown))
 			{
 				if(m_on_drop_tile)
