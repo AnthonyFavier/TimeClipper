@@ -138,14 +138,14 @@ bool MovingObject::hasGround(float* ground_y)
 	{
 		cout << "=> High speed bot <=" << endl;
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
-		sf::Vector2f old_bottom_left = roundVector(sf::Vector2f(old_center.x - m_hitbox.getHalfSize().x + 1, 
+		sf::Vector2f old_bottom_left = roundVector(sf::Vector2f(old_center.x - m_hitbox.getHalfSize().x, 
 							    old_center.y + m_hitbox.getHalfSize().y + 1));
-		sf::Vector2f old_bottom_right = roundVector(sf::Vector2f(old_bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, old_bottom_left.y));
+		sf::Vector2f old_bottom_right = roundVector(sf::Vector2f(old_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1, old_bottom_left.y));
 
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
-		sf::Vector2f new_bottom_left = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
+		sf::Vector2f new_bottom_left = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x, 
 							    center.y + m_hitbox.getHalfSize().y + 1));
-		sf::Vector2f new_bottom_right = roundVector(sf::Vector2f(new_bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, new_bottom_left.y));
+		sf::Vector2f new_bottom_right = roundVector(sf::Vector2f(new_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1, new_bottom_left.y));
 
 		int end_y=::map.getMapTileYAtPoint(new_bottom_left.y);
 		int beg_y=std::min(::map.getMapTileYAtPoint(old_bottom_left.y),end_y);
@@ -170,9 +170,12 @@ bool MovingObject::hasGround(float* ground_y)
 	{
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 
-		sf::Vector2f bottom_left = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x + 1, 
+		sf::Vector2f bottom_left = roundVector(sf::Vector2f(center.x - m_hitbox.getHalfSize().x, 
 							center.y + m_hitbox.getHalfSize().y + 1));
-		sf::Vector2f bottom_right = roundVector(sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 2, bottom_left.y));
+		sf::Vector2f bottom_right = roundVector(sf::Vector2f(bottom_left.x + 2*m_hitbox.getHalfSize().x - 1, bottom_left.y));
+
+		cout << "bottom_left x=" << bottom_left.x << " y=" << bottom_left.y << endl;
+		cout << "bottom_right x=" << bottom_right.x << " y=" << bottom_right.y << endl;
 
 		return this->checkGround(bottom_left, bottom_right, ground_y);
 	}
