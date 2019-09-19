@@ -406,6 +406,7 @@ bool MovingObject::checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom
 		checked_tile.y=std::min(checked_tile.y,left_bottom.y);
 
 		tile_coord = ::map.getMapTileAtPoint(checked_tile);
+		cout << "left_tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
 
 		*left_wall_x = (float) (tile_coord.x+1)*TILE_SIZE_PIXEL + ::map.getPosition().x;
 
