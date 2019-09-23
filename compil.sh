@@ -1,1 +1,1 @@
-g++ *.cpp -lsfml-graphics -lsfml-window -lsfml-system
+g++ -o TimeClipper src/*.cpp -lsfml-graphics -lsfml-window -lsfml-system 
