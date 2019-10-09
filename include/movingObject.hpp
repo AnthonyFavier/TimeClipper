@@ -15,6 +15,9 @@ public:
 
 	void updatePhysics(sf::Time elapsed);
 
+	void flipSpriteRight();
+	void flipSpriteLeft();
+
 	bool hasGround(float* ground_y);
 	bool checkGround(sf::Vector2f bottom_left, sf::Vector2f bottom_right, float* ground_y);
 	

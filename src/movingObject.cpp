@@ -21,9 +21,6 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 
 	this->setPosition(center);
 
-	m_texture.loadFromFile("rsc/newboi.png");
-	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(-m_half_size);
 
 	/*m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
 	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
@@ -60,6 +57,18 @@ void MovingObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_sprite, states);
 }
 
+void MovingObject::flipSpriteRight()
+{	
+	m_sprite.setScale(-1,1);
+	m_sprite.setPosition(m_half_size.x, -m_half_size.y);
+}
+
+void MovingObject::flipSpriteLeft()
+{
+	m_sprite.setScale(1,1);
+	m_sprite.setPosition(-m_half_size.x, -m_half_size.y);
+}
+
 void MovingObject::updatePhysics(sf::Time elapsed)
 {
 	m_old_position=this->getPosition();
@@ -77,8 +86,7 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 	
 	// LEFT
-	if(m_speed.x<=0
-	&& this->hasLeftWall(&left_wall_x))
+	if(m_speed.x<=0 && this->hasLeftWall(&left_wall_x))
 	{
 		if(m_old_position.x - m_hitbox.getHalfSize().x + m_hitbox_offset.x >= left_wall_x)
 		{
@@ -92,8 +100,7 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 		m_pushes_left_wall=false;
 
 	// RIGHT
-	if(m_speed.x>=0
-	&& this->hasRightWall(&right_wall_x))
+	if(m_speed.x>=0 && this->hasRightWall(&right_wall_x))
 	{
 		if(m_old_position.x + m_hitbox.getHalfSize().x + m_hitbox_offset.x <= right_wall_x)
 		{

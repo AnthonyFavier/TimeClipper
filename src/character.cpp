@@ -6,6 +6,10 @@ Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject
 	m_jump_speed=CHAR_JUMP_SPEED;
 	m_walk_speed=CHAR_WALK_SPEED;
 
+	m_texture.loadFromFile("rsc/newboi.png");
+	m_sprite.setTexture(m_texture);
+	m_sprite.setPosition(-m_half_size);
+
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 	{
 		m_inputs[i]=false;
@@ -72,6 +76,8 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			else if(keyState(GoRight))
 			{
+
+				this->flipSpriteRight();
 				if(m_pushes_right_wall)
 					m_speed.x=0;
 				else
@@ -79,6 +85,7 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			else if(keyState(GoLeft))
 			{
+				this->flipSpriteLeft();
 				if(m_pushes_left_wall)
 					m_speed.x=0;
 				else
@@ -122,6 +129,7 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 				m_speed.x=0;
 			else if(keyState(GoRight))
 			{
+				this->flipSpriteRight();
 				if(m_pushes_right_wall)
 					m_speed.x=0;
 				else
@@ -129,6 +137,7 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			else if(keyState(GoLeft))
 			{
+				this->flipSpriteLeft();
 				if(m_pushes_left_wall)
 					m_speed.x=0;
 				else
