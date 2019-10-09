@@ -15,7 +15,7 @@ public:
 	Tile(sf::Vector2i pos)
 	{
 		m_texture_filename["DropTile"]= "rsc/tile1.png";
-		m_texture_filename["BlockTile"]= "rsc/tile3.png";
+		m_texture_filename["BlockTile"]= "rsc/terre.png";
 		m_texture_filename["EmptyTile"]= "rsc/tile2.png";
 
 		m_can_go_through_right=false;
