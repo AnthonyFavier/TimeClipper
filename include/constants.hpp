@@ -4,8 +4,8 @@
 // 30x30 tiles
 //#define TILE_SIZE_PIXEL 16
 #define TILE_SIZE_PIXEL 50
-#define WINDOW_WIDTH 1980//400 //480
-#define WINDOW_HEIGHT 1050 //400
+#define WINDOW_WIDTH 400
+#define WINDOW_HEIGHT 400
 #define FPS 60
 #define DROP_TILE_THRESHOLD 2.f
 #define GRAVITY 1800

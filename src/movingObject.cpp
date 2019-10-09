@@ -14,13 +14,18 @@ sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t)
 
 /////////////////////////////
 
-MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color) : m_vertices(sf::Quads,4), m_hitbox(center, half_size)
+//MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color) : m_vertices(sf::Quads,4), m_hitbox(center, half_size)
+MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color) : m_hitbox(center, half_size)
 {
 	m_half_size=half_size;
 
 	this->setPosition(center);
 
-	m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
+	m_texture.loadFromFile("rsc/newboi.png");
+	m_sprite.setTexture(m_texture);
+	m_sprite.setPosition(-m_half_size);
+
+	/*m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
 	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
 	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
 	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);
@@ -28,7 +33,7 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 	m_vertices[0].color =color;
 	m_vertices[1].color =color;
 	m_vertices[2].color =color;
-	m_vertices[3].color =color;
+	m_vertices[3].color =color;*/
 
 	m_old_position=this->getPosition();
 	m_speed=sf::Vector2f(0,0);
@@ -52,7 +57,7 @@ void MovingObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
 	states.texture = &m_texture;
-	target.draw(m_vertices, states);
+	target.draw(m_sprite, states);
 }
 
 void MovingObject::updatePhysics(sf::Time elapsed)

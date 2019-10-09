@@ -167,10 +167,10 @@ void Character::sizeDown()
 		m_half_size.y=5;
 	}
 
-	m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
+	/*m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
 	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
 	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
-	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);
+	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);*/
 
 	m_hitbox.setHalfSize(m_half_size);
 }
@@ -180,10 +180,10 @@ void Character::sizeUp()
 	m_half_size.x+=5;
 	m_half_size.y+=5;
 
-	m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
+	/*m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
 	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
 	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
-	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);
+	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);*/
 
 	m_hitbox.setHalfSize(m_half_size);
 }

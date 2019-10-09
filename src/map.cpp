@@ -8,11 +8,11 @@ Map::Map()
 	m_position=sf::Vector2f(0,0);
 
 	std::vector<Tile*> tiles;
-	for(int xi=0; xi<26; xi++)
+	for(int xi=0; xi<8; xi++)
 	{
-		for(int yi=0; yi<15; yi++)
+		for(int yi=0; yi<8; yi++)
 		{
-			if(yi<14)
+			if(yi<7)
 				tiles.push_back(new EmptyTile(sf::Vector2i(xi,yi)));
 			else
 				tiles.push_back(new BlockTile(sf::Vector2i(xi,yi)));
