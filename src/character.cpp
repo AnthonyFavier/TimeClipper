@@ -40,10 +40,10 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 		case Stand:
 			m_speed=sf::Vector2f(0,0);
 
-			if(pressed(SizeUp))
+			/*if(pressed(SizeUp))
 				this->sizeUp();
 			if(pressed(SizeDown))
-				this->sizeDown();
+				this->sizeDown();*/
 			
 			if(!m_on_ground)
 				m_current_state=Jump;
@@ -64,10 +64,10 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Walk:
-			if(pressed(SizeUp))
+			/*if(pressed(SizeUp))
 				this->sizeUp();
 			if(pressed(SizeDown))
-				this->sizeDown();
+				this->sizeDown();*/
 
 			if(keyState(GoRight) == keyState(GoLeft))
 			{
@@ -109,10 +109,10 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Jump:
-			if(pressed(SizeUp))
+			/*if(pressed(SizeUp))
 				this->sizeUp();
 			if(pressed(SizeDown))
-				this->sizeDown();
+				this->sizeDown();*/
 
 			if(m_on_ground)
 			{
