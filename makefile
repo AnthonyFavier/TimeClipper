@@ -3,10 +3,13 @@ SFMLFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 WARN=-Wall
 SRCS=src/*.cpp
 
-all: game_c game_l
+all: 
+	make game_c
+	make game_l 
+	make clean
 
 game_c:	$(SRCS)
-	$(CC) -c $(SRCS) $(SFMLFLAGS)
+	$(CC) -c $(WARN) $(SRCS) $(SFMLFLAGS)
 
 game_l: *.o
 	$(CC) -o timeClipper *.o $(SFMLFLAGS)
