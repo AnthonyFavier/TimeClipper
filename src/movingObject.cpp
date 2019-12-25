@@ -68,8 +68,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	m_old_at_ceiling=m_at_ceiling;
 
 	this->move(m_speed*elapsed.asSeconds());
-	cout << "m_speed x=" << m_speed.x << " y=" << m_speed.y << endl;
-	cout << "m_position x=" << this->getPosition().x << " y=" << this->getPosition().y << endl;
 
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 	
@@ -78,7 +76,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	{
 		if(m_old_position.x - m_hitbox.getHalfSize().x + m_hitbox_offset.x >= left_wall_x)
 		{
-			cout << "LEFT" << endl;
 			this->setPosition(left_wall_x+m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
 			m_pushes_left_wall=true;
 		}
@@ -92,7 +89,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	{
 		if(m_old_position.x + m_hitbox.getHalfSize().x + m_hitbox_offset.x <= right_wall_x)
 		{
-			cout << "RIGHT" << endl;
 			this->setPosition(right_wall_x-m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
 			m_pushes_right_wall=true;
 		}
@@ -104,7 +100,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	// BOTTOM
 	if(m_speed.y>=0 && this->hasGround(&ground_y))
 	{
-		cout << "BOTTOM" << endl;
 		this->setPosition(this->getPosition().x, ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
 		m_speed.y=0;
 		m_on_ground=true;
@@ -115,7 +110,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	// TOP
 	if(m_speed.y<=0	&& this->hasCeiling(&ceiling_y))
 	{
-		cout << "TOP" << endl;
 		this->setPosition(this->getPosition().x, ceiling_y + m_hitbox.getHalfSize().y - m_hitbox_offset.y);
 		m_speed.y=0;
 		m_at_ceiling=true;
@@ -131,16 +125,13 @@ bool MovingObject::hasGround(float* ground_y)
 {
 	if(m_speed.y/FPS>0.8*TILE_SIZE_PIXEL) // 0.8 is a security coefficient
 	{
-		cout << "=> High speed bot <=" << endl;
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_bottom_left = sf::Vector2f(std::floor(old_center.x - m_hitbox.getHalfSize().x),
 							    std::ceil(old_center.y + m_hitbox.getHalfSize().y + 1));
-		//sf::Vector2f old_bottom_right = sf::Vector2f(std::ceil(old_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(old_bottom_left.y));
 
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f new_bottom_left = sf::Vector2f(std::floor(center.x - m_hitbox.getHalfSize().x),
 							    std::ceil(center.y + m_hitbox.getHalfSize().y + 1));
-		//sf::Vector2f new_bottom_right = sf::Vector2f(std::ceil(new_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(new_bottom_left.y));
 
 		int end_y=::map.getMapTileYAtPoint(new_bottom_left.y);
 		int beg_y=std::min(::map.getMapTileYAtPoint(old_bottom_left.y),end_y);
@@ -169,9 +160,6 @@ bool MovingObject::hasGround(float* ground_y)
 							std::ceil(center.y + m_hitbox.getHalfSize().y + 1));
 		sf::Vector2f bottom_right = sf::Vector2f(std::ceil(bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(bottom_left.y));
 
-		cout << "bottom_left x=" << bottom_left.x << " y=" << bottom_left.y << endl;
-		cout << "bottom_right x=" << bottom_right.x << " y=" << bottom_right.y << endl;
-
 		return this->checkGround(bottom_left, bottom_right, ground_y);
 	}
 }
@@ -184,7 +172,6 @@ bool MovingObject::checkGround(sf::Vector2f bottom_left, sf::Vector2f bottom_rig
 		checked_tile.x=std::min(checked_tile.x,bottom_right.x);
 
 		tile_coord = ::map.getMapTileAtPoint(checked_tile);
-		cout << "ground_tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
 
 		*ground_y = (float) tile_coord.y*TILE_SIZE_PIXEL + ::map.getPosition().y;
 
@@ -216,7 +203,6 @@ bool MovingObject::hasCeiling(float* ceiling_y)
 {
 	if(-m_speed.y/FPS>0.8*TILE_SIZE_PIXEL) // 0.8 is a security coefficient
 	{
-		cout << "=> High speed top <=" << endl;
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_top_left = sf::Vector2f(std::floor(old_center.x - m_hitbox.getHalfSize().x),
 							 std::floor(old_center.y - m_hitbox.getHalfSize().y - 1));
@@ -263,7 +249,6 @@ bool MovingObject::checkCeiling(sf::Vector2f top_left, sf::Vector2f top_right, f
 		checked_tile.x=std::min(checked_tile.x,top_right.x);
 
 		tile_coord = ::map.getMapTileAtPoint(checked_tile);
-		cout << "ceiling_tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
 
 		*ceiling_y = (float) (tile_coord.y+1)*TILE_SIZE_PIXEL + ::map.getPosition().y;
 
@@ -282,7 +267,6 @@ bool MovingObject::hasRightWall(float* right_wall_x)
 {
 	if(m_speed.x/FPS>0.8*TILE_SIZE_PIXEL) // 0.8 is a security coefficient
 	{
-		cout << "=> High speed right <=" << endl;
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_right_top = sf::Vector2f(std::ceil(old_center.x + m_hitbox.getHalfSize().x + 1),
 							  std::floor(old_center.y - m_hitbox.getHalfSize().y));
@@ -329,7 +313,6 @@ bool MovingObject::checkRightWall(sf::Vector2f right_top, sf::Vector2f right_bot
 		checked_tile.y=std::min(checked_tile.y,right_bottom.y);
 
 		tile_coord = ::map.getMapTileAtPoint(checked_tile);
-		cout << "right_tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
 
 		*right_wall_x = (float) tile_coord.x*TILE_SIZE_PIXEL + ::map.getPosition().x;
 
@@ -348,7 +331,6 @@ bool MovingObject::hasLeftWall(float* left_wall_x)
 {
 	if(-m_speed.x/FPS>0.8*TILE_SIZE_PIXEL) // 0.8 is a security coefficient
 	{
-		cout << "=> High speed left <=" << endl;
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_left_top = sf::Vector2f(std::floor(old_center.x - m_hitbox.getHalfSize().x - 1),
 							 std::floor(old_center.y - m_hitbox.getHalfSize().y));
@@ -395,7 +377,6 @@ bool MovingObject::checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom
 		checked_tile.y=std::min(checked_tile.y,left_bottom.y);
 
 		tile_coord = ::map.getMapTileAtPoint(checked_tile);
-		cout << "left_tile_coord x=" << tile_coord.x << " y=" << tile_coord.y << endl;
 
 		*left_wall_x = (float) (tile_coord.x+1)*TILE_SIZE_PIXEL + ::map.getPosition().x;
 

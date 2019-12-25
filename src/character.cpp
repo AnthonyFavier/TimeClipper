@@ -203,8 +203,8 @@ void Character::sizeUp()
 void Character::debug()
 {
 	cout << "position x=" << this->getPosition().x << " y=" << this->getPosition().y << endl;
-	cout << "m_half_size x= " << m_half_size.x << " y=" << m_half_size.y << endl;
 	cout << "speed x=" << m_speed.x << " y=" << m_speed.y << endl;
+	cout << "m_half_size x= " << m_half_size.x << " y=" << m_half_size.y << endl;
 	cout << "current_state (Stand, Walk, Jump, GrabEdge)=" << m_current_state << endl;
 	cout << "inputs ";
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
