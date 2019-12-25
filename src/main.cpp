@@ -69,6 +69,9 @@ int main(int argc, char** argv)
 						case sf::Keyboard::Z:
 							inputs[(int)SizeUp]=true;
 							break;
+
+						default:
+							break;
 					}
 					break;
 
@@ -103,7 +106,13 @@ int main(int argc, char** argv)
 							inputs[(int)SizeUp]=false;
 							break;
 
+						default:
+							break;
+
 					}
+					break;
+
+				default:
 					break;
 			}
 		}

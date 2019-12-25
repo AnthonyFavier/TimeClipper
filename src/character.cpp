@@ -147,6 +147,9 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			//if(!keyState(GoJump))
 			//	m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
 			break;
+
+		default:
+			break;
 	}
 
 	this->updatePhysics(elapsed);

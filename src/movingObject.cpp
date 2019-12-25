@@ -135,12 +135,12 @@ bool MovingObject::hasGround(float* ground_y)
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_bottom_left = sf::Vector2f(std::floor(old_center.x - m_hitbox.getHalfSize().x),
 							    std::ceil(old_center.y + m_hitbox.getHalfSize().y + 1));
-		sf::Vector2f old_bottom_right = sf::Vector2f(std::ceil(old_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(old_bottom_left.y));
+		//sf::Vector2f old_bottom_right = sf::Vector2f(std::ceil(old_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(old_bottom_left.y));
 
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f new_bottom_left = sf::Vector2f(std::floor(center.x - m_hitbox.getHalfSize().x),
 							    std::ceil(center.y + m_hitbox.getHalfSize().y + 1));
-		sf::Vector2f new_bottom_right = sf::Vector2f(std::ceil(new_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(new_bottom_left.y));
+		//sf::Vector2f new_bottom_right = sf::Vector2f(std::ceil(new_bottom_left.x + 2*m_hitbox.getHalfSize().x - 1), std::ceil(new_bottom_left.y));
 
 		int end_y=::map.getMapTileYAtPoint(new_bottom_left.y);
 		int beg_y=std::min(::map.getMapTileYAtPoint(old_bottom_left.y),end_y);
@@ -220,18 +220,15 @@ bool MovingObject::hasCeiling(float* ceiling_y)
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_top_left = sf::Vector2f(std::floor(old_center.x - m_hitbox.getHalfSize().x),
 							 std::floor(old_center.y - m_hitbox.getHalfSize().y - 1));
-		sf::Vector2f old_top_right = sf::Vector2f(std::ceil(old_top_left.x + 2*m_hitbox.getHalfSize().x - 1), std::floor(old_top_left.y));
 
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f new_top_left = sf::Vector2f(std::floor(center.x - m_hitbox.getHalfSize().x + 1),
 							 std::floor(center.y - m_hitbox.getHalfSize().y - 1));
-		sf::Vector2f new_top_right = sf::Vector2f(std::ceil(new_top_left.x + 2*m_hitbox.getHalfSize().x - 2), std::floor(new_top_left.y));
 
 		int end_y=::map.getMapTileYAtPoint(new_top_left.y);
 		int beg_y=std::max(::map.getMapTileYAtPoint(old_top_left.y),end_y);
 		int dist = std::max(abs(end_y-beg_y),1);
 
-		int tile_index_x;
 		sf::Vector2f top_left;
 		sf::Vector2f top_right;
 
@@ -289,18 +286,15 @@ bool MovingObject::hasRightWall(float* right_wall_x)
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_right_top = sf::Vector2f(std::ceil(old_center.x + m_hitbox.getHalfSize().x + 1),
 							  std::floor(old_center.y - m_hitbox.getHalfSize().y));
-		sf::Vector2f old_right_bottom = sf::Vector2f(std::ceil(old_right_top.x), std::ceil(old_right_top.y + 2*m_hitbox.getHalfSize().y-1));
 
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f new_right_top = sf::Vector2f(std::ceil(center.x + m_hitbox.getHalfSize().x + 1),
 							  std::floor(center.y - m_hitbox.getHalfSize().y));
-		sf::Vector2f new_right_bottom = sf::Vector2f(std::ceil(new_right_top.x), std::ceil(new_right_top.y + 2*m_hitbox.getHalfSize().y-1));
 
 		int end_x=::map.getMapTileXAtPoint(new_right_top.x);
 		int beg_x=std::min(::map.getMapTileXAtPoint(old_right_top.x),end_x);
 		int dist = std::max(abs(end_x-beg_x),1);
 
-		int tile_index_y;
 		sf::Vector2f right_top;
 		sf::Vector2f right_bottom;
 
@@ -358,18 +352,15 @@ bool MovingObject::hasLeftWall(float* left_wall_x)
 		sf::Vector2f old_center=m_old_position + m_hitbox_offset;
 		sf::Vector2f old_left_top = sf::Vector2f(std::floor(old_center.x - m_hitbox.getHalfSize().x - 1),
 							 std::floor(old_center.y - m_hitbox.getHalfSize().y));
-		sf::Vector2f old_left_bottom = sf::Vector2f(std::floor(old_left_top.x), std::ceil(old_left_top.y + 2*m_hitbox.getHalfSize().y-1));
 
 		sf::Vector2f center=this->getPosition() + m_hitbox_offset;
 		sf::Vector2f new_left_top = sf::Vector2f(std::floor(center.x - m_hitbox.getHalfSize().x - 1),
 							 std::floor(center.y - m_hitbox.getHalfSize().y));
-		sf::Vector2f new_left_bottom = sf::Vector2f(std::floor(new_left_top.x), std::ceil(new_left_top.y + 2*m_hitbox.getHalfSize().y-1));
 
 		int end_x=::map.getMapTileXAtPoint(new_left_top.x);
 		int beg_x=std::max(::map.getMapTileXAtPoint(old_left_top.x),end_x);
 		int dist = std::max(abs(end_x-beg_x),1);
 
-		int tile_index_y;
 		sf::Vector2f left_top;
 		sf::Vector2f left_bottom;
 

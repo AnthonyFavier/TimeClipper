@@ -39,18 +39,18 @@ Map::Map()
 
 Map::~Map()
 {
-	for(int i=0; i<m_tiles.size(); i++)
+	for(unsigned int i=0; i<m_tiles.size(); i++)
 	{
-		for(int j=0; j<m_tiles[0].size(); j++)
+		for(unsigned int j=0; j<m_tiles[0].size(); j++)
 			delete m_tiles[i][j];
 	}
 }
 
 void Map::draw(sf::RenderWindow* window)
 {
-	for(int i=0; i<m_tiles.size(); i++)
+	for(unsigned int i=0; i<m_tiles.size(); i++)
 	{
-		for(int j=0; j<m_tiles[i].size(); j++)
+		for(unsigned int j=0; j<m_tiles[i].size(); j++)
 		{
 			m_tiles[i][j]->setOffsetMap(m_position);
 			window->draw(*m_tiles[i][j]);
