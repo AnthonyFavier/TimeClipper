@@ -7,6 +7,7 @@ all:
 	make game_c
 	make game_l 
 	make clean
+	make success
 
 game_c:	$(SRCS)
 	$(CC) -c $(WARN) $(SRCS) $(SFMLFLAGS)
@@ -16,3 +17,6 @@ game_l: *.o
 
 clean:
 	rm -f *.o
+
+success:
+	echo "\n[ Make successful! ]\n"
