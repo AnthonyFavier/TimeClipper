@@ -1,0 +1,6 @@
+droit a quelques time clip par niveaux,
+time clip : 
+	- retourne à un point précédent ? fixe, depend position ? Version antérieur du niveau
+	- copie du personnage (version du passé) réalise dernières actions effectuées par joueur jusqu'au time clip
+	- peut bouger librement (contrainte, time paradox, si croise version du passé ?) pendant que la copie du passé execute actions, active mecanisme, tue ennemis
+
