@@ -4,6 +4,7 @@ Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject
 {
 	m_current_state=Stand;
 	m_jump_speed=CHAR_JUMP_SPEED;
+	m_jump_count=0;
 	m_walk_speed=CHAR_WALK_SPEED;
 
 	m_texture.loadFromFile("rsc/newboi.png");
@@ -35,16 +36,17 @@ bool Character::pressed(KeyInputChar key)
 void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 {
 	this->updateInputs(inputs);
+
+	/*if(pressed(SizeUp))
+		this->sizeUp();
+	if(pressed(SizeDown))
+		this->sizeDown();*/
+
 	switch(m_current_state)
 	{
 		case Stand:
 			m_speed=sf::Vector2f(0,0);
 
-			/*if(pressed(SizeUp))
-				this->sizeUp();
-			if(pressed(SizeDown))
-				this->sizeDown();*/
-			
 			if(!m_on_ground)
 				m_current_state=Jump;
 			else if(pressed(GoJump))
@@ -64,11 +66,6 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Walk:
-			/*if(pressed(SizeUp))
-				this->sizeUp();
-			if(pressed(SizeDown))
-				this->sizeDown();*/
-
 			if(keyState(GoRight) == keyState(GoLeft))
 			{
 				m_current_state=Stand;
@@ -76,7 +73,6 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			else if(keyState(GoRight))
 			{
-
 				this->flipSpriteRight();
 				if(m_pushes_right_wall)
 					m_speed.x=0;
@@ -109,15 +105,15 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			break;
 		
 		case Jump:
-			/*if(pressed(SizeUp))
-				this->sizeUp();
-			if(pressed(SizeDown))
-				this->sizeDown();*/
-
 			if(m_on_ground)
 			{
 				m_speed.y=0;
-				m_current_state=Stand;
+				m_jump_count=0;
+				if(keyState(GoRight) == keyState(GoLeft))
+					m_current_state=Stand;
+				else
+					m_current_state=Walk;
+				break;
 			}
 			else
 			{
@@ -143,9 +139,19 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 				else
 					m_speed.x=-m_walk_speed;
 			}
-		
-			//if(!keyState(GoJump))
-			//	m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
+			
+			if(!keyState(GoJump))
+			{
+				m_jump_count=15;
+			}
+
+			else
+			{
+				//m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
+				if(m_jump_count<14)
+					m_speed.y=m_jump_speed;
+				m_jump_count++;
+			}
 			break;
 
 		default:
@@ -215,6 +221,7 @@ void Character::debug()
 	cout << "m_on_ground=" << m_on_ground << endl;
 	cout << "m_on_drop_tile=" << m_on_drop_tile << endl;
 	cout << "m_at_ceiling=" << m_at_ceiling << endl;
+	cout << "m_jump_count=" << m_jump_count << endl;
 
 	cout << endl;
 }

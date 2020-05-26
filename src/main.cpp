@@ -120,7 +120,7 @@ int main(int argc, char** argv)
 		// update it
 		sf::Time elapsed = clock.restart();
 		character.update(elapsed, inputs);
-		//character.debug();
+		character.debug();
 
 		// draw it
 		window.clear();
