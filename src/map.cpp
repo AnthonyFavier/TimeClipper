@@ -1,4 +1,5 @@
 #include "../include/map.hpp"
+#include "../include/movingObject.hpp"
 #include "../include/quadtree.hpp"
 
 Map::Map()
@@ -32,8 +33,6 @@ Map::Map()
 	m_tiles[7][1]=new BlockTile(sf::Vector2i(7,1));
 	m_tiles[5][5]=new DropTile(sf::Vector2i(5,5));
 	m_tiles[6][6]=new BlockTile(sf::Vector2i(6,6));
-
-	m_quadtree = new Quadtree(this);
 }
 
 Map::~Map()
@@ -59,7 +58,17 @@ void Map::draw(sf::RenderWindow* window)
 
 void Map::drawQuadtree(sf::RenderWindow* window)
 {
-	m_quadtree->draw(window);
+	m_quadtree.draw(window);
+}
+
+void Map::quadtreeDebug()
+{
+	m_quadtree.debug();
+}
+
+void Map::quadtreeUpdateArea(MovingObject* obj)
+{
+	m_quadtree.updateArea(obj);
 }
 
 int Map::getHeight()

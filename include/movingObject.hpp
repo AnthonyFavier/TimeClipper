@@ -4,14 +4,18 @@
 #include <SFML/Graphics.hpp>
 #include "constants.hpp"
 #include "hitbox.hpp"
-#include "map.hpp"
+#include <vector>
+
+using namespace std;
+
+class Map;
 
 sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t);
 
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
 public:
-	MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color);
+	MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name);
 
 	void updatePhysics(sf::Time elapsed);
 
@@ -33,6 +37,8 @@ public:
 	Hitbox m_hitbox;
 	vector<sf::Vector2i> m_areas;
 	vector<int> m_ids_in_areas;
+
+	string getName();
 
 protected:
 	sf::Vector2f m_old_position;
@@ -60,6 +66,8 @@ protected:
 
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+
+	string m_name;
 
 
 private:

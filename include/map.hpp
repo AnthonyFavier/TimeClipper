@@ -8,8 +8,9 @@
 #include "tile/blockTile.hpp"
 #include "tile/emptyTile.hpp"
 #include "tile/dropTile.hpp"
+#include "quadtree.hpp"
 
-class Quadtree;
+class MovingObject;
 
 class Map
 {
@@ -18,6 +19,9 @@ public:
 	~Map();
 	void draw(sf::RenderWindow* window);
 	void drawQuadtree(sf::RenderWindow* window);
+
+	void quadtreeDebug();
+	void quadtreeUpdateArea(MovingObject* obj);
 
 	int getWidth();
 	int getHeight();
@@ -46,7 +50,7 @@ public:
 private:
 	std::vector<std::vector<Tile*> > m_tiles; 
 	sf::Vector2f m_position;
-	Quadtree* m_quadtree;
+	Quadtree m_quadtree;
 };
 
 #endif

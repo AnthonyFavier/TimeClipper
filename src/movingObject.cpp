@@ -1,4 +1,5 @@
 #include "../include/movingObject.hpp"
+#include "../include/map.hpp"
 #include <iostream>
 
 using namespace std;
@@ -14,9 +15,11 @@ sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t)
 
 /////////////////////////////
 
-MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color) : m_hitbox(center, half_size)
+MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name) : m_hitbox(center, half_size)
 {
 	m_half_size=half_size;
+
+	m_name=name;
 
 	this->setPosition(center);
 
@@ -43,6 +46,11 @@ void MovingObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= getTransform();
 	states.texture = &m_texture;
 	target.draw(m_sprite, states);
+}
+
+string MovingObject::getName()
+{
+	return m_name;
 }
 
 void MovingObject::flipSpriteRight()

@@ -1,6 +1,6 @@
 #include "../include/character.hpp"
 
-Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,0))
+Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,0), "bob")
 {
 	m_current_state=Stand;
 	m_jump_speed=CHAR_JUMP_SPEED;
@@ -222,6 +222,4 @@ void Character::debug()
 	cout << "m_on_drop_tile=" << m_on_drop_tile << endl;
 	cout << "m_at_ceiling=" << m_at_ceiling << endl;
 	cout << "m_jump_count=" << m_jump_count << endl;
-
-	cout << endl;
 }

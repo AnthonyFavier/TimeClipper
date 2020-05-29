@@ -121,7 +121,12 @@ int main(int argc, char** argv)
 		// update it
 		sf::Time elapsed = clock.restart();
 		character.update(elapsed, inputs);
-		character.debug();
+		::map.quadtreeUpdateArea(&character);
+
+		//debug
+		::map.quadtreeDebug();
+		//character.debug();
+		cout << endl;
 
 		// draw it
 		window.clear();
