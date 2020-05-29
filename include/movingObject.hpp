@@ -30,6 +30,10 @@ public:
 	bool hasLeftWall(float* left_wall_x);
 	bool checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom, float* left_wall_x);
 
+	Hitbox m_hitbox;
+	vector<sf::Vector2i> m_areas;
+	vector<int> m_ids_in_areas;
+
 protected:
 	sf::Vector2f m_old_position;
 	sf::Vector2f m_speed;
@@ -37,7 +41,6 @@ protected:
 
 	sf::Vector2f m_half_size;
 
-	Hitbox m_hitbox;
 	sf::Vector2f m_hitbox_offset;
 
 	bool m_pushes_right_wall;
@@ -57,6 +60,7 @@ protected:
 
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
