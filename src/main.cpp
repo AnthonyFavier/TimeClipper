@@ -104,40 +104,42 @@ int main(int argc, char** argv)
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
 	window.setFramerateLimit(FPS);
 
-	//Character(center, halfsize)
+	//Character(center, halfsize) //
 	Character character(sf::Vector2f(100, 60), sf::Vector2f(14, 25));
 
-	// MovingObject
-//	MovingObject object(sf::Vector2f(300,150), sf::Vector2f(17,17),sf::Color(255,60,0),"truc");
+	// MovingObject //
+	MovingObject object(sf::Vector2f(300,150), sf::Vector2f(25,25),sf::Color(255,60,0),"truc");
 
 	bool inputs[NB_KEY_CHARACTER];
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 		inputs[i]=false;
 
-	// create a clock to track the elapsed time
+	// create a clock to track the elapsed time //
 	sf::Clock clock;
 
-	// run the main loop
+	// run the main loop //
 	while(window.isOpen())
 	{
-		// handle events
+		// handle events //
 		handleEvents(&window, inputs);
 
-		// update it
+		// update it //
 		sf::Time elapsed = clock.restart();
 		character.update(elapsed, inputs);
+		object.updatePhysics(elapsed);
 		::map.quadtreeUpdateArea(&character);
 
-		//debug
+		//debug //
 		::map.quadtreeDebug();
 		//character.debug();
 		cout << endl;
 
-		// draw it
+		// draw it //
 		window.clear();
 
 		::map.draw(&window);
 		::map.drawQuadtree(&window);
+		window.draw(object);
 		window.draw(character);
 
 		window.display();

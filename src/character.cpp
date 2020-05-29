@@ -1,6 +1,6 @@
 #include "../include/character.hpp"
 
-Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,0), "bob")
+Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,255), "bob")
 {
 	m_current_state=Stand;
 	m_jump_speed=CHAR_JUMP_SPEED;
@@ -9,7 +9,6 @@ Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject
 
 	m_texture.loadFromFile("rsc/newboi.png");
 	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(-m_half_size);
 
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 	{

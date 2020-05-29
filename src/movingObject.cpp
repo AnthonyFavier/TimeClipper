@@ -18,6 +18,23 @@ sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t)
 MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name) : m_hitbox(center, half_size)
 {
 	m_half_size=half_size;
+	int W=m_half_size.x*2;
+	int H=m_half_size.y*2;
+
+	sf::Uint8* pixels = new sf::Uint8[H*W*4];
+	for(int i=0; i<H*W*4; i+=4)
+	{
+		pixels[i]=sf::Uint8(255);
+		pixels[i+1]=sf::Uint8(255);
+		pixels[i+2]=sf::Uint8(255);
+		pixels[i+3]=sf::Uint8(255);
+	}
+
+	m_texture.create(W, H);
+	m_texture.update(pixels);
+	m_sprite.setTexture(m_texture);
+	m_sprite.setColor(color);
+	m_sprite.setPosition(-m_half_size);
 
 	m_name=name;
 
