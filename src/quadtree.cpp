@@ -65,7 +65,7 @@ void Quadtree::updateArea(MovingObject* obj)
 		overlappingAreas.push_back(top_left);
 		overlappingAreas.push_back(top_right);
 		overlappingAreas.push_back(bottom_left);
-		overlappingAreas.push_back(bottom_left);
+		overlappingAreas.push_back(bottom_right);
 	}
 
 	cout << "overlappingAreas : ";
@@ -83,11 +83,7 @@ void Quadtree::updateArea(MovingObject* obj)
 		}
 	}
 
-
-
 	vector<sf::Vector2i>::iterator it;
-
-	cout << "areas.size()=" << obj->m_areas.size() << endl;
 
 	// loop through previous areas
 	for(unsigned int i=0; i<obj->m_areas.size(); i++)
@@ -134,9 +130,8 @@ void Quadtree::removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, 
 	cout << "size=" << m_object_in_area[areaIndex.x][areaIndex.y].size() << endl;;
 
 	// swap last item with the one we are removing
-	cout << "begin swap" << endl;
 	MovingObject* tmp = m_object_in_area[areaIndex.x][areaIndex.y].back();
-	m_object_in_area[areaIndex.x][areaIndex.y][m_object_in_area[areaIndex.x][areaIndex.y].size()-1] = obj;
+	*m_object_in_area[areaIndex.x][areaIndex.y].end() = obj;
 	m_object_in_area[areaIndex.x][areaIndex.y][objIndexInArea] = tmp;
 	cout << "swap done" << endl;
 
