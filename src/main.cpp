@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+// project global var
+// used in MovingObject
 Map map;
 
 // Check sensors size
