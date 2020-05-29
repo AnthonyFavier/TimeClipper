@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "../include/constants.hpp"
 #include "../include/character.hpp"
+#include "../include/physicalObject.hpp"
 #include "../include/map.hpp"
 
 #include <iostream>
@@ -107,8 +108,8 @@ int main(int argc, char** argv)
 	//Character(center, halfsize) //
 	Character character(sf::Vector2f(100, 60), sf::Vector2f(14, 25));
 
-	// MovingObject //
-	MovingObject object(sf::Vector2f(300,150), sf::Vector2f(25,25),sf::Color(255,60,0),"truc");
+	// PhysicalObject //
+	PhysicalObject object(sf::Vector2f(300,7), sf::Vector2f(18,20));
 
 	bool inputs[NB_KEY_CHARACTER];
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
@@ -125,9 +126,14 @@ int main(int argc, char** argv)
 
 		// update it //
 		sf::Time elapsed = clock.restart();
+
+		// Faire custom update puis systematiquement physics ?
+		// au lieu de updatePhysic dans le custom
 		character.update(elapsed, inputs);
-		object.updatePhysics(elapsed);
+		object.update(elapsed);
+
 		::map.quadtreeUpdateArea(&character);
+		::map.quadtreeUpdateArea(&object);
 
 		//debug //
 		::map.quadtreeDebug();

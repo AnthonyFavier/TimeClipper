@@ -143,7 +143,6 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			{
 				m_jump_count=15;
 			}
-
 			else
 			{
 				//m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
