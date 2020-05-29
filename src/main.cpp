@@ -108,7 +108,6 @@ int main(int argc, char** argv)
 
 						default:
 							break;
-
 					}
 					break;
 
@@ -124,8 +123,11 @@ int main(int argc, char** argv)
 
 		// draw it
 		window.clear();
+
 		::map.draw(&window);
+		::map.drawQuadtree(&window);
 		window.draw(character);
+
 		window.display();
 	}
 

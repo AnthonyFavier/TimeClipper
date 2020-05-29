@@ -9,12 +9,15 @@
 #include "tile/emptyTile.hpp"
 #include "tile/dropTile.hpp"
 
+class Quadtree;
+
 class Map
 {
 public:
 	Map();
 	~Map();
 	void draw(sf::RenderWindow* window);
+	void drawQuadtree(sf::RenderWindow* window);
 
 	int getWidth();
 	int getHeight();
@@ -43,6 +46,7 @@ public:
 private:
 	std::vector<std::vector<Tile*> > m_tiles; 
 	sf::Vector2f m_position;
+	Quadtree* m_quadtree;
 };
 
 #endif

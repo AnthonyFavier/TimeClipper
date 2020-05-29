@@ -1,4 +1,5 @@
 #include "../include/quadtree.hpp"
+#include "../include/map.hpp"
 
 Quadtree::Quadtree(Map* map)
 {
@@ -28,7 +29,7 @@ void Quadtree::updateArea(MovingObject* obj)
 	// sinon test sup pour l'ignorer
 	// on suppose que obj plus petit qu'une cell
 	// sinon faut faire loop et ajouter toutes ares inter
-	
+
 	vector<sf::Vector2i> overlappingAreas;
 
 	if(top_left.x == top_right.x && top_left.y == bottom_left.y)
@@ -115,4 +116,21 @@ void Quadtree::removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, 
 
 	// remove last item
 	area.pop_back();
+}
+
+void Quadtree::draw(sf::RenderWindow* window)
+{
+	sf::RectangleShape line(sf::Vector2f(WINDOW_WIDTH, 2));
+
+	for(int i=0; i<hCountGrid-1; i++)
+	{
+		line.setPosition(0,cellHeight*(i+1));	
+		window->draw(line);
+	}
+	line.rotate(90);
+	for(int i=0; i<vCountGrid-1; i++)
+	{
+		line.setPosition(cellWidth*(i+1),0);	
+		window->draw(line);
+	}
 }

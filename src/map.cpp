@@ -1,7 +1,5 @@
 #include "../include/map.hpp"
-
-#include <iostream>
-using namespace std;
+#include "../include/quadtree.hpp"
 
 Map::Map()
 {
@@ -22,7 +20,6 @@ Map::Map()
 		tiles.clear();
 	}
 
-
 	m_tiles[2][2]=new DropTile(sf::Vector2i(2,2));
 	m_tiles[3][2]=new DropTile(sf::Vector2i(3,2));
 	m_tiles[0][5]=new BlockTile(sf::Vector2i(0,5));
@@ -35,6 +32,8 @@ Map::Map()
 	m_tiles[7][1]=new BlockTile(sf::Vector2i(7,1));
 	m_tiles[5][5]=new DropTile(sf::Vector2i(5,5));
 	m_tiles[6][6]=new BlockTile(sf::Vector2i(6,6));
+
+	m_quadtree = new Quadtree(this);
 }
 
 Map::~Map()
@@ -56,6 +55,11 @@ void Map::draw(sf::RenderWindow* window)
 			window->draw(*m_tiles[i][j]);
 		}
 	}
+}
+
+void Map::drawQuadtree(sf::RenderWindow* window)
+{
+	m_quadtree->draw(window);
 }
 
 int Map::getHeight()

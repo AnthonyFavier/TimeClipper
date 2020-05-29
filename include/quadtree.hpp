@@ -1,15 +1,14 @@
 #ifndef DEF_QUADTREE
 #define DEF_QUADTREE
 
+#include <SFML/Graphics.hpp>
 #include "movingObject.hpp"
-#include "map.hpp"
 #include "constants.hpp"
 #include <math.h>
 #include <algorithm>
 
+class Map;
 
-//const int cellWidth=TILE_SIZE_PIXEL;
-//const int cellHeight=TILE_SIZE_PIXEL;
 const int cellWidth=WINDOW_WIDTH/3;
 const int cellHeight=WINDOW_HEIGHT/3;
 const int hCountGrid=(int)ceil(WINDOW_WIDTH/cellWidth);
@@ -25,6 +24,7 @@ public:
 	void updateArea(MovingObject* obj);
 	void addObjectToArea(sf::Vector2i areaIndex, MovingObject* obj);
 	void removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, MovingObject* obj);
+	void draw(sf::RenderWindow* window);
 };
 
 #endif
