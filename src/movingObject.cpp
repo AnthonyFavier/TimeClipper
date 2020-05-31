@@ -13,6 +13,18 @@ sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t)
 	return A + I*t;
 }
 
+CollisionData::CollisionData(MovingObject* other, sf::Vector2f overlaps, sf::Vector2f speed1, sf::Vector2f speed2, sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f old_pos1, sf::Vector2f old_pos2)
+{
+	m_other=other;
+	m_overlaps=overlaps;
+	m_speed1=speed1;
+	m_speed2=speed2;
+	m_pos1=pos1;
+	m_pos2=pos2;
+	m_old_pos1=old_pos1;
+	m_old_pos2=m_old_pos2;
+}
+
 /////////////////////////////
 
 MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name) : m_hitbox(center, half_size)
@@ -415,4 +427,36 @@ bool MovingObject::checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom
 	return false;
 }
 
+sf::Vector2f MovingObject::getSpeed()
+{
+	return m_speed;
+}
 
+sf::Vector2f MovingObject::getOldPos()
+{
+	return m_old_position;
+}
+
+bool MovingObject::hasCollisionDataFor(MovingObject* other)
+{
+	for(unsigned int i=0; i<m_all_colliding_objects.size(); i++)
+	{
+		if(m_all_colliding_objects[i].m_other == other)
+			return true;
+	}
+
+	return false;
+}
+
+void MovingObject::clearCollision()
+{
+	m_all_colliding_objects.clear();
+	this->setAlpha(255);
+}
+
+void MovingObject::setAlpha(int a)
+{
+	sf::Color color=m_sprite.getColor();
+	color.a=a;
+	m_sprite.setColor(color);
+}

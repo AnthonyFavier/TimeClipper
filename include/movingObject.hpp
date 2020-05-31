@@ -10,6 +10,8 @@ using namespace std;
 
 class Map;
 
+class CollisionData;
+
 sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t);
 
 class MovingObject: public sf::Drawable, public sf::Transformable
@@ -34,11 +36,22 @@ public:
 	bool hasLeftWall(float* left_wall_x);
 	bool checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom, float* left_wall_x);
 
+	bool hasCollisionDataFor(MovingObject* other);
+
 	Hitbox m_hitbox;
 	vector<sf::Vector2i> m_areas;
 	vector<int> m_ids_in_areas;
 
 	string getName();
+
+	void clearCollision();
+	void setAlpha(int a);
+	virtual void update(sf::Time elapsed)=0;
+
+	vector<CollisionData> m_all_colliding_objects;
+
+	sf::Vector2f getSpeed();
+	sf::Vector2f getOldPos();
 
 protected:
 	sf::Vector2f m_old_position;
@@ -73,5 +86,16 @@ protected:
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
+class CollisionData
+{
+public:
+	CollisionData(MovingObject* other, sf::Vector2f overlaps, sf::Vector2f speed1, sf::Vector2f speed2, sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f old_pos1, sf::Vector2f old_pos2);
+	MovingObject* m_other;
+	sf::Vector2f m_overlaps;
+	sf::Vector2f m_speed1, m_speed2;
+	sf::Vector2f m_pos1, m_pos2, m_old_pos1, m_old_pos2;
+};
+
 
 #endif

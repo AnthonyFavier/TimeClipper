@@ -205,3 +205,37 @@ bool Map::canDropDownThroughTile(sf::Vector2i tile_coord)
 {
 	return this->canDropDownThroughTile(tile_coord.x, tile_coord.y);
 }
+
+void Map::checkCollisions()
+{
+	sf::Vector2f overlap;
+	for(int x=0; x<hCountGrid; x++)
+	{
+		for(int y=0; y<vCountGrid; y++)
+		{
+			for(unsigned int i=0; i<m_quadtree.m_object_in_area[x][y].size(); i++)
+			{
+				for(unsigned int j=i+1; j<m_quadtree.m_object_in_area[x][y].size(); j++)
+				{
+					MovingObject* obj1 = m_quadtree.m_object_in_area[x][y][i];
+					MovingObject* obj2 = m_quadtree.m_object_in_area[x][y][j];
+					
+
+					cout << "=>test collision" << endl;
+					if(obj1->m_hitbox.overlaps(obj2->m_hitbox, &overlap) && !obj1->hasCollisionDataFor(obj2))
+					{
+						CollisionData data(obj2, overlap, obj1->getSpeed(), obj2->getSpeed(), 
+								obj1->getPosition(), obj2->getPosition(), obj1->getOldPos(), obj2->getOldPos());
+						obj1->m_all_colliding_objects.push_back(data);
+						obj1->setAlpha(150);
+
+						data = CollisionData(obj1, -overlap, obj2->getSpeed(), obj1->getSpeed(), 
+								obj2->getPosition(), obj1->getPosition(), obj2->getOldPos(), obj1->getOldPos());
+						obj2->m_all_colliding_objects.push_back(data);
+						obj2->setAlpha(150);
+					}
+				}
+			}
+		}
+	}
+}

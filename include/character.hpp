@@ -19,7 +19,8 @@ public:
 	
 	enum CharacterState{Stand, Walk, Jump, GrabEdge};
 	
-	void update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER]);
+	void updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER]);
+	void update(sf::Time elapsed);
 	void updateInputs(bool inputs[NB_KEY_CHARACTER]);
 	void updateOldInputs();
 

@@ -6,11 +6,11 @@
 class PhysicalObject : public MovingObject
 {
 public:
-	PhysicalObject(sf::Vector2f center, sf::Vector2f half_size);
+	PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name);
 
 	enum ObjectState{Stand, Move, Fall};
 
-	void update(sf::Time elapse);
+	void update(sf::Time elapsed);
 
 private:
 	ObjectState m_current_state;

@@ -14,8 +14,6 @@ const int vCountGrid=(int)ceil(WINDOW_HEIGHT/cellHeight);
 
 class Quadtree
 {
-private:
-	vector<MovingObject*> m_object_in_area[hCountGrid][vCountGrid];
 public:
 	Quadtree();
 	void updateArea(MovingObject* obj);
@@ -23,6 +21,8 @@ public:
 	void removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, MovingObject* obj);
 	void draw(sf::RenderWindow* window);
 	void debug();
+
+	vector<MovingObject*> m_object_in_area[hCountGrid][vCountGrid];
 };
 
 #endif

@@ -47,6 +47,8 @@ public:
 	bool canDropDownThroughTile(int x, int y);
 	bool canDropDownThroughTile(sf::Vector2i tile_coord);
 
+	void checkCollisions();
+
 private:
 	std::vector<std::vector<Tile*> > m_tiles; 
 	sf::Vector2f m_position;

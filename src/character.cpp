@@ -32,7 +32,7 @@ bool Character::pressed(KeyInputChar key)
 	return (m_inputs[(int)key] && !m_old_inputs[(int)key]);
 }
 
-void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
+void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 {
 	this->updateInputs(inputs);
 
@@ -158,6 +158,10 @@ void Character::update(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 
 	this->updatePhysics(elapsed);
 	this->updateOldInputs();
+}
+
+void Character::update(sf::Time elapsed)
+{
 }
 
 void Character::updateInputs(bool inputs[NB_KEY_CHARACTER])

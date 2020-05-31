@@ -100,6 +100,24 @@ void handleEvents(sf::RenderWindow* window, bool inputs[])
 
 }
 
+void fixedUpdate(sf::Time elapsed, bool inputs[], Character* character, vector<MovingObject*> objects)
+{	
+	// Faire custom update puis systematiquement physics ?
+	// au lieu de updatePhysic dans le custom
+	character->updateC(elapsed, inputs);
+	::map.quadtreeUpdateArea(character);
+	character->clearCollision();
+
+	for(unsigned int i=0; i<objects.size(); i++)
+	{
+		objects[i]->update(elapsed);
+		::map.quadtreeUpdateArea(objects[i]);
+		objects[i]->clearCollision();
+	}
+
+	::map.checkCollisions();
+}
+
 int main(int argc, char** argv)
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
@@ -109,14 +127,16 @@ int main(int argc, char** argv)
 	Character character(sf::Vector2f(100, 60), sf::Vector2f(14, 25));
 
 	// PhysicalObject //
-	PhysicalObject object(sf::Vector2f(300,7), sf::Vector2f(18,20));
+	vector<MovingObject*> objects;
+	objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(18,20), sf::Color(255,100,0), "obj1"));
+	objects.push_back(new PhysicalObject(sf::Vector2f(30,90), sf::Vector2f(20,40), sf::Color(0,160,0), "obj2"));
+
+	// create a clock to track the elapsed time //
+	sf::Clock clock;
 
 	bool inputs[NB_KEY_CHARACTER];
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 		inputs[i]=false;
-
-	// create a clock to track the elapsed time //
-	sf::Clock clock;
 
 	// run the main loop //
 	while(window.isOpen())
@@ -125,17 +145,9 @@ int main(int argc, char** argv)
 		handleEvents(&window, inputs);
 
 		// update it //
-		sf::Time elapsed = clock.restart();
+		fixedUpdate(clock.restart(), inputs, &character, objects);
 
-		// Faire custom update puis systematiquement physics ?
-		// au lieu de updatePhysic dans le custom
-		character.update(elapsed, inputs);
-		object.update(elapsed);
-
-		::map.quadtreeUpdateArea(&character);
-		::map.quadtreeUpdateArea(&object);
-
-		//debug //
+		// debug //
 		::map.quadtreeDebug();
 		//character.debug();
 		cout << endl;
@@ -145,11 +157,15 @@ int main(int argc, char** argv)
 
 		::map.draw(&window);
 		::map.drawQuadtree(&window);
-		window.draw(object);
 		window.draw(character);
+		for(unsigned int i=0; i<objects.size(); i++)
+			window.draw(*objects[i]);
 
 		window.display();
 	}
+
+	for(unsigned int i=0; i<objects.size(); i++)
+		delete objects[i];
 
 	return 0;
 }

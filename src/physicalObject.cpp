@@ -1,6 +1,6 @@
 #include "../include/physicalObject.hpp"
 
-PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,100,0), "thing1")
+PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name) : MovingObject(center, half_size, color, name)
 {
 	m_current_state=Move;
 	m_move_speed=100;
