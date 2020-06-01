@@ -148,9 +148,9 @@ int main(int argc, char** argv)
 		fixedUpdate(clock.restart(), inputs, &character, objects);
 
 		// debug //
-		::map.quadtreeDebug();
+		//::map.quadtreeDebug();
 		//character.debug();
-		cout << endl;
+		//cout << endl;
 
 		// draw it //
 		window.clear();

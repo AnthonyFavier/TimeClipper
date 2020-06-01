@@ -4,11 +4,11 @@ PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::
 {
 	m_current_state=Move;
 	m_move_speed=100;
+	dir=1;
 }
 
 void PhysicalObject::update(sf::Time elapsed)
 {
-	static int dir=1;
 	switch(m_current_state)
 	{
 		case Stand:

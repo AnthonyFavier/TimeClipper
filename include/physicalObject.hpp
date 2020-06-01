@@ -15,6 +15,7 @@ public:
 private:
 	ObjectState m_current_state;
 	float m_move_speed;
+	int dir;
 };
 
 #endif
