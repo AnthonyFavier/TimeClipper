@@ -220,8 +220,6 @@ void Map::checkCollisions()
 					MovingObject* obj1 = m_quadtree.m_object_in_area[x][y][i];
 					MovingObject* obj2 = m_quadtree.m_object_in_area[x][y][j];
 					
-
-					cout << "=>test collision" << endl;
 					if(obj1->m_hitbox.overlaps(obj2->m_hitbox, &overlap) && !obj1->hasCollisionDataFor(obj2))
 					{
 						CollisionData data(obj2, overlap, obj1->getSpeed(), obj2->getSpeed(), 

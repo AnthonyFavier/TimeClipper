@@ -9,9 +9,6 @@ Quadtree::Quadtree()
 
 void Quadtree::updateArea(MovingObject* obj)
 {
-
-	cout << "hitbox_center=" << obj->m_hitbox.m_center.x << "," << obj->m_hitbox.m_center.y << endl;
-
 	sf::Vector2f tmp = obj->m_hitbox.m_center + sf::Vector2f(-obj->m_hitbox.getHalfSize().x, obj->m_hitbox.getHalfSize().y);
 	sf::Vector2i top_left((int)tmp.x, (int)tmp.y);
 	tmp = obj->m_hitbox.m_center + obj->m_hitbox.getHalfSize();
@@ -29,12 +26,6 @@ void Quadtree::updateArea(MovingObject* obj)
 	bottom_right.x = top_right.x;
 	bottom_right.y = bottom_left.y;
 
-	cout << "tl=" << top_left.x << "," << top_left.y;
-	cout << " tr=" << top_right.x << "," << top_right.y;
-	cout << " bl=" << bottom_left.x << "," << bottom_left.y;
-	cout << " br=" << bottom_right.x << "," << bottom_right.y;
-	cout << endl;
-
 	// on suppose que l'objet n'est pas en dehors de la map
 	// sinon test sup pour l'ignorer
 	// on suppose que obj plus petit qu'une cell
@@ -43,44 +34,23 @@ void Quadtree::updateArea(MovingObject* obj)
 	vector<sf::Vector2i> overlappingAreas;
 
 	if(top_left.x == top_right.x && top_left.y == bottom_left.y)
-	{
-		cout << "case 1" << endl;
 		overlappingAreas.push_back(top_left);
-	}
 	else if(top_left.x == top_right.x)
 	{
-		cout << "case 2" << endl;
 		overlappingAreas.push_back(top_left);
 		overlappingAreas.push_back(bottom_left);
 	}
 	else if(top_left.y == bottom_left.y)
 	{
-		cout << "case 3" << endl;
 		overlappingAreas.push_back(top_left);
 		overlappingAreas.push_back(top_right);
 	}
 	else
 	{
-		cout << "case 4" << endl;
 		overlappingAreas.push_back(top_left);
 		overlappingAreas.push_back(top_right);
 		overlappingAreas.push_back(bottom_left);
 		overlappingAreas.push_back(bottom_right);
-	}
-
-	cout << "overlappingAreas : ";
-	for(unsigned int i=0; i<overlappingAreas.size(); i++)
-		cout << overlappingAreas[i].x << "," << overlappingAreas[i].y << " ";
-	cout << endl;
-
-	cout << "m_object_in_area" << endl;
-	for(int i=0; i<hCountGrid; i++)
-	{
-		for(int j=0; j<vCountGrid; j++)
-		{
-			for(unsigned int k=0; k<m_object_in_area[j][i].size(); k++)
-				cout << "(" << j << "," << i << ") " << k << "=" << m_object_in_area[j][i][k]->getName() << endl;
-		}
 	}
 
 	vector<sf::Vector2i>::iterator it;
@@ -88,20 +58,14 @@ void Quadtree::updateArea(MovingObject* obj)
 	// loop through previous areas
 	for(unsigned int i=0; i<obj->m_areas.size(); i++)
 	{
-		cout << "obj->m_areas[" << i << "]=" << obj->m_areas[i].x << "," << obj->m_areas[i].y << endl;
 		it=find(overlappingAreas.begin(), overlappingAreas.end(), obj->m_areas[i]);
 		if(it==overlappingAreas.end())
 		{
-			cout << "not found=>remove" << endl;
 			removeObjectFromArea(obj->m_areas[i], obj->m_ids_in_areas[i], obj);
-			cout << "remove() done" << endl;
 			obj->m_areas.erase(obj->m_areas.begin()+i);
 			obj->m_ids_in_areas.erase(obj->m_ids_in_areas.begin()+i);
-			cout << "erase done" << endl;
 			--i;
 		}
-		else
-			cout << "found" << endl;
 	}
 
 	// loop through new areas
@@ -125,15 +89,10 @@ void Quadtree::addObjectToArea(sf::Vector2i areaIndex, MovingObject* obj)
 
 void Quadtree::removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, MovingObject* obj)
 {
-	cout << "areaIndex=" << areaIndex.x << "," << areaIndex.y << endl;
-	cout << "objIndexInArea=" << objIndexInArea << endl;
-	cout << "size=" << m_object_in_area[areaIndex.x][areaIndex.y].size() << endl;;
-
 	// swap last item with the one we are removing
 	MovingObject* tmp = m_object_in_area[areaIndex.x][areaIndex.y].back();
 	*m_object_in_area[areaIndex.x][areaIndex.y].end() = obj;
 	m_object_in_area[areaIndex.x][areaIndex.y][objIndexInArea] = tmp;
-	cout << "swap done" << endl;
 
 	for(unsigned int i=0; i<tmp->m_areas.size(); i++)
 	{
@@ -144,10 +103,8 @@ void Quadtree::removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, 
 		}
 	}
 
-	cout << "pop"<<endl;
 	// remove last item
 	m_object_in_area[areaIndex.x][areaIndex.y].pop_back();
-	cout << "pop done" << endl;
 }
 
 void Quadtree::draw(sf::RenderWindow* window)
