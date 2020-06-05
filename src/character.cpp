@@ -92,14 +92,16 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 				if(m_on_drop_tile)
 					this->move(sf::Vector2f(0,DROP_TILE_THRESHOLD));
 			}
-
-			if(pressed(GoJump))
+			else if(pressed(GoJump))
 			{
 				m_speed.y=m_jump_speed;
 				m_current_state=Jump;
 			}
 			else if(!m_on_ground)
+			{
 				m_current_state=Jump;
+				m_jump_count=15;
+			}
 
 			break;
 		
@@ -140,9 +142,7 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			
 			if(!keyState(GoJump))
-			{
 				m_jump_count=15;
-			}
 			else
 			{
 				if(m_jump_count<14)
