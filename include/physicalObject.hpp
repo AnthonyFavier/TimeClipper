@@ -6,9 +6,9 @@
 class PhysicalObject : public MovingObject
 {
 public:
-	PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name);
+	PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool is_kinematic);
 
-	enum ObjectState{Stand, Move, Fall};
+	enum ObjectState{Stand, MoveRight, MoveLeft, Fall};
 
 	void update(sf::Time elapsed);
 

@@ -1,10 +1,17 @@
 #include "../include/physicalObject.hpp"
 
-PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name) : MovingObject(center, half_size, color, name)
+PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool isKinematic) : MovingObject(center, half_size, color, name, isKinematic)
 {
-	m_current_state=Move;
+	m_current_state=Stand;
 	m_move_speed=100;
+
 	dir=1;
+
+	if(name=="orange" || name=="raoult")
+	{
+		m_texture.loadFromFile("rsc/"+name+".png");
+		m_sprite.setTexture(m_texture);
+	}
 }
 
 void PhysicalObject::update(sf::Time elapsed)
@@ -17,10 +24,30 @@ void PhysicalObject::update(sf::Time elapsed)
 				m_current_state=Fall;
 			break;
 
-		case Move:
-			if(m_pushes_right_wall || m_pushes_left_wall)
-				dir=-dir;
+		case MoveRight:
+			dir=1;
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
+			if(m_pushes_right_wall)
+			{
+				dir=-1;
+				m_current_state=MoveLeft;
+				this->flipSpriteLeft();
+				m_speed=sf::Vector2f(dir*m_move_speed,0);
+			}
+			if(!m_on_ground)
+				m_current_state=Fall;
+			break;
+
+		case MoveLeft:
+			dir=-1;
+			m_speed=sf::Vector2f(dir*m_move_speed,0);
+			if(m_pushes_left_wall)
+			{
+				dir=1;
+				m_current_state=MoveRight;
+				this->flipSpriteRight();
+				m_speed=sf::Vector2f(dir*m_move_speed,0);
+			}
 			if(!m_on_ground)
 				m_current_state=Fall;
 			break;
@@ -29,8 +56,16 @@ void PhysicalObject::update(sf::Time elapsed)
 			if(m_on_ground)
 			{
 				m_speed.y=0;
-				dir=-dir;
-				m_current_state=Move;
+				if(dir==1)
+				{
+					m_current_state=MoveLeft;
+					this->flipSpriteLeft();
+				}
+				else
+				{
+					m_current_state=MoveRight;
+					this->flipSpriteRight();
+				}
 			}
 			else
 			{

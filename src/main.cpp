@@ -124,12 +124,12 @@ int main(int argc, char** argv)
 	window.setFramerateLimit(FPS);
 
 	//Character(center, halfsize) //
-	Character character(sf::Vector2f(100, 60), sf::Vector2f(14, 25));
+	Character character(sf::Vector2f(120, 60), sf::Vector2f(14, 25));
 
 	// PhysicalObject //
 	vector<MovingObject*> objects;
-	objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(18,20), sf::Color(255,100,0), "obj1"));
-	objects.push_back(new PhysicalObject(sf::Vector2f(30,90), sf::Vector2f(20,40), sf::Color(0,160,0), "obj2"));
+	objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(25,22), sf::Color(255,255,255), "orange", false));
+	objects.push_back(new PhysicalObject(sf::Vector2f(50,90), sf::Vector2f(45,41), sf::Color(255,255,255), "raoult", false));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;

@@ -27,26 +27,31 @@ CollisionData::CollisionData(MovingObject* other, sf::Vector2f overlaps, sf::Vec
 
 /////////////////////////////
 
-MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name) : m_hitbox(center, half_size)
+MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool is_kinematic) : m_hitbox(center, half_size)
 {
 	m_half_size=half_size;
 	int W=m_half_size.x*2;
 	int H=m_half_size.y*2;
 
-	sf::Uint8* pixels = new sf::Uint8[H*W*4];
-	for(int i=0; i<H*W*4; i+=4)
+	if(name!="orange" && name!="raoult")
 	{
-		pixels[i]=sf::Uint8(255);
-		pixels[i+1]=sf::Uint8(255);
-		pixels[i+2]=sf::Uint8(255);
-		pixels[i+3]=sf::Uint8(255);
+		sf::Uint8* pixels = new sf::Uint8[H*W*4];
+		for(int i=0; i<H*W*4; i+=4)
+		{
+			pixels[i]=sf::Uint8(255);
+			pixels[i+1]=sf::Uint8(255);
+			pixels[i+2]=sf::Uint8(255);
+			pixels[i+3]=sf::Uint8(255);
+		}
+		m_texture.create(W, H);
+		m_texture.update(pixels);
+		m_sprite.setTexture(m_texture);
 	}
 
-	m_texture.create(W, H);
-	m_texture.update(pixels);
-	m_sprite.setTexture(m_texture);
 	m_sprite.setColor(color);
 	m_sprite.setPosition(-m_half_size);
+
+	m_is_kinematic=is_kinematic;
 
 	m_name=name;
 
@@ -68,6 +73,11 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 	m_old_on_drop_tile=false;
 	m_at_ceiling=false;
 	m_old_at_ceiling=false;
+}
+
+bool MovingObject::isKinematic()
+{
+	return m_is_kinematic;
 }
 
 void MovingObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
