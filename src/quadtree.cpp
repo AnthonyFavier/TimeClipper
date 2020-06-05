@@ -28,7 +28,7 @@ void Quadtree::updateArea(MovingObject* obj)
 
 	// on suppose que l'objet n'est pas en dehors de la map
 	// sinon test sup pour l'ignorer
-	// on suppose que obj plus petit qu'une cell
+	// on suppose que obj plus petit que deux cell
 	// sinon faut faire loop et ajouter toutes ares inter
 
 	vector<sf::Vector2i> overlappingAreas;
