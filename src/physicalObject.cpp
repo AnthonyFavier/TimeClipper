@@ -26,6 +26,7 @@ void PhysicalObject::update(sf::Time elapsed)
 
 		case MoveRight:
 			dir=1;
+			this->flipSpriteRight();
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
 			if(m_pushes_right_wall)
 			{
@@ -40,6 +41,7 @@ void PhysicalObject::update(sf::Time elapsed)
 
 		case MoveLeft:
 			dir=-1;
+			this->flipSpriteLeft();
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
 			if(m_pushes_left_wall)
 			{

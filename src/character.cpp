@@ -145,7 +145,6 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			else
 			{
-				//m_speed.y=std::max(m_speed.y, (float)MIN_JUMP_SPEED);
 				if(m_jump_count<14)
 					m_speed.y=m_jump_speed;
 				m_jump_count++;
@@ -158,10 +157,6 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 
 	this->updatePhysics(elapsed);
 	this->updateOldInputs();
-}
-
-void Character::update(sf::Time elapsed)
-{
 }
 
 void Character::updateInputs(bool inputs[NB_KEY_CHARACTER])
