@@ -7,7 +7,7 @@ PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::
 
 	dir=1;
 
-	if(name=="orange" || name=="raoult")
+	if(name=="orange" || name=="raoult" || name=="big_chungus")
 	{
 		m_texture.loadFromFile("rsc/"+name+".png");
 		m_sprite.setTexture(m_texture);

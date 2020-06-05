@@ -33,7 +33,7 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 	int W=m_half_size.x*2;
 	int H=m_half_size.y*2;
 
-	if(name!="orange" && name!="raoult")
+	if(name!="orange" && name!="raoult" && name!="big_chungus")
 	{
 		sf::Uint8* pixels = new sf::Uint8[H*W*4];
 		for(int i=0; i<H*W*4; i+=4)
