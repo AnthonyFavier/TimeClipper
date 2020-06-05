@@ -118,6 +118,26 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 	
+	// TOP
+	if(m_speed.y<=0	&& this->hasCeiling(&ceiling_y))
+	{
+		this->setPosition(this->getPosition().x, ceiling_y + m_hitbox.getHalfSize().y - m_hitbox_offset.y);
+		m_speed.y=0;
+		m_at_ceiling=true;
+	}
+	else
+		m_at_ceiling=false;
+
+	// BOTTOM
+	if(m_speed.y>=0 && this->hasGround(&ground_y))
+	{
+		this->setPosition(this->getPosition().x, ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
+		m_speed.y=0;
+		m_on_ground=true;
+	}
+	else
+		m_on_ground=false;
+
 	// LEFT
 	if(m_speed.x<=0 && this->hasLeftWall(&left_wall_x))
 	{
@@ -144,25 +164,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	else
 		m_pushes_right_wall=false;
 
-	// BOTTOM
-	if(m_speed.y>=0 && this->hasGround(&ground_y))
-	{
-		this->setPosition(this->getPosition().x, ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
-		m_speed.y=0;
-		m_on_ground=true;
-	}
-	else
-		m_on_ground=false;
-	
-	// TOP
-	if(m_speed.y<=0	&& this->hasCeiling(&ceiling_y))
-	{
-		this->setPosition(this->getPosition().x, ceiling_y + m_hitbox.getHalfSize().y - m_hitbox_offset.y);
-		m_speed.y=0;
-		m_at_ceiling=true;
-	}
-	else
-		m_at_ceiling=false;
 
 	m_hitbox.m_center=this->getPosition()+m_hitbox_offset;
 }
