@@ -7,11 +7,11 @@ Map::Map()
 	m_position=sf::Vector2f(0,0);
 
 	std::vector<Tile*> tiles;
-	for(int xi=0; xi<10; xi++)
+	for(int xi=0; xi<NB_X_TILE; xi++)
 	{
-		for(int yi=0; yi<8; yi++)
+		for(int yi=0; yi<NB_Y_TILE; yi++)
 		{
-			if(yi<7)
+			if(yi<NB_Y_TILE-1)
 				tiles.push_back(new EmptyTile(sf::Vector2i(xi,yi)));
 			else
 				tiles.push_back(new BlockTile(sf::Vector2i(xi,yi)));
@@ -21,21 +21,21 @@ Map::Map()
 		tiles.clear();
 	}
 
-	m_tiles[0][5]=new BlockTile(sf::Vector2i(0,5));
-	m_tiles[1][5]=new BlockTile(sf::Vector2i(1,5));
-	m_tiles[6][1]=new BlockTile(sf::Vector2i(6,1));
-	m_tiles[7][1]=new BlockTile(sf::Vector2i(7,1));
-	m_tiles[6][6]=new BlockTile(sf::Vector2i(6,6));
-	m_tiles[9][2]=new BlockTile(sf::Vector2i(9,2));
+	m_tiles[0][7]=new BlockTile(sf::Vector2i(0,7));
+	m_tiles[1][7]=new BlockTile(sf::Vector2i(1,7));
+	m_tiles[6][3]=new BlockTile(sf::Vector2i(6,3));
+	m_tiles[7][3]=new BlockTile(sf::Vector2i(7,3));
+	m_tiles[6][8]=new BlockTile(sf::Vector2i(6,8));
+	m_tiles[9][4]=new BlockTile(sf::Vector2i(9,4));
 
-	m_tiles[2][2]=new DropTile(sf::Vector2i(2,2));
-	m_tiles[3][2]=new DropTile(sf::Vector2i(3,2));
-	m_tiles[2][5]=new DropTile(sf::Vector2i(2,5));
+	m_tiles[2][4]=new DropTile(sf::Vector2i(2,4));
 	m_tiles[3][4]=new DropTile(sf::Vector2i(3,4));
-	m_tiles[3][3]=new DropTile(sf::Vector2i(3,3));
-	m_tiles[5][1]=new DropTile(sf::Vector2i(5,1));
-	m_tiles[5][5]=new DropTile(sf::Vector2i(5,5));
-	m_tiles[8][4]=new DropTile(sf::Vector2i(8,4));
+	m_tiles[2][7]=new DropTile(sf::Vector2i(2,7));
+	m_tiles[3][6]=new DropTile(sf::Vector2i(3,6));
+	m_tiles[3][5]=new DropTile(sf::Vector2i(3,5));
+	m_tiles[5][3]=new DropTile(sf::Vector2i(5,3));
+	m_tiles[5][7]=new DropTile(sf::Vector2i(5,7));
+	m_tiles[8][6]=new DropTile(sf::Vector2i(8,6));
 }
 
 Map::~Map()

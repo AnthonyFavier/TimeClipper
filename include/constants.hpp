@@ -3,8 +3,10 @@
 
 // 30x30 tiles
 #define TILE_SIZE_PIXEL 50
-#define WINDOW_WIDTH 500
-#define WINDOW_HEIGHT 400
+#define NB_X_TILE 16
+#define NB_Y_TILE 10
+const int WINDOW_WIDTH = TILE_SIZE_PIXEL * NB_X_TILE;
+const int WINDOW_HEIGHT = TILE_SIZE_PIXEL * NB_Y_TILE;
 #define FPS 60
 #define DROP_TILE_THRESHOLD 2.f
 #define GRAVITY 3000
