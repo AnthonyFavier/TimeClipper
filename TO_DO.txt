@@ -1,4 +1,3 @@
 - animation
-- ATTENTION : choses dependent du framerate -> saut long, animation ? => rendre indépendant
 - sound
 - collision response
