@@ -501,7 +501,6 @@ void MovingObject::updatePhysicsResponse()
 			cout << "\tm_pos2=" << data->m_pos2.x << "," << data->m_pos2.y << endl;
 			cout << "\tm_old_pos1=" << data->m_old_pos1.x << "," << data->m_old_pos1.y << endl;
 			cout << "\tm_old_pos2=" << data->m_old_pos2.x << "," << data->m_old_pos2.y << endl;
-			cout << "old_pos22=" << m_all_colliding_objects[i].m_other->getOldPos().x << "," << m_all_colliding_objects[i].m_other->getOldPos().y << endl;
 
 			if(overlap.x == 0)
 			{

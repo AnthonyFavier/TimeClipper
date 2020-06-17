@@ -210,6 +210,7 @@ void Character::sizeUp()
 
 void Character::debug()
 {
+	cout << endl;
 	cout << "position x=" << this->getPosition().x << " y=" << this->getPosition().y << endl;
 	cout << "speed x=" << m_speed.x << " y=" << m_speed.y << endl;
 	cout << "m_half_size x= " << m_half_size.x << " y=" << m_half_size.y << endl;
@@ -218,11 +219,19 @@ void Character::debug()
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 		cout << i << "-" << m_inputs[i] << " ";
 	cout << endl;
-	cout << "m_pushes_right_wall=" << m_pushes_right_wall << endl;
+/*	cout << "m_pushes_right_wall=" << m_pushes_right_wall << endl;
 	cout << "m_pushes_left_wall=" << m_pushes_left_wall << endl;
 	cout << "m_on_ground=" << m_on_ground << endl;
 	cout << "m_on_drop_tile=" << m_on_drop_tile << endl;
-	cout << "m_at_ceiling=" << m_at_ceiling << endl;
+	cout << "m_at_ceiling=" << m_at_ceiling << endl;*/
+	cout << "m_pushes_right=" << m_pushes_right << endl;
+	cout << "m_pushes_left=" << m_pushes_left << endl;
+	cout << "m_pushes_top=" << m_pushes_top << endl;
+	cout << "m_pushes_bottom=" << m_pushes_bottom << endl;
+	cout << "m_pushes_right_obj=" << m_pushes_right_obj << endl;
+	cout << "m_pushes_left_obj=" << m_pushes_left_obj << endl;
+	cout << "m_pushes_top_obj=" << m_pushes_top_obj << endl;
+	cout << "m_pushes_bottom_obj=" << m_pushes_bottom_obj << endl;
 	cout << "m_jump_count=" << m_jump_count << endl;
 	cout << "Collision : ";
 	for(unsigned int i=0; i<m_all_colliding_objects.size(); i++)
