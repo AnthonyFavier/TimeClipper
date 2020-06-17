@@ -1,20 +1,19 @@
 #include "../include/character.hpp"
 
-Character::Character(sf::Vector2f center, sf::Vector2f half_size) : MovingObject(center, half_size, sf::Color(255,255,255), "bob", false)
+Character::Character(sf::Vector2f center, sf::Vector2f half_size, bool* inputs) : MovingObject(center, half_size, sf::Color(255,255,255), "bob", false)
 {
 	m_current_state=Stand;
 	m_jump_speed=CHAR_JUMP_SPEED;
 	m_jump_count=0;
 	m_walk_speed=CHAR_WALK_SPEED;
 
+	m_inputs=inputs;
+
 	m_texture.loadFromFile("rsc/newboi.png");
 	m_sprite.setTexture(m_texture);
 
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
-	{
-		m_inputs[i]=false;
 		m_old_inputs[i]=false;
-	}
 }
 
 bool Character::released(KeyInputChar key)
@@ -32,10 +31,8 @@ bool Character::pressed(KeyInputChar key)
 	return (m_inputs[(int)key] && !m_old_inputs[(int)key]);
 }
 
-void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
+void Character::update(sf::Time elapsed)
 {
-	this->updateInputs(inputs);
-
 	/*if(pressed(SizeUp))
 		this->sizeUp();
 	if(pressed(SizeDown))
@@ -162,12 +159,6 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 
 	this->updatePhysics(elapsed);
 	this->updateOldInputs();
-}
-
-void Character::updateInputs(bool inputs[NB_KEY_CHARACTER])
-{
-	for(int i=0; i<NB_KEY_CHARACTER; i++)
-		m_inputs[i]=inputs[i];
 }
 
 void Character::updateOldInputs()

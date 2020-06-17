@@ -100,13 +100,10 @@ void handleEvents(sf::RenderWindow* window, bool inputs[])
 
 }
 
-void fixedUpdate(sf::Time elapsed, bool inputs[], Character* character, vector<MovingObject*> objects)
+void fixedUpdate(sf::Time elapsed, vector<MovingObject*> objects)
 {	
 	// Faire custom update puis systematiquement physics ?
 	// au lieu de updatePhysic dans le custom
-	character->updateC(elapsed, inputs);
-	::map.quadtreeUpdateArea(character);
-	character->clearCollision();
 
 	for(unsigned int i=0; i<objects.size(); i++)
 	{
@@ -117,7 +114,6 @@ void fixedUpdate(sf::Time elapsed, bool inputs[], Character* character, vector<M
 
 	::map.checkCollisions();
 
-	character->updatePhysicsP2();
 	for(unsigned int i=0; i<objects.size(); i++)
 		objects[i]->updatePhysicsP2();
 }
@@ -127,21 +123,22 @@ int main(int argc, char** argv)
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
 	window.setFramerateLimit(FPS);
 
+	bool inputs[NB_KEY_CHARACTER];
+	for(int i=0; i<NB_KEY_CHARACTER; i++)
+		inputs[i]=false;
+
+	vector<MovingObject*> objects;
+
 	//Character(center, halfsize) //
-	Character character(sf::Vector2f(120, 60), sf::Vector2f(14, 25));
+	objects.push_back(new Character(sf::Vector2f(120, 60), sf::Vector2f(14, 25), inputs));
 
 	// PhysicalObject //
-	vector<MovingObject*> objects;
 	//objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(25,22), sf::Color(255,255,255), "orange", false));
 	//objects.push_back(new PhysicalObject(sf::Vector2f(50,90), sf::Vector2f(45,41), sf::Color(255,255,255), "raoult", false));
 	objects.push_back(new PhysicalObject(sf::Vector2f(410,200), sf::Vector2f(25,49), sf::Color(255,255,255), "big_chungus", false));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;
-
-	bool inputs[NB_KEY_CHARACTER];
-	for(int i=0; i<NB_KEY_CHARACTER; i++)
-		inputs[i]=false;
 
 	// run the main loop //
 	while(window.isOpen())
@@ -150,11 +147,11 @@ int main(int argc, char** argv)
 		handleEvents(&window, inputs);
 
 		// update it //
-		fixedUpdate(clock.restart(), inputs, &character, objects);
+		fixedUpdate(clock.restart(), objects);
 
 		// debug //
 		//::map.quadtreeDebug();
-		character.debug();
+		reinterpret_cast<Character*>(objects[0])->debug();
 		cout << endl;
 
 		// draw it //
@@ -162,7 +159,6 @@ int main(int argc, char** argv)
 
 		::map.draw(&window);
 		//::map.drawQuadtree(&window);
-		window.draw(character);
 		for(unsigned int i=0; i<objects.size(); i++)
 			window.draw(*objects[i]);
 

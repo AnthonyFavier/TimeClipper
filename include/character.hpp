@@ -11,7 +11,7 @@ using namespace std;
 class Character : public MovingObject
 {
 public:
-	Character(sf::Vector2f center, sf::Vector2f half_size);
+	Character(sf::Vector2f center, sf::Vector2f half_size, bool* inputs);
 	
 	bool released(KeyInputChar key);
 	bool keyState(KeyInputChar key);
@@ -19,9 +19,7 @@ public:
 	
 	enum CharacterState{Stand, Walk, Jump, GrabEdge};
 	
-	void updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER]);
-	void update(sf::Time elapsed){};
-	void updateInputs(bool inputs[NB_KEY_CHARACTER]);
+	void update(sf::Time elapsed);
 	void updateOldInputs();
 
 	void sizeUp();
@@ -30,7 +28,7 @@ public:
 	void debug();
 	
 private:
-	bool m_inputs[NB_KEY_CHARACTER];
+	bool* m_inputs;
 	bool m_old_inputs[NB_KEY_CHARACTER];
 	CharacterState m_current_state;
 	float m_jump_speed;
