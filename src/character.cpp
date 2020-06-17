@@ -146,7 +146,12 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			else
 			{
 				if(m_jump_count<14)
-					m_speed.y=m_jump_speed;
+				{
+					if(this->getAtCeiling())
+						m_speed.y=0;
+					else
+						m_speed.y=m_jump_speed;
+				}
 				m_jump_count++;
 			}
 			break;
@@ -183,9 +188,9 @@ void Character::sizeDown()
 	}
 
 	/*m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
-	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
-	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
-	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);*/
+	  m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
+	  m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
+	  m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);*/
 
 	m_hitbox.setHalfSize(m_half_size);
 }
@@ -196,9 +201,9 @@ void Character::sizeUp()
 	m_half_size.y+=5;
 
 	/*m_vertices[0]=sf::Vector2f(-m_half_size.x, -m_half_size.y);
-	m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
-	m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
-	m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);*/
+	  m_vertices[1]=sf::Vector2f(m_half_size.x, -m_half_size.y);
+	  m_vertices[2]=sf::Vector2f(m_half_size.x, m_half_size.y);
+	  m_vertices[3]=sf::Vector2f(-m_half_size.x, m_half_size.y);*/
 
 	m_hitbox.setHalfSize(m_half_size);
 }

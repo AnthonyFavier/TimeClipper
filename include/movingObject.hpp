@@ -53,6 +53,12 @@ public:
 	sf::Vector2f getSpeed();
 	sf::Vector2f getOldPos();
 
+	bool getPushRightWall(){return m_pushes_right_wall;};
+	bool getPushLeftWall(){return m_pushes_left_wall;};
+	bool getAtCeiling(){return m_at_ceiling;};
+	bool getOnGround(){return m_on_ground;};
+	bool getOnDropTile(){return m_on_drop_tile;};
+
 	bool isKinematic();
 
 protected:
