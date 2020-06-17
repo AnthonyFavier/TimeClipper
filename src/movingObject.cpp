@@ -491,7 +491,7 @@ void MovingObject::updatePhysicsResponse()
 			data=&m_all_colliding_objects[i];
 			overlap=data->m_overlaps - offset_sum;
 
-			cout << "my name=" << m_name << endl;
+			/*cout << "my name=" << m_name << endl;
 			cout << "data:";
 			cout << "\tother=" << data->m_other->getName() << endl;
 			cout << "\tm_overlaps=" << overlap.x << "," << overlap.y << endl;
@@ -500,7 +500,7 @@ void MovingObject::updatePhysicsResponse()
 			cout << "\tm_pos1=" << data->m_pos1.x << "," << data->m_pos1.y << endl;
 			cout << "\tm_pos2=" << data->m_pos2.x << "," << data->m_pos2.y << endl;
 			cout << "\tm_old_pos1=" << data->m_old_pos1.x << "," << data->m_old_pos1.y << endl;
-			cout << "\tm_old_pos2=" << data->m_old_pos2.x << "," << data->m_old_pos2.y << endl;
+			cout << "\tm_old_pos2=" << data->m_old_pos2.x << "," << data->m_old_pos2.y << endl;*/
 
 			if(overlap.x == 0)
 			{

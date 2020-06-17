@@ -12,6 +12,11 @@ PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::
 		m_texture.loadFromFile("rsc/"+name+".png");
 		m_sprite.setTexture(m_texture);
 	}
+
+	if(name=="raoult")
+		m_move_speed=60;
+	else if(name=="orange")
+		m_move_speed=140;
 }
 
 void PhysicalObject::update(sf::Time elapsed)
@@ -28,7 +33,7 @@ void PhysicalObject::update(sf::Time elapsed)
 			dir=1;
 			this->flipSpriteRight();
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
-			if(m_pushes_right_wall)
+			if(m_pushes_right_wall || (m_pushes_right_obj&&m_name!="raoult"))
 			{
 				dir=-1;
 				m_current_state=MoveLeft;
@@ -43,7 +48,7 @@ void PhysicalObject::update(sf::Time elapsed)
 			dir=-1;
 			this->flipSpriteLeft();
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
-			if(m_pushes_left_wall)
+			if(m_pushes_left_wall || (m_pushes_left_obj&&m_name!="raoult"))
 			{
 				dir=1;
 				m_current_state=MoveRight;

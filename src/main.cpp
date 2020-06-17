@@ -133,9 +133,9 @@ int main(int argc, char** argv)
 	objects.push_back(new Character(sf::Vector2f(120, 60), sf::Vector2f(14, 25), inputs));
 
 	// PhysicalObject //
-	//objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(25,22), sf::Color(255,255,255), "orange", false));
-	//objects.push_back(new PhysicalObject(sf::Vector2f(50,90), sf::Vector2f(45,41), sf::Color(255,255,255), "raoult", false));
-	objects.push_back(new PhysicalObject(sf::Vector2f(410,200), sf::Vector2f(25,49), sf::Color(255,255,255), "big_chungus", false));
+	objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(25,22), sf::Color(255,255,255), "orange", false));
+	objects.push_back(new PhysicalObject(sf::Vector2f(50,90), sf::Vector2f(45,41), sf::Color(255,255,255), "raoult", false));
+	objects.push_back(new PhysicalObject(sf::Vector2f(600,200), sf::Vector2f(25,49), sf::Color(255,255,255), "big_chungus", true));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;

@@ -25,16 +25,14 @@ Map::Map()
 	m_tiles[1][7]=new BlockTile(sf::Vector2i(1,7));
 	m_tiles[6][3]=new BlockTile(sf::Vector2i(6,3));
 	m_tiles[7][3]=new BlockTile(sf::Vector2i(7,3));
-	m_tiles[6][8]=new BlockTile(sf::Vector2i(6,8));
+	m_tiles[7][8]=new BlockTile(sf::Vector2i(7,8));
 	m_tiles[9][4]=new BlockTile(sf::Vector2i(9,4));
 
 	m_tiles[2][4]=new DropTile(sf::Vector2i(2,4));
 	m_tiles[3][4]=new DropTile(sf::Vector2i(3,4));
-	m_tiles[2][7]=new DropTile(sf::Vector2i(2,7));
 	m_tiles[3][6]=new DropTile(sf::Vector2i(3,6));
 	m_tiles[3][5]=new DropTile(sf::Vector2i(3,5));
 	m_tiles[5][3]=new DropTile(sf::Vector2i(5,3));
-	m_tiles[5][7]=new DropTile(sf::Vector2i(5,7));
 	m_tiles[8][6]=new DropTile(sf::Vector2i(8,6));
 }
 
@@ -228,12 +226,12 @@ void Map::checkCollisions()
 						CollisionData data1(obj2, overlap, obj1->getSpeed(), obj2->getSpeed(), 
 								obj1->getPosition(), obj2->getPosition(), obj1->getOldPos(), obj2->getOldPos());
 						obj1->m_all_colliding_objects.push_back(data1);
-						obj1->setAlpha(150);
+						obj1->setAlpha(170);
 
 						CollisionData data2(obj1, -overlap, obj2->getSpeed(), obj1->getSpeed(), 
 								obj2->getPosition(), obj1->getPosition(), obj2->getOldPos(), obj1->getOldPos());
 						obj2->m_all_colliding_objects.push_back(data2);
-						obj2->setAlpha(150);
+						obj2->setAlpha(170);
 					}
 				}
 			}
