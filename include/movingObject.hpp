@@ -20,6 +20,8 @@ public:
 	MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool is_kinematic);
 
 	void updatePhysics(sf::Time elapsed);
+	void updatePhysicsResponse();
+	void updatePhysicsP2();
 
 	void flipSpriteRight();
 	void flipSpriteLeft();
@@ -38,28 +40,28 @@ public:
 
 	bool hasCollisionDataFor(MovingObject* other);
 
-	Hitbox m_hitbox;
-	vector<sf::Vector2i> m_areas;
-	vector<int> m_ids_in_areas;
-
-	string getName();
-
 	void clearCollision();
 	void setAlpha(int a);
 	virtual void update(sf::Time elapsed)=0;
 
-	vector<CollisionData> m_all_colliding_objects;
 
-	sf::Vector2f getSpeed();
-	sf::Vector2f getOldPos();
-
+	// Getters
+	sf::Vector2f getSpeed(){return m_speed;};
+	sf::Vector2f getOldPos(){return m_old_position;};
 	bool getPushRightWall(){return m_pushes_right_wall;};
 	bool getPushLeftWall(){return m_pushes_left_wall;};
 	bool getAtCeiling(){return m_at_ceiling;};
 	bool getOnGround(){return m_on_ground;};
 	bool getOnDropTile(){return m_on_drop_tile;};
+	bool getIsKinematic(){return m_is_kinematic;};
+	string getName(){return m_name;};
 
-	bool isKinematic();
+	// Variables
+	Hitbox m_hitbox;
+	vector<sf::Vector2i> m_areas;
+	vector<int> m_ids_in_areas;
+
+	vector<CollisionData> m_all_colliding_objects;
 
 protected:
 	sf::Vector2f m_old_position;
@@ -70,31 +72,56 @@ protected:
 
 	sf::Vector2f m_hitbox_offset;
 
-	bool m_pushes_right_wall;
-	bool m_old_right_wall;
-
-	bool m_pushes_left_wall;
-	bool m_old_left_wall;
-
-	bool m_on_ground;
-	bool m_old_on_ground;
-
-	bool m_on_drop_tile;
-	bool m_old_on_drop_tile;
-
-	bool m_at_ceiling;
-	bool m_old_at_ceiling;
-
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
 	string m_name;
+
+	bool m_pushes_right_wall;
+	bool m_old_right_wall;
+	bool m_pushes_left_wall;
+	bool m_old_left_wall;
+	bool m_on_ground;
+	bool m_old_on_ground;
+	bool m_on_drop_tile;
+	bool m_old_on_drop_tile;
+	bool m_at_ceiling;
+	bool m_old_at_ceiling;
+
+	bool m_pushes_right;
+	bool m_pushes_left;
+	bool m_pushes_bottom;
+	bool m_pushes_top;
+	bool m_pushed_right;
+	bool m_pushed_left;
+	bool m_pushed_bottom;
+	bool m_pushed_top;
+
+	bool m_pushes_right_obj;
+	bool m_pushes_left_obj;
+	bool m_pushes_bottom_obj;
+	bool m_pushes_top_obj;
+	bool m_pushed_right_obj;
+	bool m_pushed_left_obj;
+	bool m_pushed_bottom_obj;
+	bool m_pushed_top_obj;
+
+	bool m_pushes_right_tile;
+	bool m_pushes_left_tile;
+	bool m_pushes_bottom_tile;
+	bool m_pushes_top_tile;
+	bool m_pushed_right_tile;
+	bool m_pushed_left_tile;
+	bool m_pushed_bottom_tile;
+	bool m_pushed_top_tile;
 
 	bool m_is_kinematic;
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+
+//////////////////////////////
 
 class CollisionData
 {

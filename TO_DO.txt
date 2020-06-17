@@ -1,3 +1,4 @@
 - animation
 - sound
 - collision response
+- hasLeftWall etc .. FPS => use elapsed ?

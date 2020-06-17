@@ -225,14 +225,14 @@ void Map::checkCollisions()
 					
 					if(obj1->m_hitbox.overlaps(obj2->m_hitbox, &overlap) && !obj1->hasCollisionDataFor(obj2))
 					{
-						CollisionData data(obj2, overlap, obj1->getSpeed(), obj2->getSpeed(), 
+						CollisionData data1(obj2, overlap, obj1->getSpeed(), obj2->getSpeed(), 
 								obj1->getPosition(), obj2->getPosition(), obj1->getOldPos(), obj2->getOldPos());
-						obj1->m_all_colliding_objects.push_back(data);
+						obj1->m_all_colliding_objects.push_back(data1);
 						obj1->setAlpha(150);
 
-						data = CollisionData(obj1, -overlap, obj2->getSpeed(), obj1->getSpeed(), 
+						CollisionData data2(obj1, -overlap, obj2->getSpeed(), obj1->getSpeed(), 
 								obj2->getPosition(), obj1->getPosition(), obj2->getOldPos(), obj1->getOldPos());
-						obj2->m_all_colliding_objects.push_back(data);
+						obj2->m_all_colliding_objects.push_back(data2);
 						obj2->setAlpha(150);
 					}
 				}

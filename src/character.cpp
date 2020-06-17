@@ -224,4 +224,8 @@ void Character::debug()
 	cout << "m_on_drop_tile=" << m_on_drop_tile << endl;
 	cout << "m_at_ceiling=" << m_at_ceiling << endl;
 	cout << "m_jump_count=" << m_jump_count << endl;
+	cout << "Collision : ";
+	for(unsigned int i=0; i<m_all_colliding_objects.size(); i++)
+		cout << m_all_colliding_objects[i].m_other->getName() << " ";
+	cout << endl;
 }

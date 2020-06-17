@@ -22,7 +22,7 @@ CollisionData::CollisionData(MovingObject* other, sf::Vector2f overlaps, sf::Vec
 	m_pos1=pos1;
 	m_pos2=pos2;
 	m_old_pos1=old_pos1;
-	m_old_pos2=m_old_pos2;
+	m_old_pos2=old_pos2;
 }
 
 /////////////////////////////
@@ -73,11 +73,33 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 	m_old_on_drop_tile=false;
 	m_at_ceiling=false;
 	m_old_at_ceiling=false;
-}
 
-bool MovingObject::isKinematic()
-{
-	return m_is_kinematic;
+	m_pushes_right=false;
+	m_pushes_left=false;
+	m_pushes_bottom=false;
+	m_pushes_top=false;
+	m_pushed_right=false;
+	m_pushed_left=false;
+	m_pushed_bottom=false;
+	m_pushed_top=false;
+
+	m_pushes_right_obj=false;
+	m_pushes_left_obj=false;
+	m_pushes_bottom_obj=false;
+	m_pushes_top_obj=false;
+	m_pushed_right_obj=false;
+	m_pushed_left_obj=false;
+	m_pushed_bottom_obj=false;
+	m_pushed_top_obj=false;
+
+	m_pushes_right_tile=false;
+	m_pushes_left_tile=false;
+	m_pushes_bottom_tile=false;
+	m_pushes_top_tile=false;
+	m_pushed_right_tile=false;
+	m_pushed_left_tile=false;
+	m_pushed_bottom_tile=false;
+	m_pushed_top_tile=false;
 }
 
 void MovingObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -85,11 +107,6 @@ void MovingObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= getTransform();
 	states.texture = &m_texture;
 	target.draw(m_sprite, states);
-}
-
-string MovingObject::getName()
-{
-	return m_name;
 }
 
 void MovingObject::flipSpriteRight()
@@ -170,6 +187,10 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 
 
 	m_hitbox.m_center=this->getPosition()+m_hitbox_offset;
+
+	cout << "pos=" << this->getPosition().x << "," << this->getPosition().y << endl;
+	cout << "old=" << m_old_position.x << "," << m_old_position.y << endl;
+	cout << endl;
 }
 
 // BOTTOM
@@ -442,14 +463,169 @@ bool MovingObject::checkLeftWall(sf::Vector2f left_top, sf::Vector2f left_bottom
 	return false;
 }
 
-sf::Vector2f MovingObject::getSpeed()
+void MovingObject::updatePhysicsResponse()
 {
-	return m_speed;
+	if(!m_is_kinematic)
+	{
+		m_pushed_right_obj=m_pushes_right_obj;
+		m_pushed_left_obj=m_pushes_left_obj;
+		m_pushed_bottom_obj=m_pushes_bottom_obj;
+		m_pushed_top_obj=m_pushes_top_obj;
+
+		m_pushes_left_obj=false;
+		m_pushes_right_obj=false;
+		m_pushes_bottom_obj=false;
+		m_pushes_top_obj=false;
+
+		sf::Vector2f offset_sum(0,0);
+
+		CollisionData* data=NULL;
+		sf::Vector2f overlap;
+		for(unsigned int i=0; i<m_all_colliding_objects.size(); i++)
+		{
+			data=&m_all_colliding_objects[i];
+			overlap=data->m_overlaps - offset_sum;
+
+			cout << "my name=" << m_name << endl;
+			cout << "data:";
+			cout << "\tother=" << data->m_other->getName() << endl;
+			cout << "\tm_overlaps=" << overlap.x << "," << overlap.y << endl;
+			cout << "\tm_speed1=" << data->m_speed1.x << "," << data->m_speed1.y << endl;
+			cout << "\tm_speed2=" << data->m_speed2.x << "," << data->m_speed2.y << endl;
+			cout << "\tm_pos1=" << data->m_pos1.x << "," << data->m_pos1.y << endl;
+			cout << "\tm_pos2=" << data->m_pos2.x << "," << data->m_pos2.y << endl;
+			cout << "\tm_old_pos1=" << data->m_old_pos1.x << "," << data->m_old_pos1.y << endl;
+			cout << "\tm_old_pos2=" << data->m_old_pos2.x << "," << data->m_old_pos2.y << endl;
+			cout << "old_pos22=" << m_all_colliding_objects[i].m_other->getOldPos().x << "," << m_all_colliding_objects[i].m_other->getOldPos().y << endl;
+
+			if(overlap.x == 0)
+			{
+				if(data->m_other->m_hitbox.m_center.x > m_hitbox.m_center.x)
+				{
+					m_pushes_right_obj=true;
+					m_speed.x=std::min(m_speed.x,0.f);
+				}
+				else
+				{
+					m_pushes_left_obj=true;
+					m_speed.x=std::max(m_speed.x,0.f);
+				}
+			}
+			else if(overlap.y == 0)
+			{
+				if(data->m_other->m_hitbox.m_center.y > m_hitbox.m_center.y)
+				{
+					m_pushes_bottom_obj=true;
+					m_speed.y=std::min(m_speed.y,0.f);
+				}
+				else
+				{
+					m_pushes_top_obj=true;
+					m_speed.y=std::max(m_speed.y,0.f);
+				}
+			}
+			else
+			{
+				sf::Vector2f abs_speed1 = sf::Vector2f(std::abs(data->m_pos1.x - data->m_old_pos1.x),std::abs(data->m_pos1.y - data->m_old_pos1.y));
+				sf::Vector2f abs_speed2 = sf::Vector2f(std::abs(data->m_pos2.x - data->m_old_pos2.x),std::abs(data->m_pos2.y - data->m_old_pos2.y));
+				sf::Vector2f speed_sum = abs_speed1 + abs_speed2;
+
+				cout << "abs_speed1 " << abs_speed1.x << "," << abs_speed1.y << endl;
+				cout << "abs_speed2 " << abs_speed2.x << "," << abs_speed2.y << endl;
+				cout << "speed_sum " << speed_sum.x << "," << speed_sum.y << endl;
+
+				sf::Vector2f speed_ratio;
+				if(data->m_other->getIsKinematic())
+				{
+					speed_ratio.x=1;
+					speed_ratio.y=1;
+				}
+				else
+				{
+					if(speed_sum.x==0 && speed_sum.y==0)
+					{
+						speed_ratio.x=0.5;
+						speed_ratio.y=0.5;
+					}
+					else if(speed_sum.x==0)
+					{
+						speed_ratio.x=0.5;
+						speed_ratio.y=abs_speed1.y/speed_sum.y;
+					}
+					else if(speed_sum.y==0)
+					{
+						speed_ratio.x=abs_speed1.x/speed_sum.x;
+						speed_ratio.y=0.5;
+					}
+					else
+					{
+						speed_ratio.x=abs_speed1.x/speed_sum.x;
+						speed_ratio.y=abs_speed1.y/speed_sum.y;
+					}
+				}
+
+				sf::Vector2f offset_to_apply(overlap.x*speed_ratio.x,
+						overlap.y*speed_ratio.y);
+
+				bool overlapped_last_frame_x=std::abs(data->m_old_pos1.x - data->m_old_pos2.x) < m_hitbox.getHalfSize().x+data->m_other->m_hitbox.getHalfSize().x;
+				bool overlapped_last_frame_y=std::abs(data->m_old_pos1.y - data->m_old_pos2.y) < m_hitbox.getHalfSize().y+data->m_other->m_hitbox.getHalfSize().y;
+
+				cout << "overlaps x=" << overlap.x << " y=" << overlap.y << endl;
+				cout << "speed_ratio x=" << speed_ratio.x << " y=" << speed_ratio.y << endl;
+				cout << "offset_to_apply x=" << offset_to_apply.x << " y=" << offset_to_apply.y << endl;
+				cout << "overlapped x=" << overlapped_last_frame_x << " y=" << overlapped_last_frame_y << endl;
+
+				if((!overlapped_last_frame_x && overlapped_last_frame_y)
+				|| (!overlapped_last_frame_x && !overlapped_last_frame_y 
+					&& std::abs(overlap.x) <= std::abs(overlap.y)))
+				{
+					cout << "do something !!"<<endl;
+					this->move(sf::Vector2f(offset_to_apply.x,0));
+					offset_sum.x += offset_to_apply.x;
+
+					if(overlap.x < 0)
+					{
+						m_pushes_right_obj=true;
+						m_speed.x=std::min(m_speed.x,0.f);
+					}
+					else
+					{
+						m_pushes_left_obj=true;
+						m_speed.x=std::max(m_speed.x,0.f);
+					}
+				}
+				else
+				{	
+					cout << "please" << endl;
+					this->move(sf::Vector2f(0,offset_to_apply.y));
+					offset_sum.y += offset_to_apply.y;
+
+					if(overlap.y < 0)
+					{
+						m_pushes_bottom_obj=true;
+						m_speed.x=std::min(m_speed.y,0.f);
+					}
+					else
+					{
+						m_pushes_top_obj=true;
+						m_speed.x=std::max(m_speed.y,0.f);
+					}
+				}
+			}
+		}
+	}
 }
 
-sf::Vector2f MovingObject::getOldPos()
+void MovingObject::updatePhysicsP2()
 {
-	return m_old_position;
+	this->updatePhysicsResponse();
+
+	m_pushes_right = m_pushes_right_obj || m_pushes_right_tile;
+	m_pushes_left = m_pushes_left_obj || m_pushes_left_tile;
+	m_pushes_bottom = m_pushes_bottom_obj || m_pushes_bottom_tile;
+	m_pushes_top = m_pushes_top_obj || m_pushes_top_tile;
+
+	m_hitbox.m_center=this->getPosition()+m_hitbox_offset; // sans offset ????
 }
 
 bool MovingObject::hasCollisionDataFor(MovingObject* other)
