@@ -131,7 +131,16 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	m_old_left_wall=m_pushes_left_wall;
 	m_old_at_ceiling=m_at_ceiling;
 
-	this->move(m_speed*elapsed.asSeconds());
+	sf::Vector2f to_move(m_speed*elapsed.asSeconds());
+	if(m_pushes_right)
+		to_move.x = std::min(to_move.x,0.f);
+	if(m_pushes_left)
+		to_move.x = std::max(to_move.x,0.f);
+	if(m_pushes_top)
+		to_move.y = std::max(to_move.y,0.f);
+	if(m_pushes_bottom)
+		to_move.y = std::min(to_move.y,0.f);
+	this->move(to_move);
 
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 
@@ -187,10 +196,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 
 
 	m_hitbox.m_center=this->getPosition()+m_hitbox_offset;
-
-	cout << "pos=" << this->getPosition().x << "," << this->getPosition().y << endl;
-	cout << "old=" << m_old_position.x << "," << m_old_position.y << endl;
-	cout << endl;
 }
 
 // BOTTOM
@@ -579,9 +584,10 @@ void MovingObject::updatePhysicsResponse()
 				|| (!overlapped_last_frame_x && !overlapped_last_frame_y 
 					&& std::abs(overlap.x) <= std::abs(overlap.y)))
 				{
-					cout << "do something !!"<<endl;
 					this->move(sf::Vector2f(offset_to_apply.x,0));
 					offset_sum.x += offset_to_apply.x;
+
+					cout << "moved by " << offset_to_apply.x << ",0" << endl;
 
 					if(overlap.x < 0)
 					{
@@ -596,9 +602,10 @@ void MovingObject::updatePhysicsResponse()
 				}
 				else
 				{	
-					cout << "please" << endl;
 					this->move(sf::Vector2f(0,offset_to_apply.y));
 					offset_sum.y += offset_to_apply.y;
+
+					cout << "moved by " << "0," << offset_to_apply.x << endl;
 
 					if(overlap.y < 0)
 					{

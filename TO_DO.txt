@@ -1,4 +1,4 @@
 - animation
 - sound
-- collision response
+- collision response :  on_ground <=> pushes_bottom_tile ?
 - hasLeftWall etc .. FPS => use elapsed ?
