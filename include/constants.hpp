@@ -14,6 +14,7 @@ const int WINDOW_HEIGHT = TILE_SIZE_PIXEL * NB_Y_TILE;
 #define MIN_JUMP_SPEED 300
 #define CHAR_JUMP_SPEED -470
 #define CHAR_WALK_SPEED 300
+#define CHAR_JUMP_AMOUNT 0.25
 
 #define NB_KEY_CHARACTER 6
 enum KeyInputChar{GoLeft=0,GoRight,GoDown,GoJump,SizeUp,SizeDown};

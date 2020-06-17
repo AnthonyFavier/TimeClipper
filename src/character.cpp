@@ -100,7 +100,7 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			else if(!m_on_ground)
 			{
 				m_current_state=Jump;
-				m_jump_count=15;
+				m_jump_count=CHAR_JUMP_AMOUNT;
 			}
 
 			break;
@@ -142,17 +142,17 @@ void Character::updateC(sf::Time elapsed, bool inputs[NB_KEY_CHARACTER])
 			}
 			
 			if(!keyState(GoJump))
-				m_jump_count=15;
+				m_jump_count=CHAR_JUMP_AMOUNT;
 			else
 			{
-				if(m_jump_count<14)
+				if(m_jump_count<CHAR_JUMP_AMOUNT)
 				{
 					if(this->getAtCeiling())
 						m_speed.y=0;
 					else
 						m_speed.y=m_jump_speed;
 				}
-				m_jump_count++;
+				m_jump_count+=elapsed.asSeconds();
 			}
 			break;
 

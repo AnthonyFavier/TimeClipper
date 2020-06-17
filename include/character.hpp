@@ -35,7 +35,7 @@ private:
 	CharacterState m_current_state;
 	float m_jump_speed;
 	float m_walk_speed;
-	int m_jump_count;
+	float m_jump_count;
 };
 
 #endif
