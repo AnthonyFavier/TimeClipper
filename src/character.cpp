@@ -10,7 +10,7 @@ Character::Character(sf::Vector2f center, sf::Vector2f half_size, bool* inputs) 
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 		m_old_inputs[i]=false;
 
-	m_texture.loadFromFile("rsc/newboi.png");
+	m_texture.loadFromFile("rsc/sprites/newboi.png");
 	m_sprite.setTexture(m_texture);
 }
 

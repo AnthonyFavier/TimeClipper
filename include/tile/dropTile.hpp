@@ -15,7 +15,7 @@ public:
 		m_can_go_through_down=false;
 		m_can_drop_down_through=true;
 
-		m_texture.loadFromFile(m_texture_filename["DropTile"]);
+		m_texture=m_textures["DropTile"];
 		m_sprite.setTexture(m_texture);
 	};
 private:

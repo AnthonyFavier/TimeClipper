@@ -9,7 +9,7 @@ PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::
 
 	if(name=="orange" || name=="raoult" || name=="big_chungus")
 	{
-		m_texture.loadFromFile("rsc/"+name+".png");
+		m_texture.loadFromFile("rsc/sprites/"+name+".png");
 		m_sprite.setTexture(m_texture);
 	}
 
@@ -20,18 +20,18 @@ PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::
 
 	if(name=="raoult")
 	{
-		if(!m_buffer.loadFromFile("rsc/scream.waw"))
+		if(!m_buffer.loadFromFile("rsc/sounds/scream.waw"))
 			exit(-1);
 		m_sound.setVolume(30);
 	}
 	else if(name=="orange")
 	{
-		if(!m_buffer.loadFromFile("rsc/yes.waw"))
+		if(!m_buffer.loadFromFile("rsc/sounds/yes.waw"))
 			exit(-1);
 	}
 	else if(name=="big_chungus")
 	{
-		if(!m_buffer.loadFromFile("rsc/OOF.waw"))
+		if(!m_buffer.loadFromFile("rsc/sounds/OOF.waw"))
 			exit(-1);
 	}
 	m_sound.setBuffer(m_buffer);

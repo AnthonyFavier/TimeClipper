@@ -14,9 +14,15 @@ class Tile : public sf::Drawable, public sf::Transformable
 public:
 	Tile(sf::Vector2i pos)
 	{
-		m_texture_filename["DropTile"]= "rsc/tile1.png";
-		m_texture_filename["BlockTile"]= "rsc/terre.png";
-		m_texture_filename["EmptyTile"]= "rsc/tile2.png";
+		sf::Texture texture;
+		texture.loadFromFile("rsc/tiles/tile1.png");
+		m_textures["DropTile"]=texture;
+
+		texture.loadFromFile("rsc/tiles/tile4.png");
+		m_textures["BlockTile"]= texture;
+
+		texture.loadFromFile("rsc/tiles/tile2.png");
+		m_textures["EmptyTile"]= texture;
 
 		m_can_go_through_right=false;
 		m_can_go_through_left=false;
@@ -47,8 +53,8 @@ protected:
 	bool m_can_drop_down_through;
 
 	sf::Sprite m_sprite;
+	map<string, sf::Texture> m_textures;
 	sf::Texture m_texture;
-	map<string, string> m_texture_filename;
 	
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const=0;

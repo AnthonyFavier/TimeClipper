@@ -14,7 +14,7 @@ public:
 		m_can_go_through_down=false;
 		m_can_drop_down_through=false;
 
-		m_texture.loadFromFile(m_texture_filename["BlockTile"]);
+		m_texture=m_textures["BlockTile"];
 		m_sprite.setTexture(m_texture);
 	};
 private:
