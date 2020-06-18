@@ -1,4 +1,6 @@
 - animation
 - sound
-- collision response : - quand kinematic push contre tile -> stop (obj2 devient kin ?)
+- collision response : 
+	- quand kinematic push contre tile -> stop (obj2 devient kin ?)
+	- quand obj tombe sur joueur, bizarre ?
 - hasLeftWall etc .. FPS => use elapsed ?
