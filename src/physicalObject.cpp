@@ -25,7 +25,7 @@ void PhysicalObject::update(sf::Time elapsed)
 	{
 		case Stand:
 			m_speed=sf::Vector2f(0,0);
-			if(!m_on_ground)
+			if(!m_pushes_bottom_tile)
 				m_current_state=Fall;
 			break;
 
@@ -33,14 +33,14 @@ void PhysicalObject::update(sf::Time elapsed)
 			dir=1;
 			this->flipSpriteRight();
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
-			if(m_pushes_right_wall || (m_pushes_right_obj&&m_name!="raoult"))
+			if(m_pushes_right_tile || (m_pushes_right_obj&&m_name!="raoult"))
 			{
 				dir=-1;
 				m_current_state=MoveLeft;
 				this->flipSpriteLeft();
 				m_speed=sf::Vector2f(dir*m_move_speed,0);
 			}
-			if(!m_on_ground)
+			if(!m_pushes_bottom_tile)
 				m_current_state=Fall;
 			break;
 
@@ -48,19 +48,19 @@ void PhysicalObject::update(sf::Time elapsed)
 			dir=-1;
 			this->flipSpriteLeft();
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
-			if(m_pushes_left_wall || (m_pushes_left_obj&&m_name!="raoult"))
+			if(m_pushes_left_tile || (m_pushes_left_obj&&m_name!="raoult"))
 			{
 				dir=1;
 				m_current_state=MoveRight;
 				this->flipSpriteRight();
 				m_speed=sf::Vector2f(dir*m_move_speed,0);
 			}
-			if(!m_on_ground)
+			if(!m_pushes_bottom_tile)
 				m_current_state=Fall;
 			break;
 
 		case Fall:
-			if(m_on_ground)
+			if(m_pushes_bottom_tile)
 			{
 				m_speed.y=0;
 				if(dir==1)

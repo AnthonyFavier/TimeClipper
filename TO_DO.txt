@@ -1,4 +1,4 @@
 - animation
 - sound
-- collision response :  on_ground <=> pushes_bottom_tile ?
+- collision response : - quand kinematic push contre tile -> stop (obj2 devient kin ?)
 - hasLeftWall etc .. FPS => use elapsed ?

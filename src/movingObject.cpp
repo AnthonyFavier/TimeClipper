@@ -63,16 +63,9 @@ MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Colo
 
 	m_hitbox_offset=sf::Vector2f(0,0);
 
-	m_pushes_right_wall=false;
-	m_old_right_wall=false;
-	m_pushes_left_wall=false;
-	m_old_left_wall=false;
-	m_on_ground=true;
-	m_old_on_ground=true;
+	
 	m_on_drop_tile=false;
 	m_old_on_drop_tile=false;
-	m_at_ceiling=false;
-	m_old_at_ceiling=false;
 
 	m_pushes_right=false;
 	m_pushes_left=false;
@@ -118,7 +111,7 @@ void MovingObject::flipSpriteRight()
 void MovingObject::flipSpriteLeft()
 {
 	m_sprite.setScale(1,1);
-	m_sprite.setPosition(-m_half_size.x, -m_half_size.y);
+	m_sprite.setPosition(-m_half_size);
 }
 
 void MovingObject::updatePhysics(sf::Time elapsed)
@@ -126,10 +119,10 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	m_old_position=this->getPosition();
 	m_old_speed=m_speed;
 
-	m_old_on_ground=m_on_ground;
-	m_old_right_wall=m_pushes_right_wall;
-	m_old_left_wall=m_pushes_left_wall;
-	m_old_at_ceiling=m_at_ceiling;
+	m_pushed_bottom_tile=m_pushes_bottom_tile;
+	m_pushed_right_tile=m_pushes_right_tile;
+	m_pushed_left_tile=m_pushes_left_tile;
+	m_pushed_top_tile=m_pushes_top_tile;
 
 	sf::Vector2f to_move(m_speed*elapsed.asSeconds());
 	if(m_pushes_right)
@@ -150,12 +143,12 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 		if(m_old_position.x - m_hitbox.getHalfSize().x + m_hitbox_offset.x >= left_wall_x)
 		{
 			this->setPosition(left_wall_x+m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
-			m_pushes_left_wall=true;
+			m_pushes_left_tile=true;
 		}
 		m_speed.x=std::max(m_speed.x,0.f);
 	}
 	else
-		m_pushes_left_wall=false;
+		m_pushes_left_tile=false;
 
 	// RIGHT
 	if(m_speed.x>=0 && this->hasRightWall(&right_wall_x))
@@ -163,33 +156,33 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 		if(m_old_position.x + m_hitbox.getHalfSize().x + m_hitbox_offset.x <= right_wall_x)
 		{
 			this->setPosition(right_wall_x-m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
-			m_pushes_right_wall=true;
+			m_pushes_right_tile=true;
 		}
 		m_speed.x=std::min(m_speed.x,0.f);
 	}
 	else
-		m_pushes_right_wall=false;
+		m_pushes_right_tile=false;
 
 	// TOP
 	if(m_speed.y<=0	&& this->hasCeiling(&ceiling_y))
 	{
 		this->setPosition(this->getPosition().x, ceiling_y + m_hitbox.getHalfSize().y - m_hitbox_offset.y);
 		m_speed.y=0;
-		m_at_ceiling=true;
+		m_pushes_top_tile=true;
 	}
 	else
-		m_at_ceiling=false;
+		m_pushes_top_tile=false;
 
 	// BOTTOM
 	if(m_speed.y>=0 && this->hasGround(&ground_y))
 	{
 		this->setPosition(this->getPosition().x, ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
 		m_speed.y=0;
-		m_on_ground=true;
+		m_pushes_bottom_tile=true;
 	}
 	else
 	{
-		m_on_ground=false;
+		m_pushes_bottom_tile=false;
 		m_on_drop_tile=false;
 	}
 

@@ -48,11 +48,6 @@ public:
 	// Getters
 	sf::Vector2f getSpeed(){return m_speed;};
 	sf::Vector2f getOldPos(){return m_old_position;};
-	bool getPushRightWall(){return m_pushes_right_wall;};
-	bool getPushLeftWall(){return m_pushes_left_wall;};
-	bool getAtCeiling(){return m_at_ceiling;};
-	bool getOnGround(){return m_on_ground;};
-	bool getOnDropTile(){return m_on_drop_tile;};
 	bool getIsKinematic(){return m_is_kinematic;};
 	string getName(){return m_name;};
 
@@ -77,16 +72,8 @@ protected:
 
 	string m_name;
 
-	bool m_pushes_right_wall;
-	bool m_old_right_wall;
-	bool m_pushes_left_wall;
-	bool m_old_left_wall;
-	bool m_on_ground;
-	bool m_old_on_ground;
 	bool m_on_drop_tile;
 	bool m_old_on_drop_tile;
-	bool m_at_ceiling;
-	bool m_old_at_ceiling;
 
 	bool m_pushes_right;
 	bool m_pushes_left;

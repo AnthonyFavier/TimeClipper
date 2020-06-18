@@ -43,7 +43,7 @@ void Character::update(sf::Time elapsed)
 		case Stand:
 			m_speed=sf::Vector2f(0,0);
 
-			if(!m_on_ground)
+			if(!m_pushes_bottom_tile)
 				m_current_state=Jump;
 			else if(pressed(GoJump))
 			{
@@ -55,9 +55,7 @@ void Character::update(sf::Time elapsed)
 			if(keyState(GoDown))
 			{
 				if(m_on_drop_tile)
-				{
 					this->move(sf::Vector2f(0,DROP_TILE_THRESHOLD));
-				}
 			}
 			break;
 		
@@ -70,18 +68,12 @@ void Character::update(sf::Time elapsed)
 			else if(keyState(GoRight))
 			{
 				this->flipSpriteRight();
-				if(m_pushes_right_wall)
-					m_speed.x=0;
-				else
-					m_speed.x=m_walk_speed;
+				m_speed.x=m_walk_speed;
 			}
 			else if(keyState(GoLeft))
 			{
 				this->flipSpriteLeft();
-				if(m_pushes_left_wall)
-					m_speed.x=0;
-				else
-					m_speed.x=-m_walk_speed;
+				m_speed.x=-m_walk_speed;
 			}
 			
 			if(keyState(GoDown))
@@ -94,7 +86,7 @@ void Character::update(sf::Time elapsed)
 				m_speed.y=m_jump_speed;
 				m_current_state=Jump;
 			}
-			else if(!m_on_ground)
+			else if(!m_pushes_bottom_tile)
 			{
 				m_current_state=Jump;
 				m_jump_count=CHAR_JUMP_AMOUNT;
@@ -103,7 +95,7 @@ void Character::update(sf::Time elapsed)
 			break;
 		
 		case Jump:
-			if(m_on_ground)
+			if(m_pushes_bottom_tile)
 			{
 				m_speed.y=0;
 				m_jump_count=0;
@@ -124,18 +116,12 @@ void Character::update(sf::Time elapsed)
 			else if(keyState(GoRight))
 			{
 				this->flipSpriteRight();
-				if(m_pushes_right_wall)
-					m_speed.x=0;
-				else
-					m_speed.x=m_walk_speed;
+				m_speed.x=m_walk_speed;
 			}
 			else if(keyState(GoLeft))
 			{
 				this->flipSpriteLeft();
-				if(m_pushes_left_wall)
-					m_speed.x=0;
-				else
-					m_speed.x=-m_walk_speed;
+				m_speed.x=-m_walk_speed;
 			}
 			
 			if(!keyState(GoJump))
@@ -143,12 +129,7 @@ void Character::update(sf::Time elapsed)
 			else
 			{
 				if(m_jump_count<CHAR_JUMP_AMOUNT)
-				{
-					if(this->getAtCeiling())
-						m_speed.y=0;
-					else
-						m_speed.y=m_jump_speed;
-				}
+					m_speed.y=m_jump_speed;
 				m_jump_count+=elapsed.asSeconds();
 			}
 			break;
