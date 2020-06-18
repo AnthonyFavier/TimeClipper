@@ -27,6 +27,7 @@ Map::Map()
 	m_tiles[7][3]=new BlockTile(sf::Vector2i(7,3));
 	m_tiles[7][8]=new BlockTile(sf::Vector2i(7,8));
 	m_tiles[9][4]=new BlockTile(sf::Vector2i(9,4));
+	m_tiles[12][8]=new BlockTile(sf::Vector2i(12,8));
 
 	m_tiles[2][4]=new DropTile(sf::Vector2i(2,4));
 	m_tiles[3][4]=new DropTile(sf::Vector2i(3,4));
@@ -34,6 +35,9 @@ Map::Map()
 	m_tiles[3][5]=new DropTile(sf::Vector2i(3,5));
 	m_tiles[5][3]=new DropTile(sf::Vector2i(5,3));
 	m_tiles[8][6]=new DropTile(sf::Vector2i(8,6));
+	m_tiles[13][7]=new DropTile(sf::Vector2i(13,7));
+	m_tiles[14][7]=new DropTile(sf::Vector2i(14,7));
+	m_tiles[15][7]=new DropTile(sf::Vector2i(15,7));
 }
 
 Map::~Map()

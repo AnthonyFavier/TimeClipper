@@ -527,10 +527,6 @@ void MovingObject::updatePhysicsResponse()
 				sf::Vector2f abs_speed2 = sf::Vector2f(std::abs(data->m_pos2.x - data->m_old_pos2.x),std::abs(data->m_pos2.y - data->m_old_pos2.y));
 				sf::Vector2f speed_sum = abs_speed1 + abs_speed2;
 
-				cout << "abs_speed1 " << abs_speed1.x << "," << abs_speed1.y << endl;
-				cout << "abs_speed2 " << abs_speed2.x << "," << abs_speed2.y << endl;
-				cout << "speed_sum " << speed_sum.x << "," << speed_sum.y << endl;
-
 				sf::Vector2f speed_ratio;
 				if(data->m_other->getIsKinematic())
 				{
@@ -567,11 +563,6 @@ void MovingObject::updatePhysicsResponse()
 				bool overlapped_last_frame_x=std::abs(data->m_old_pos1.x - data->m_old_pos2.x) < m_hitbox.getHalfSize().x+data->m_other->m_hitbox.getHalfSize().x;
 				bool overlapped_last_frame_y=std::abs(data->m_old_pos1.y - data->m_old_pos2.y) < m_hitbox.getHalfSize().y+data->m_other->m_hitbox.getHalfSize().y;
 
-				cout << "overlaps x=" << overlap.x << " y=" << overlap.y << endl;
-				cout << "speed_ratio x=" << speed_ratio.x << " y=" << speed_ratio.y << endl;
-				cout << "offset_to_apply x=" << offset_to_apply.x << " y=" << offset_to_apply.y << endl;
-				cout << "overlapped x=" << overlapped_last_frame_x << " y=" << overlapped_last_frame_y << endl;
-
 				if((!overlapped_last_frame_x && overlapped_last_frame_y)
 				|| (!overlapped_last_frame_x && !overlapped_last_frame_y 
 					&& std::abs(overlap.x) <= std::abs(overlap.y)))
@@ -579,7 +570,7 @@ void MovingObject::updatePhysicsResponse()
 					this->move(sf::Vector2f(offset_to_apply.x,0));
 					offset_sum.x += offset_to_apply.x;
 
-					cout << "moved by " << offset_to_apply.x << ",0" << endl;
+					//cout << "moved by " << offset_to_apply.x << ",0" << endl;
 
 					if(overlap.x < 0)
 					{
@@ -597,7 +588,7 @@ void MovingObject::updatePhysicsResponse()
 					this->move(sf::Vector2f(0,offset_to_apply.y));
 					offset_sum.y += offset_to_apply.y;
 
-					cout << "moved by " << "0," << offset_to_apply.x << endl;
+					//cout << "moved by " << "0," << offset_to_apply.x << endl;
 
 					if(overlap.y < 0)
 					{
