@@ -1,14 +1,24 @@
-#include "../include/physicalObject.hpp"
+#include "../include/raoult.hpp"
 
-PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool isKinematic) : MovingObject(center, half_size, color, name, isKinematic)
+Raoult::Raoult(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic)
 {
 	m_current_state=Stand;
-	m_move_speed=100;
 
-	dir=-1;
+	dir=1;
+	this->flipSpriteRight();
+
+	m_texture.loadFromFile("rsc/sprites/raoult.png");
+	m_sprite.setTexture(m_texture);
+
+	m_move_speed=60;
+
+	if(!m_buffer.loadFromFile("rsc/sounds/scream.waw"))
+		exit(-1);
+	m_sound.setVolume(30);
+	m_sound.setBuffer(m_buffer);
 }
 
-void PhysicalObject::update(sf::Time elapsed)
+void Raoult::update(sf::Time elapsed)
 {
 	switch(m_current_state)
 	{
@@ -19,15 +29,17 @@ void PhysicalObject::update(sf::Time elapsed)
 			break;
 
 		case Walk:
-			if(m_pushes_right)
+			if(m_pushes_right_tile)
 			{
 				dir=-1;
 				this->flipSpriteLeft();
+				m_sound.play();
 			}
-			else if(m_pushes_left)
+			else if(m_pushes_left_tile)
 			{
 				dir=1;
 				this->flipSpriteRight();
+				m_sound.play();
 			}
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
 
@@ -39,12 +51,13 @@ void PhysicalObject::update(sf::Time elapsed)
 			if(m_pushes_bottom_tile)
 			{
 				m_speed.y=0;	
-
+				m_sound.play();
 				if(dir==1)
 					this->flipSpriteLeft();
 				else if(dir==-1)
 					this->flipSpriteRight();
 				dir=-dir;
+
 				m_current_state=Walk;
 			}
 			else

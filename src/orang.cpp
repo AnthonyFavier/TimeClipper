@@ -1,14 +1,23 @@
-#include "../include/physicalObject.hpp"
+#include "../include/orang.hpp"
 
-PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool isKinematic) : MovingObject(center, half_size, color, name, isKinematic)
+Orang::Orang(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic)
 {
 	m_current_state=Stand;
-	m_move_speed=100;
 
-	dir=-1;
+	dir=1;
+	this->flipSpriteRight();
+
+	m_texture.loadFromFile("rsc/sprites/orang.png");
+	m_sprite.setTexture(m_texture);
+
+	m_move_speed=140;
+
+	if(!m_buffer.loadFromFile("rsc/sounds/yes.waw"))
+		exit(-1);
+	m_sound.setBuffer(m_buffer);
 }
 
-void PhysicalObject::update(sf::Time elapsed)
+void Orang::update(sf::Time elapsed)
 {
 	switch(m_current_state)
 	{
@@ -23,11 +32,13 @@ void PhysicalObject::update(sf::Time elapsed)
 			{
 				dir=-1;
 				this->flipSpriteLeft();
-			}
-			else if(m_pushes_left)
+				m_sound.play();
+			}	
+			if(m_pushes_left)
 			{
 				dir=1;
 				this->flipSpriteRight();
+				m_sound.play();
 			}
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
 
@@ -39,12 +50,13 @@ void PhysicalObject::update(sf::Time elapsed)
 			if(m_pushes_bottom_tile)
 			{
 				m_speed.y=0;	
-
+				m_sound.play();
 				if(dir==1)
 					this->flipSpriteLeft();
 				else if(dir==-1)
 					this->flipSpriteRight();
 				dir=-dir;
+
 				m_current_state=Walk;
 			}
 			else

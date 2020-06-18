@@ -1,12 +1,12 @@
-#ifndef DEF_PHYOBJ
-#define DEF_PHYOBJ
+#ifndef DEF_BIGCHUNGUS
+#define DEF_BIGCHUNGUS
 
 #include "movingObject.hpp"
 
-class PhysicalObject : public MovingObject
+class BigChungus : public MovingObject
 {
 public:
-	PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool is_kinematic);
+	BigChungus(sf::Vector2f center, sf::Vector2f half_size, string name, bool is_kinematic);
 
 	enum ObjectState{Stand, Walk, Fall};
 

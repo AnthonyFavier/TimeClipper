@@ -1,9 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "../include/constants.hpp"
+#include "../include/map.hpp"
 #include "../include/character.hpp"
 #include "../include/physicalObject.hpp"
-#include "../include/map.hpp"
+#include "../include/raoult.hpp"
+#include "../include/orang.hpp"
+#include "../include/bigChungus.hpp"
 
 #include <iostream>
 using namespace std;
@@ -133,10 +136,10 @@ int main(int argc, char** argv)
 	//Character(center, halfsize) //
 	objects.push_back(new Character(sf::Vector2f(120, 60), sf::Vector2f(14, 25), inputs));
 
-	// PhysicalObject //
-	objects.push_back(new PhysicalObject(sf::Vector2f(300,7), sf::Vector2f(25,22), sf::Color(255,255,255), "orange", false));
-	objects.push_back(new PhysicalObject(sf::Vector2f(50,90), sf::Vector2f(45,41), sf::Color(255,255,255), "raoult", false));
-	objects.push_back(new PhysicalObject(sf::Vector2f(600,200), sf::Vector2f(25,49), sf::Color(255,255,255), "big_chungus", true));
+	// Objects //
+	objects.push_back(new Orang(sf::Vector2f(300,7), sf::Vector2f(25,22), "orang", false));
+	objects.push_back(new Raoult(sf::Vector2f(50,90), sf::Vector2f(45,41), "raoult", false));
+	objects.push_back(new BigChungus(sf::Vector2f(600,200), sf::Vector2f(25,49), "big_chungus", true));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;
