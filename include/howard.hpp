@@ -18,6 +18,7 @@ private:
 	float m_move_speed;
 	int dir;
 	AnimationHandler m_anim;
+	sf::Music m_music;
 };
 
 #endif

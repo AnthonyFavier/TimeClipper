@@ -2,12 +2,17 @@
 
 Howard::Howard(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : 
 	MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic),
-	m_anim(3,3,8,sf::Vector2i(200,310),sf::seconds(0.5),"howard_sheet",&m_sprite)
+	m_anim(3,3,8,sf::Vector2i(200,310),sf::seconds(0.4412),"howard_sheet",&m_sprite)
 {
 	m_current_state=Stand;
 
 	dir=-1;
 	m_move_speed=30;
+
+	if(!m_music.openFromFile("rsc/sounds/howard.waw"))
+		exit(-1);
+	m_music.setLoop(true);
+	m_music.play();
 }
 
 void Howard::update(sf::Time elapsed)
