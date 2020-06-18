@@ -2,6 +2,7 @@
 #define DEF_MOVINGOBJECT
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "constants.hpp"
 #include "hitbox.hpp"
 #include <vector>

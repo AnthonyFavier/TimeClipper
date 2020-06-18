@@ -6,14 +6,12 @@ Character::Character(sf::Vector2f center, sf::Vector2f half_size, bool* inputs) 
 	m_jump_speed=CHAR_JUMP_SPEED;
 	m_jump_count=0;
 	m_walk_speed=CHAR_WALK_SPEED;
-
-	m_inputs=inputs;
+	m_inputs=inputs;	
+	for(int i=0; i<NB_KEY_CHARACTER; i++)
+		m_old_inputs[i]=false;
 
 	m_texture.loadFromFile("rsc/newboi.png");
 	m_sprite.setTexture(m_texture);
-
-	for(int i=0; i<NB_KEY_CHARACTER; i++)
-		m_old_inputs[i]=false;
 }
 
 bool Character::released(KeyInputChar key)

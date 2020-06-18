@@ -16,6 +16,8 @@ private:
 	ObjectState m_current_state;
 	float m_move_speed;
 	int dir;
+	sf::SoundBuffer m_buffer;
+	sf::Sound m_sound;
 };
 
 #endif

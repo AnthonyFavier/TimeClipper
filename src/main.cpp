@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../include/constants.hpp"
 #include "../include/character.hpp"
 #include "../include/physicalObject.hpp"

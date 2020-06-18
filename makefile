@@ -1,5 +1,5 @@
 CC=g++
-SFMLFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
+SFMLFLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 WARN=-Wall
 SRCS=src/*.cpp
 
