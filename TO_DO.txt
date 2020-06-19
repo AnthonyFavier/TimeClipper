@@ -1,7 +1,7 @@
 - animation
 - sound : faire un sound manager ?
 - collision response : 
-	- big object
+	- ATTENTION : si big_chungus pousse dans tile ça se passe tres mal
 	- quand kinematic push contre tile -> stop (obj2 devient kin ?)
 	- quand obj tombe sur joueur, bizarre ?
 - hasLeftWall etc .. FPS => use elapsed ?
