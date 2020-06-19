@@ -11,7 +11,7 @@ using namespace std;
 class Character : public MovingObject
 {
 public:
-	Character(sf::Vector2f center, sf::Vector2f half_size, bool* inputs);
+	Character(sf::Vector2f center, bool* inputs);
 	
 	bool released(KeyInputChar key);
 	bool keyState(KeyInputChar key);

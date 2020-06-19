@@ -1,6 +1,7 @@
 #include "../include/raoult.hpp"
 
-Raoult::Raoult(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic)
+Raoult::Raoult(sf::Vector2f center, string name, bool isKinematic) : 
+	MovingObject(center, sf::Vector2f(45,41), sf::Vector2f(45,41), sf::Color(255,255,255), name, isKinematic)
 {
 	m_current_state=Stand;
 

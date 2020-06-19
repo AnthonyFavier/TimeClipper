@@ -7,7 +7,7 @@
 class Howard : public MovingObject
 {
 public:
-	Howard(sf::Vector2f center, sf::Vector2f half_size, string name, bool is_kinematic);
+	Howard(sf::Vector2f center, string name, bool is_kinematic);
 
 	enum ObjectState{Stand, Walk, Fall};
 

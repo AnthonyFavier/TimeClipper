@@ -1,6 +1,7 @@
 #include "../include/character.hpp"
 
-Character::Character(sf::Vector2f center, sf::Vector2f half_size, bool* inputs) : MovingObject(center, half_size, sf::Color(255,255,255), "bob", false)
+Character::Character(sf::Vector2f center, bool* inputs) : 
+	MovingObject(center, sf::Vector2f(14,25), sf::Vector2f(14,24.5), sf::Color(255,255,255), "bob", false)
 {
 	m_current_state=Stand;
 	m_jump_speed=CHAR_JUMP_SPEED;

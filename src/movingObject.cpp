@@ -27,13 +27,13 @@ CollisionData::CollisionData(MovingObject* other, sf::Vector2f overlaps, sf::Vec
 
 /////////////////////////////
 
-MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool is_kinematic) : m_hitbox(center, half_size)
+MovingObject::MovingObject(sf::Vector2f center, sf::Vector2f half_size_sprite, sf::Vector2f half_size_hitbox, sf::Color color, string name, bool is_kinematic) : m_hitbox(center, half_size_hitbox)
 {
-	m_half_size=half_size;
+	m_half_size=half_size_sprite;
 	int W=m_half_size.x*2;
 	int H=m_half_size.y*2;
 
-	if(name!="orange" && name!="raoult" && name!="big_chungus")
+	if(name.length()>=2 && name[0]=='M' && name[1]=='O')
 	{
 		sf::Uint8* pixels = new sf::Uint8[H*W*4];
 		for(int i=0; i<H*W*4; i+=4)
@@ -185,8 +185,6 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 		m_pushes_bottom_tile=false;
 		m_on_drop_tile=false;
 	}
-
-
 
 	m_hitbox.updateCenter(this->getPosition()+m_hitbox_offset);
 }

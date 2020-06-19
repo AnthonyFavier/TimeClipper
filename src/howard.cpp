@@ -1,7 +1,7 @@
 #include "../include/howard.hpp"
 
-Howard::Howard(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : 
-	MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic),
+Howard::Howard(sf::Vector2f center, string name, bool isKinematic) : 
+	MovingObject(center, sf::Vector2f(100,155), sf::Vector2f(50,155), sf::Color(255,255,255), name, isKinematic),
 	m_anim(3,3,8,sf::Vector2i(200,310),sf::seconds(0.4412),"howard_sheet",&m_sprite)
 {
 	m_current_state=Stand;

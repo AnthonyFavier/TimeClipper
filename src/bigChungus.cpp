@@ -1,6 +1,7 @@
 #include "../include/bigChungus.hpp"
 
-BigChungus::BigChungus(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic)
+BigChungus::BigChungus(sf::Vector2f center, string name, bool isKinematic) : 
+	MovingObject(center, sf::Vector2f(25,49), sf::Vector2f(25,49), sf::Color(255,255,255), name, isKinematic)
 {
 	m_current_state=Stand;
 

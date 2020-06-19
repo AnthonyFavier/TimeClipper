@@ -1,6 +1,7 @@
 #include "../include/physicalObject.hpp"
 
-PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool isKinematic) : MovingObject(center, half_size, color, name, isKinematic)
+PhysicalObject::PhysicalObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool isKinematic) : 
+	MovingObject(center, half_size, half_size, color, name, isKinematic)
 {
 	m_current_state=Stand;
 	m_move_speed=100;

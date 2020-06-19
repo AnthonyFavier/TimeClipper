@@ -18,7 +18,7 @@ sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t);
 class MovingObject: public sf::Drawable, public sf::Transformable
 {
 public:
-	MovingObject(sf::Vector2f center, sf::Vector2f half_size, sf::Color color, string name, bool is_kinematic);
+	MovingObject(sf::Vector2f center, sf::Vector2f half_size_sprite, sf::Vector2f half_size_hitbox, sf::Color color, string name, bool is_kinematic);
 
 	void updatePhysics(sf::Time elapsed);
 	void updatePhysicsResponse();

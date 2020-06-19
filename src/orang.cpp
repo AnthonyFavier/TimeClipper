@@ -1,6 +1,7 @@
 #include "../include/orang.hpp"
 
-Orang::Orang(sf::Vector2f center, sf::Vector2f half_size, string name, bool isKinematic) : MovingObject(center, half_size, sf::Color(255,255,255), name, isKinematic)
+Orang::Orang(sf::Vector2f center, string name, bool isKinematic) : 
+	MovingObject(center, sf::Vector2f(25,22), sf::Vector2f(25,22), sf::Color(255,255,255), name, isKinematic)
 {
 	m_current_state=Stand;
 
