@@ -163,11 +163,11 @@ int main(int argc, char** argv)
 		// draw it //
 		window.clear();
 		::map.draw(&window);
-		::map.drawQuadtree(&window); //debug
+		//::map.drawQuadtree(&window); //debug
 		for(unsigned int i=0; i<objects.size(); i++)
 		{
 			window.draw(*objects[i]);
-			objects[i]->m_hitbox.draw(&window); //debug
+			//objects[i]->m_hitbox.draw(&window); //debug
 		}
 		window.display();
 	}
