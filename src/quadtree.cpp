@@ -9,11 +9,11 @@ Quadtree::Quadtree()
 
 void Quadtree::updateArea(MovingObject* obj)
 {
-	sf::Vector2f tmp = obj->m_hitbox.m_center + sf::Vector2f(-obj->m_hitbox.getHalfSize().x, obj->m_hitbox.getHalfSize().y);
+	sf::Vector2f tmp = obj->m_hitbox.m_center - obj->m_hitbox.getHalfSize();
 	sf::Vector2i top_left((int)tmp.x, (int)tmp.y);
-	tmp = obj->m_hitbox.m_center + obj->m_hitbox.getHalfSize();
+	tmp = obj->m_hitbox.m_center + sf::Vector2f(obj->m_hitbox.getHalfSize().x,-obj->m_hitbox.getHalfSize().y);
 	sf::Vector2i top_right((int)tmp.x, (int)tmp.y);
-	tmp = obj->m_hitbox.m_center - obj->m_hitbox.getHalfSize();
+	tmp = obj->m_hitbox.m_center + sf::Vector2f(-obj->m_hitbox.getHalfSize().x,obj->m_hitbox.getHalfSize().y);
 	sf::Vector2i bottom_left((int)tmp.x, (int)tmp.y);
 	sf::Vector2i bottom_right;
 
@@ -28,29 +28,37 @@ void Quadtree::updateArea(MovingObject* obj)
 
 	// on suppose que l'objet n'est pas en dehors de la map
 	// sinon test sup pour l'ignorer
-	// on suppose que obj plus petit que deux cell
-	// sinon faut faire loop et ajouter toutes ares inter
-
+	
 	vector<sf::Vector2i> overlappingAreas;
 
+	// whole object in one cell
 	if(top_left.x == top_right.x && top_left.y == bottom_left.y)
 		overlappingAreas.push_back(top_left);
+	// object in several vertical cells
 	else if(top_left.x == top_right.x)
 	{
-		overlappingAreas.push_back(top_left);
-		overlappingAreas.push_back(bottom_left);
+		sf::Vector2i cell;
+		cell.x=top_left.x;
+		for(cell.y=top_left.y; cell.y<=bottom_left.y; cell.y++)
+			overlappingAreas.push_back(cell);
 	}
+	// object in several horizontal cells
 	else if(top_left.y == bottom_left.y)
 	{
-		overlappingAreas.push_back(top_left);
-		overlappingAreas.push_back(top_right);
+		sf::Vector2i cell;
+		cell.y=top_left.y;
+		for(cell.x=top_left.x; cell.x<=top_right.x; cell.x++)
+			overlappingAreas.push_back(cell);
 	}
+	// object in several horizontal and vertical cells
 	else
 	{
-		overlappingAreas.push_back(top_left);
-		overlappingAreas.push_back(top_right);
-		overlappingAreas.push_back(bottom_left);
-		overlappingAreas.push_back(bottom_right);
+		sf::Vector2i cell;
+		for(cell.x=top_left.x; cell.x<=top_right.x; cell.x++)
+		{
+			for(cell.y=top_left.y; cell.y<=bottom_left.y; cell.y++)
+				overlappingAreas.push_back(cell);
+		}
 	}
 
 	vector<sf::Vector2i>::iterator it;

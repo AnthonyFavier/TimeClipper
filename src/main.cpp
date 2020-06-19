@@ -141,7 +141,7 @@ int main(int argc, char** argv)
 	objects.push_back(new Orang(sf::Vector2f(300,7), sf::Vector2f(25,22), "orang", false));
 	objects.push_back(new Raoult(sf::Vector2f(50,90), sf::Vector2f(45,41), "raoult", false));
 	objects.push_back(new BigChungus(sf::Vector2f(550,300), sf::Vector2f(25,49), "big_chungus", true));
-	objects.push_back(new Howard(sf::Vector2f(700,150), sf::Vector2f(100,155), "howard", false));
+	objects.push_back(new Howard(sf::Vector2f(680,150), sf::Vector2f(100,155), "howard", false));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;
