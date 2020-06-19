@@ -155,19 +155,20 @@ int main(int argc, char** argv)
 		// update it //
 		fixedUpdate(clock.restart(), objects);
 
-		// debug //
+		// debug log //
 		//::map.quadtreeDebug();
 		//reinterpret_cast<Character*>(objects[0])->debug();
 		//cout << endl;
 
 		// draw it //
 		window.clear();
-
 		::map.draw(&window);
-		//::map.drawQuadtree(&window);
+		::map.drawQuadtree(&window); //debug
 		for(unsigned int i=0; i<objects.size(); i++)
+		{
 			window.draw(*objects[i]);
-
+			objects[i]->m_hitbox.draw(&window); //debug
+		}
 		window.display();
 	}
 

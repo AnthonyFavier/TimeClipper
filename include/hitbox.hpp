@@ -14,9 +14,13 @@ public:
 	sf::Vector2f m_center;
 	sf::Vector2f getHalfSize();
 	void setHalfSize(sf::Vector2f hs);
+	void updateCenter(sf::Vector2f center);
+
+	void draw(sf::RenderWindow* window);
 	
 private:
 	sf::Vector2f m_half_size;
+	sf::RectangleShape m_shape;
 };
 
 #endif

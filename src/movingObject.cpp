@@ -188,7 +188,7 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 
 
 
-	m_hitbox.m_center=this->getPosition()+m_hitbox_offset;
+	m_hitbox.updateCenter(this->getPosition()+m_hitbox_offset);
 }
 
 // BOTTOM
