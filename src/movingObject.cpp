@@ -124,16 +124,16 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	m_pushed_left_tile=m_pushes_left_tile;
 	m_pushed_top_tile=m_pushes_top_tile;
 
-	sf::Vector2f to_move(m_speed*elapsed.asSeconds());
+//	sf::Vector2f to_move(m_speed*elapsed.asSeconds());
 	if(m_pushes_right)
-		to_move.x = std::min(to_move.x,0.f);
+		m_speed.x = std::min(m_speed.x,0.f);
 	if(m_pushes_left)
-		to_move.x = std::max(to_move.x,0.f);
+		m_speed.x = std::max(m_speed.x,0.f);
 	if(m_pushes_top)
-		to_move.y = std::max(to_move.y,0.f);
+		m_speed.y = std::max(m_speed.y,0.f);
 	if(m_pushes_bottom)
-		to_move.y = std::min(to_move.y,0.f);
-	this->move(to_move);
+		m_speed.y = std::min(m_speed.y,0.f);
+	this->move(m_speed*elapsed.asSeconds());
 
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 

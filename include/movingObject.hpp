@@ -45,12 +45,15 @@ public:
 	void setAlpha(int a);
 	virtual void update(sf::Time elapsed)=0;
 
-
 	// Getters
 	sf::Vector2f getSpeed(){return m_speed;};
 	sf::Vector2f getOldPos(){return m_old_position;};
 	bool getIsKinematic(){return m_is_kinematic;};
 	string getName(){return m_name;};
+	bool getPushesLeft(){return m_pushes_left;};
+	bool getPushesRight(){return m_pushes_right;};
+	bool getPushesTop(){return m_pushes_top;};
+	bool getPushesBottom(){return m_pushes_bottom;};
 
 	// Variables
 	Hitbox m_hitbox;
