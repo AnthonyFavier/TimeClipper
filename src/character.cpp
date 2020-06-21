@@ -1,4 +1,7 @@
 #include "../include/character.hpp"
+#include "../include/logManager.hpp"
+
+extern LogManager logM;
 
 Character::Character(sf::Vector2f center, bool* inputs) : 
 	MovingObject(center, sf::Vector2f(14,25), sf::Vector2f(14,24.5), sf::Color(255,255,255), "bob", false)
@@ -200,4 +203,27 @@ void Character::debug()
 	for(unsigned int i=0; i<m_all_colliding_objects.size(); i++)
 		cout << m_all_colliding_objects[i].m_other->getName() << " ";
 	cout << endl;
+}
+
+void Character::debug2()
+{
+	logM << endl;
+	logM << "position x=" << this->getPosition().x << " y=" << this->getPosition().y << endl;
+	logM << "speed x=" << m_speed.x << " y=" << m_speed.y << endl;
+	logM << "m_half_size x= " << m_half_size.x << " y=" << m_half_size.y << endl;
+	logM << "current_state (Stand, Walk, Jump, GrabEdge)=" << m_current_state << endl;
+	logM << "inputs ";
+	for(int i=0; i<NB_KEY_CHARACTER; i++)
+		logM << i << "-" << m_inputs[i] << " ";
+	logM << endl;
+	logM << "m_jump_count=" << m_jump_count << endl;
+	logM << "Pushes (o-t-a):" << endl;
+	logM << "\t right\t" << m_pushes_right_obj << "-" << m_pushes_right_tile << "-" << m_pushes_right << endl;
+	logM << "\t left\t" << m_pushes_left_obj << "-" << m_pushes_left_tile << "-" << m_pushes_left << endl;
+	logM << "\t top\t" << m_pushes_top_obj << "-" << m_pushes_top_tile << "-" << m_pushes_top << endl;
+	logM << "\t bottom\t" << m_pushes_bottom_obj << "-" << m_pushes_bottom_tile << "-" << m_pushes_bottom << endl;
+	logM << "Collision : ";
+	for(unsigned int i=0; i<m_all_colliding_objects.size(); i++)
+		logM << m_all_colliding_objects[i].m_other->getName() << " ";
+	logM << endl;
 }

@@ -1,7 +1,10 @@
 #include "../include/quadtree.hpp"
+#include "../include/logManager.hpp"
 
 #include <iostream>
 using namespace std;
+
+extern LogManager logM;
 
 Quadtree::Quadtree()
 {
@@ -140,5 +143,16 @@ void Quadtree::debug()
 		for(int j=0; j<vCountGrid; j++)
 			cout << m_object_in_area[j][i].size() << " ";
 		cout << endl;
+	}
+}
+
+void Quadtree::debug2()
+{
+	logM << "Quadtree:" << endl;
+	for(int i=0; i<hCountGrid; i++)
+	{
+		for(int j=0; j<vCountGrid; j++)
+			logM << m_object_in_area[j][i].size() << " ";
+		logM << endl;
 	}
 }

@@ -21,6 +21,7 @@ public:
 	void removeObjectFromArea(sf::Vector2i areaIndex, int objIndexInArea, MovingObject* obj);
 	void draw(sf::RenderWindow* window);
 	void debug();
+	void debug2();
 
 	vector<MovingObject*> m_object_in_area[hCountGrid][vCountGrid];
 };

@@ -8,6 +8,7 @@
 #include "../include/orang.hpp"
 #include "../include/bigChungus.hpp"
 #include "../include/howard.hpp"
+#include "../include/logManager.hpp"
 
 #include <iostream>
 using namespace std;
@@ -15,6 +16,8 @@ using namespace std;
 // project global var
 // used in MovingObject
 Map map;
+
+LogManager logM;
 
 // Check sensors size
 // Check high speed collision
@@ -156,9 +159,9 @@ int main(int argc, char** argv)
 		fixedUpdate(clock.restart(), objects);
 
 		// debug log //
-		//::map.quadtreeDebug();
-		//reinterpret_cast<Character*>(objects[0])->debug();
-		//cout << endl;
+		//::map.quadtreeDebug2();
+		reinterpret_cast<Character*>(objects[0])->debug2();
+		logM << endl;
 
 		// draw it //
 		window.clear();

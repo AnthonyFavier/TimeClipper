@@ -1,10 +1,12 @@
 #include "../include/movingObject.hpp"
 #include "../include/map.hpp"
+#include "../include/logManager.hpp"
 #include <iostream>
 
 using namespace std;
 
 extern Map map;
+extern LogManager logM;
 
 sf::Vector2f interpolate(sf::Vector2f A, sf::Vector2f B, float t)
 {

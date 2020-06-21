@@ -26,6 +26,7 @@ public:
 	void sizeDown();
 
 	void debug();
+	void debug2();
 	
 private:
 	bool* m_inputs;

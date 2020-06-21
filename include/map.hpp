@@ -21,6 +21,7 @@ public:
 	void drawQuadtree(sf::RenderWindow* window);
 
 	void quadtreeDebug();
+	void quadtreeDebug2();
 	void quadtreeUpdateArea(MovingObject* obj);
 
 	int getWidth();

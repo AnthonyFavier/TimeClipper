@@ -71,6 +71,11 @@ void Map::quadtreeDebug()
 	m_quadtree.debug();
 }
 
+void Map::quadtreeDebug2()
+{
+	m_quadtree.debug2();
+}
+
 void Map::quadtreeUpdateArea(MovingObject* obj)
 {
 	m_quadtree.updateArea(obj);
