@@ -54,6 +54,14 @@ public:
 	bool getPushesRight(){return m_pushes_right;};
 	bool getPushesTop(){return m_pushes_top;};
 	bool getPushesBottom(){return m_pushes_bottom;};
+	bool getPushesLeftTile(){return m_pushes_left_tile;};
+	bool getPushesRightTile(){return m_pushes_right_tile;};
+	bool getPushesTopTile(){return m_pushes_top_tile;};
+	bool getPushesBottomTile(){return m_pushes_bottom_tile;};	
+	bool getPushesLeftObj(){return m_pushes_left_obj;};
+	bool getPushesRightObj(){return m_pushes_right_obj;};
+	bool getPushesTopObj(){return m_pushes_top_obj;};
+	bool getPushesBottomObj(){return m_pushes_bottom_obj;};
 
 	// Variables
 	Hitbox m_hitbox;
@@ -108,6 +116,7 @@ protected:
 
 	bool m_is_kinematic;
 
+	bool m_can_continue;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

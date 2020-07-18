@@ -34,8 +34,15 @@ bool Hitbox::overlaps(Hitbox other, sf::Vector2f* overlap)
 	|| abs(m_center.y - other.m_center.y) > (m_half_size.y + other.getHalfSize().y))
 		ok=false;
 
-	*overlap = sf::Vector2f(sgn(m_center.x-other.m_center.x) * ((other.getHalfSize().x+m_half_size.x) - abs(m_center.x-other.m_center.x)),
-				sgn(m_center.y-other.m_center.y) * ((other.getHalfSize().y+m_half_size.y) - abs(m_center.y-other.m_center.y)));
+	int sign_x=sgn(m_center.x-other.m_center.x);
+	if(m_center.x==other.m_center.x)
+		sign_x=1;
+	int sign_y=sgn(m_center.y-other.m_center.y);
+	if(m_center.y==other.m_center.y)
+		sign_y=1;
+
+	*overlap = sf::Vector2f(sign_x * ((other.getHalfSize().x+m_half_size.x) - abs(m_center.x-other.m_center.x)),
+				sign_y * ((other.getHalfSize().y+m_half_size.y) - abs(m_center.y-other.m_center.y)));
 
 	return ok;
 }

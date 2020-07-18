@@ -1,5 +1,7 @@
 #include "../include/bigChungus.hpp"
 
+#include <iostream>
+
 BigChungus::BigChungus(sf::Vector2f center, string name, bool isKinematic) : 
 	MovingObject(center, sf::Vector2f(25,49), sf::Vector2f(25,49), sf::Color(255,255,255), name, isKinematic)
 {
@@ -29,18 +31,17 @@ void BigChungus::update(sf::Time elapsed)
 			break;
 
 		case Walk:
-			if(m_pushes_right)
+			if(!m_can_continue || m_pushes_left_tile || m_pushes_right_tile)
 			{
-				dir=-1;
-				this->flipSpriteLeft();
+				dir=-dir;
+				std::cout << "changed dir" << std::endl;
 				m_sound.play();
 			}	
-			else if(m_pushes_left)
-			{
-				dir=1;
+			if(dir==1)
 				this->flipSpriteRight();
-				m_sound.play();
-			}
+			else if(dir==-1)
+				this->flipSpriteLeft();
+
 			m_speed=sf::Vector2f(dir*m_move_speed,0);
 
 			if(!m_pushes_bottom_tile)
@@ -53,11 +54,11 @@ void BigChungus::update(sf::Time elapsed)
 				m_speed.y=0;	
 				m_sound.play();
 
-				if(dir==1)
-					this->flipSpriteLeft();
-				else if(dir==-1)
-					this->flipSpriteRight();
 				dir=-dir;
+				if(dir==1)
+					this->flipSpriteRight();
+				else if(dir==-1)
+					this->flipSpriteLeft();
 				m_current_state=Walk;
 			}
 			else

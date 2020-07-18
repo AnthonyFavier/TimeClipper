@@ -140,11 +140,12 @@ int main(int argc, char** argv)
 	//Character(center, halfsize) //
 	objects.push_back(new Character(sf::Vector2f(120, 60), inputs));
 
-	// Objects //
-	objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
-	objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
+	// Objects (center, name, isKinematic) //
+//	objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
+//	objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
 	objects.push_back(new BigChungus(sf::Vector2f(550,300), "big_chungus", true));
-	objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
+	objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
+//	objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;
@@ -160,8 +161,9 @@ int main(int argc, char** argv)
 
 		// debug log //
 		//::map.quadtreeDebug2();
-		reinterpret_cast<Character*>(objects[0])->debug2();
-		logM << endl;
+		//reinterpret_cast<Character*>(objects[0])->debug2();
+		//logM << endl;
+		cout << endl;
 
 		// draw it //
 		window.clear();

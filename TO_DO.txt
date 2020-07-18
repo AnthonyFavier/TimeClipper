@@ -3,17 +3,18 @@
 - collision response : 
 	- ATTENTION : si big_chungus pousse dans tile ça se passe tres mal
 	=>
-		- (A with speed and) B stuck (A opposé à B pushes) : A ratio = 1
-
 		- (B with speed and) A stuck : B ratio = 1
 
-		- A !kine
-			- B !kine : ratio partagé
-			- B kine  : A ratio = 1
+		- (A with speed and) B stuck (A opposé à B pushes) : A ratio = 1
 
 		- A kine
-			- B !kine : B ratio = 1
 			- B kine  : ratio partagé
+			- B !kine : B ratio = 1
+
+		- A !kine
+			- B kine  : A ratio = 1
+			- B !kine : ratio partagé
+
 
 	- quand obj tombe sur joueur, bizarre ?
 
