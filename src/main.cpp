@@ -123,9 +123,20 @@ void fixedUpdate(sf::Time elapsed, vector<MovingObject*> objects)
 	}
 
 	::map.checkCollisions();
-
 	for(unsigned int i=0; i<objects.size(); i++)
 		objects[i]->updatePhysicsP2();
+
+	bool modif=false;
+	for(unsigned int i=0; i<objects.size(); i++)
+	{
+		if(objects[i]->collisionTiles())
+			modif=true;
+	}
+	if(modif)
+	{
+		for(unsigned int i=0; i<objects.size(); i++)
+			objects[i]->updatePhysicsP2();
+	}
 }
 
 int main(int argc, char** argv)
@@ -143,11 +154,11 @@ int main(int argc, char** argv)
 	objects.push_back(new Character(sf::Vector2f(120, 60), inputs));
 
 	// Objects (center, name, isKinematic) //
-//	objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
-//	objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
+	//	objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
+	//	objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
 	objects.push_back(new BigChungus(sf::Vector2f(550,300), "big_chungus", true));
-//	objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
-//	objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
+	//	objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
+	//	objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;
@@ -155,6 +166,8 @@ int main(int argc, char** argv)
 	// run the main loop //
 	while(window.isOpen())
 	{
+		logM << endl << "=> Debut <=" << endl;
+
 		// handle events //
 		handleEvents(&window, inputs);
 
@@ -163,9 +176,9 @@ int main(int argc, char** argv)
 
 		// debug log //
 		//::map.quadtreeDebug2();
-		//reinterpret_cast<Character*>(objects[0])->debug2();
-		//logM << endl;
-		cout << endl;
+		reinterpret_cast<Character*>(objects[0])->debug2();
+		logM << "big= " << objects[1]->getPosition().x << " , " << objects[1]->getPosition().y << endl;
+		logM << endl;
 
 		// draw it //
 		window.clear();
@@ -174,7 +187,7 @@ int main(int argc, char** argv)
 		for(unsigned int i=0; i<objects.size(); i++)
 		{
 			window.draw(*objects[i]);
-			//objects[i]->m_hitbox.draw(&window); //debug
+			objects[i]->m_hitbox.draw(&window); //debug
 		}
 		window.display();
 	}

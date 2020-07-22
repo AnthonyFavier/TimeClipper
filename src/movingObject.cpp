@@ -138,17 +138,25 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	this->move(m_speed*elapsed.asSeconds());
 }
 
-void MovingObject::collisionTiles()
+bool MovingObject::collisionTiles()
 {
+	logM << m_name << " - Debut collisiontTiles" << endl;
+	sf::Vector2f pos_avant=this->getPosition();
+
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 
 	// LEFT
-	if(m_speed.x<=0 && this->hasLeftWall(&left_wall_x))
+	if((m_speed.x<=0 || this->getPosition().x-m_old_position.x<=0)  && this->hasLeftWall(&left_wall_x))
 	{
+		logM << "LEFT" << endl;
+		logM << "left_wall_x=" << left_wall_x << endl;
+		logM << "old_p=" << m_old_position.x << " , " << m_old_position.y << endl;
+		logM << "old_p.x-hibox.halfSize.X+offset.X=" << m_old_position.x - m_hitbox.getHalfSize().x + m_hitbox_offset.x << endl;
 		if(m_old_position.x - m_hitbox.getHalfSize().x + m_hitbox_offset.x >= left_wall_x)
 		{
 			this->setPosition(left_wall_x+m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
 			m_pushes_left_tile=true;
+			logM << "new pose= " << left_wall_x+m_hitbox.getHalfSize().x-m_hitbox_offset.x << "," << this->getPosition().y << endl;
 		}
 		m_speed.x=std::max(m_speed.x,0.f);
 	}
@@ -156,22 +164,27 @@ void MovingObject::collisionTiles()
 		m_pushes_left_tile=false;
 
 	// RIGHT
-	if(m_speed.x>=0 && this->hasRightWall(&right_wall_x))
+	if((m_speed.x>=0 || this->getPosition().x-m_old_position.x>=0) && this->hasRightWall(&right_wall_x))
 	{
+		logM << "RIGHT";
 		if(m_old_position.x + m_hitbox.getHalfSize().x + m_hitbox_offset.x <= right_wall_x)
 		{
 			this->setPosition(right_wall_x-m_hitbox.getHalfSize().x-m_hitbox_offset.x, this->getPosition().y);
+			logM << "new pose= " << right_wall_x-m_hitbox.getHalfSize().x-m_hitbox_offset.x << "," << this->getPosition().y << endl;
 			m_pushes_right_tile=true;
 		}
 		m_speed.x=std::min(m_speed.x,0.f);
+		logM << endl;
 	}
 	else
 		m_pushes_right_tile=false;
 
 	// TOP
-	if(m_speed.y<=0	&& this->hasCeiling(&ceiling_y))
+	if((m_speed.y<=0 || this->getPosition().y-m_old_position.y<=0) && this->hasCeiling(&ceiling_y))
 	{
+		logM << "TOP" << endl;
 		this->setPosition(this->getPosition().x, ceiling_y + m_hitbox.getHalfSize().y - m_hitbox_offset.y);
+		logM << "new pose= " << this->getPosition().x << "," << ceiling_y + m_hitbox.getHalfSize().y - m_hitbox_offset.y << endl;
 		m_speed.y=0;
 		m_pushes_top_tile=true;
 	}
@@ -179,9 +192,11 @@ void MovingObject::collisionTiles()
 		m_pushes_top_tile=false;
 
 	// BOTTOM
-	if(m_speed.y>=0 && this->hasGround(&ground_y))
+	if((m_speed.y>=0 || this->getPosition().y-m_old_position.y>=0) && this->hasGround(&ground_y))
 	{
+		logM << "BOT" << endl;
 		this->setPosition(this->getPosition().x, ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y);
+		logM << "new pose= " << this->getPosition().x << "," << ground_y - m_hitbox.getHalfSize().y - m_hitbox_offset.y << endl;
 		m_speed.y=0;
 		m_pushes_bottom_tile=true;
 	}
@@ -192,6 +207,12 @@ void MovingObject::collisionTiles()
 	}
 
 	m_hitbox.updateCenter(this->getPosition()+m_hitbox_offset);
+
+	logM << "fin collisionTiles" << endl;
+
+	if(this->getPosition()!=pos_avant)
+		return true;
+	return false;
 }
 
 // BOTTOM
@@ -487,20 +508,20 @@ void MovingObject::updatePhysicsResponse()
 		data=&m_all_colliding_objects[i];
 		overlap=data->m_overlaps - offset_sum;
 
-		cout << "my name=" << m_name << endl;
-		cout << "data:";
-		cout << "\tother=" << data->m_other->getName() << endl;
-		cout << "\tm_overlaps=" << overlap.x << "," << overlap.y << endl;
-		cout << "\tm_speed1=" << data->m_speed1.x << "," << data->m_speed1.y << endl;
-		cout << "\tm_speed2=" << data->m_speed2.x << "," << data->m_speed2.y << endl;
-		cout << "\tm_pos1=" << data->m_pos1.x << "," << data->m_pos1.y << endl;
-		cout << "\tm_pos2=" << data->m_pos2.x << "," << data->m_pos2.y << endl;
-		cout << "\tm_old_pos1=" << data->m_old_pos1.x << "," << data->m_old_pos1.y << endl;
-		cout << "\tm_old_pos2=" << data->m_old_pos2.x << "," << data->m_old_pos2.y << endl;
+		logM << "my name=" << m_name << endl;
+		logM << "data:";
+		logM << "\tother=" << data->m_other->getName() << endl;
+		logM << "\tm_overlaps=" << overlap.x << "," << overlap.y << endl;
+		logM << "\tm_speed1=" << data->m_speed1.x << "," << data->m_speed1.y << endl;
+		logM << "\tm_speed2=" << data->m_speed2.x << "," << data->m_speed2.y << endl;
+		logM << "\tm_pos1=" << data->m_pos1.x << "," << data->m_pos1.y << endl;
+		logM << "\tm_pos2=" << data->m_pos2.x << "," << data->m_pos2.y << endl;
+		logM << "\tm_old_pos1=" << data->m_old_pos1.x << "," << data->m_old_pos1.y << endl;
+		logM << "\tm_old_pos2=" << data->m_old_pos2.x << "," << data->m_old_pos2.y << endl;
 
 		if(overlap.x == 0)
 		{
-			cout << "\tcas1" << endl;
+			logM << "\tcas1" << endl;
 			if(data->m_other->m_hitbox.m_center.x > m_hitbox.m_center.x)
 			{
 				m_pushes_right_obj=true;
@@ -516,7 +537,7 @@ void MovingObject::updatePhysicsResponse()
 		}
 		else if(overlap.y == 0)
 		{
-			cout << "\tcas2" << endl;
+			logM << "\tcas2" << endl;
 			if(data->m_other->m_hitbox.m_center.y > m_hitbox.m_center.y)
 			{
 				m_pushes_bottom_obj=true;
@@ -532,7 +553,7 @@ void MovingObject::updatePhysicsResponse()
 		}
 		else
 		{
-			cout << "\tcas3" << endl;
+			logM << "\tcas3" << endl;
 			// Calcul des vitesses //
 			sf::Vector2f abs_speed1 = sf::Vector2f(std::abs(data->m_pos1.x - data->m_old_pos1.x),std::abs(data->m_pos1.y - data->m_old_pos1.y));
 			sf::Vector2f abs_speed2 = sf::Vector2f(std::abs(data->m_pos2.x - data->m_old_pos2.x),std::abs(data->m_pos2.y - data->m_old_pos2.y));
@@ -560,6 +581,16 @@ void MovingObject::updatePhysicsResponse()
 				else
 					top=true; // other is on top of this
 			}
+			logM << "\toverlapped_last_frame_x=" << overlapped_last_frame_x << endl;
+			logM << "\toverlapped_last_frame_y=" << overlapped_last_frame_y << endl;
+			if(right)
+				logM << "\tright" << endl;
+			else if(left)
+				logM << "\tleft" << endl;
+			else if(top)
+				logM << "\ttop" << endl;
+			else if(bottom)
+				logM << "\tbottom" << endl;
 
 			// Calcul du ratio //
 			sf::Vector2f speed_ratio;
@@ -574,7 +605,7 @@ void MovingObject::updatePhysicsResponse()
 			// this stuck
 			if((right && pushes_left) || (left && pushes_right) || (top && pushes_bottom) || (bottom && pushes_top))
 			{
-				cout << "\tthis stuck" << endl;
+				logM << "\tthis stuck" << endl;
 				speed_ratio.x=0;
 				speed_ratio.y=0;
 				m_can_continue=false;
@@ -582,7 +613,7 @@ void MovingObject::updatePhysicsResponse()
 			// other stuck
 			else if((right && other_pushes_right) || (left && other_pushes_left) || (top && other_pushes_top) || (bottom && other_pushes_bottom))
 			{
-				cout << "\tother stuck" << endl;
+				logM << "\tother stuck" << endl;
 				speed_ratio.x=1;
 				speed_ratio.y=1;
 				m_can_continue=false;
@@ -657,7 +688,7 @@ void MovingObject::updatePhysicsResponse()
 					}
 				}
 			}
-			cout << "\tspeed_ratio = " << speed_ratio.x << "," << speed_ratio.y << endl;
+			logM << "\tspeed_ratio = " << speed_ratio.x << "," << speed_ratio.y << endl;
 
 			// Move //
 			sf::Vector2f offset_to_apply(overlap.x*speed_ratio.x, overlap.y*speed_ratio.y);
@@ -701,7 +732,7 @@ void MovingObject::updatePhysicsResponse()
 						m_speed.x=std::max(m_speed.y,0.f);
 				}
 			}
-			cout << "\tmoved by " << offset_to_apply.x << "," << offset_to_apply.y << endl;
+			logM << "\tmoved by " << offset_to_apply.x << "," << offset_to_apply.y << endl;
 		}
 	}
 }

@@ -21,7 +21,7 @@ public:
 	MovingObject(sf::Vector2f center, sf::Vector2f half_size_sprite, sf::Vector2f half_size_hitbox, sf::Color color, string name, bool is_kinematic);
 
 	void updatePhysics(sf::Time elapsed);
-	void collisionTiles();
+	bool collisionTiles();
 	void updatePhysicsResponse();
 	void updatePhysicsP2();
 
