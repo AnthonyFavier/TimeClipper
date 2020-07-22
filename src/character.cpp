@@ -140,7 +140,6 @@ void Character::update(sf::Time elapsed)
 			break;
 	}
 
-	this->updatePhysics(elapsed);
 	this->updateOldInputs();
 }
 

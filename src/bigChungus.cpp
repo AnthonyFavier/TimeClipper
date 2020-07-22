@@ -71,6 +71,4 @@ void BigChungus::update(sf::Time elapsed)
 		default:
 			break;
 	}
-
-	this->updatePhysics(elapsed);
 }

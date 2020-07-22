@@ -58,6 +58,4 @@ void PhysicalObject::update(sf::Time elapsed)
 		default:
 			break;
 	}
-
-	this->updatePhysics(elapsed);
 }

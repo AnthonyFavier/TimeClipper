@@ -136,7 +136,10 @@ void MovingObject::updatePhysics(sf::Time elapsed)
 	if(m_pushes_bottom_tile || (m_pushes_bottom_obj && !m_is_kinematic))
 		m_speed.y = std::min(m_speed.y,0.f);
 	this->move(m_speed*elapsed.asSeconds());
+}
 
+void MovingObject::collisionTiles()
+{
 	float ground_y=0, ceiling_y=0, right_wall_x=0, left_wall_x=0;
 
 	// LEFT

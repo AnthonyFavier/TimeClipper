@@ -54,5 +54,4 @@ void Howard::update(sf::Time elapsed)
 	}
 
 	this->m_anim.update(elapsed);
-	this->updatePhysics(elapsed);
 }

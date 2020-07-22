@@ -116,6 +116,8 @@ void fixedUpdate(sf::Time elapsed, vector<MovingObject*> objects)
 	for(unsigned int i=0; i<objects.size(); i++)
 	{
 		objects[i]->update(elapsed);
+		objects[i]->updatePhysics(elapsed);
+		objects[i]->collisionTiles();
 		::map.quadtreeUpdateArea(objects[i]);
 		objects[i]->clearCollision();
 	}
@@ -144,7 +146,7 @@ int main(int argc, char** argv)
 //	objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
 //	objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
 	objects.push_back(new BigChungus(sf::Vector2f(550,300), "big_chungus", true));
-	objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
+//	objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
 //	objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
 
 	// create a clock to track the elapsed time //
