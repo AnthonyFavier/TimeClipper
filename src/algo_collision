@@ -1,0 +1,21 @@
+
+pos init1
+	updatePhysics()
+pos inter1
+	collisionTiles
+posApresTiles1
+	collisionObj
+posApresObj1
+
+
+
+pos init2
+	updatePhysics()
+pos inter2
+	collisionTiles
+posApresTiles2
+	collisionObj
+posApresObj2
+
+
+
