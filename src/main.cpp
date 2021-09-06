@@ -109,7 +109,7 @@ void handleEvents(sf::RenderWindow* window, bool inputs[])
 }
 
 void fixedUpdate(sf::Time elapsed, vector<MovingObject*> objects)
-{	
+{
 	// Faire custom update puis systematiquement physics ?
 	// au lieu de updatePhysic dans le custom
 
@@ -144,6 +144,8 @@ int main(int argc, char** argv)
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Game");
 	window.setFramerateLimit(FPS);
 
+	logM.disable();
+
 	bool inputs[NB_KEY_CHARACTER];
 	for(int i=0; i<NB_KEY_CHARACTER; i++)
 		inputs[i]=false;
@@ -154,11 +156,11 @@ int main(int argc, char** argv)
 	objects.push_back(new Character(sf::Vector2f(120, 60), inputs));
 
 	// Objects (center, name, isKinematic) //
-	//	objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
-	//	objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
-	objects.push_back(new BigChungus(sf::Vector2f(550,300), "big_chungus", true));
-	//	objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
-	//	objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
+		objects.push_back(new Orang(sf::Vector2f(300,7), "orang", false));
+		objects.push_back(new Raoult(sf::Vector2f(50,90), "raoult", false));
+		objects.push_back(new BigChungus(sf::Vector2f(550,300), "big_chungus", false));
+		// objects.push_back(new BigChungus(sf::Vector2f(450,300), "big_chungus2", true));
+		objects.push_back(new Howard(sf::Vector2f(680,150), "howard", false));
 
 	// create a clock to track the elapsed time //
 	sf::Clock clock;

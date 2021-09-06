@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-BigChungus::BigChungus(sf::Vector2f center, string name, bool isKinematic) : 
+BigChungus::BigChungus(sf::Vector2f center, string name, bool isKinematic) :
 	MovingObject(center, sf::Vector2f(25,49), sf::Vector2f(25,49), sf::Color(255,255,255), name, isKinematic)
 {
 	m_current_state=Stand;
@@ -34,9 +34,9 @@ void BigChungus::update(sf::Time elapsed)
 			if(!m_can_continue || m_pushes_left_tile || m_pushes_right_tile)
 			{
 				dir=-dir;
-				std::cout << "changed dir" << std::endl;
+				// std::cout << "changed dir" << std::endl;
 				m_sound.play();
-			}	
+			}
 			if(dir==1)
 				this->flipSpriteRight();
 			else if(dir==-1)
@@ -51,7 +51,7 @@ void BigChungus::update(sf::Time elapsed)
 		case Fall:
 			if(m_pushes_bottom_tile)
 			{
-				m_speed.y=0;	
+				m_speed.y=0;
 				m_sound.play();
 
 				dir=-dir;

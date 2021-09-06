@@ -19,9 +19,12 @@ class LogManager
 public:
 	LogManager();
 	~LogManager();
+	void activate();
+	void disable();
+	bool isActive();
 private:
 	ofstream m_file;
+	bool m_active;
 };
 
 #endif
-
